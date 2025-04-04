@@ -1,0 +1,107 @@
+plugins {
+    alias(libs.plugins.android.application)
+}
+
+android {
+    namespace 'com.codringreen.farmloading'
+    compileSdk 35
+
+    buildFeatures {
+        buildConfig true
+    }
+
+    defaultConfig {
+        applicationId "com.codringreen.farmloading"
+        minSdk 21
+        targetSdk 35
+        versionCode 1
+        versionName "1.0"
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            buildConfigField "boolean", "DEBUG", "false"
+        }
+
+        debug {
+            buildConfigField "boolean", "DEBUG", "true"
+        }
+    }
+
+    flavorDimensions += "environment"
+
+    productFlavors {
+        dev {
+            dimension "environment"
+            applicationId "com.codringreen.farmloading.dev"
+            versionNameSuffix "-dev"
+            buildConfigField "String", "APPLICATION_NAME", "\"Farm Loading (Dev)\""
+            buildConfigField "String", "APP_INSTANCE_PREFIX", "\"CGR_FARMLOADING-DEV\""
+            buildConfigField "String", "CLIENT_USERNAME", "\"codringreenadmin\""
+            buildConfigField "String", "CLIENT_PASSWORD", "\"CodRinGreeN@dm1n#123\""
+            buildConfigField "String", "INVENTORY_BASE_URL", "\"https://portal.codringreen.com/api/\""
+            buildConfigField "String", "CONTENT_TYPE", "\"application/json\""
+            buildConfigField "int", "ROLE_ID", "9"
+        }
+
+        prod {
+            dimension "environment"
+            applicationId "com.codringreen.farmloading"
+            buildConfigField "String", "APPLICATION_NAME", "\"Farm Loading (Prod)\""
+            buildConfigField "String", "APP_INSTANCE_PREFIX", "\"CGR_FARMLOADING-Prod\""
+            buildConfigField "String", "CLIENT_USERNAME", "\"codringreenadmin\""
+            buildConfigField "String", "CLIENT_PASSWORD", "\"CodRinGreeN@dm1n#123\""
+            buildConfigField "String", "INVENTORY_BASE_URL", "\"https://portal.codringreen.com/api/\""
+            buildConfigField "String", "CONTENT_TYPE", "\"application/json\""
+            buildConfigField "int", "ROLE_ID", "9"
+        }
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+}
+
+dependencies {
+
+    // AndroidX Dependencies
+    implementation libs.appcompat
+    implementation libs.material
+
+    // Room Database
+    implementation libs.room.runtime
+    annotationProcessor libs.room.compiler
+
+    // Dagger Core
+    implementation libs.dagger
+    annotationProcessor libs.dagger.compiler
+
+    implementation libs.dagger.android
+    implementation libs.dagger.android.support
+    annotationProcessor libs.dagger.android.processor
+
+    // Retrofit
+    implementation libs.retrofit
+    implementation libs.converter.gson  // Gson converter
+
+    implementation libs.okhttp
+    implementation libs.logging.interceptor
+
+    // Stetho (for debugging)
+    implementation libs.stetho
+    implementation libs.stetho.okhttp3
+
+    // Glide
+    implementation libs.glide
+    annotationProcessor libs.compiler
+
+    // Testing
+    testImplementation libs.junit
+    androidTestImplementation libs.ext.junit
+    androidTestImplementation libs.espresso.core
+}

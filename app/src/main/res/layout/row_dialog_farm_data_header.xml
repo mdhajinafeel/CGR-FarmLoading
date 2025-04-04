@@ -1,0 +1,67 @@
+<HorizontalScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:fillViewport="true"
+    android:scrollbars="none"
+    android:overScrollMode="never">
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:background="@color/colorDimGrey"
+        android:padding="8dp">
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:layout_width="80dp"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="@string/action"
+            android:textSize="16sp"
+            android:fontFamily="@font/montserrat_medium"
+            android:ellipsize="none"
+            android:paddingHorizontal="8dp"
+            android:singleLine="true" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:layout_width="120dp"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:fontFamily="@font/montserrat_medium"
+            android:text="@string/pieces"
+            android:textSize="16sp"
+            android:paddingHorizontal="8dp"
+            android:singleLine="true" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:layout_width="120dp"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="@string/circumference"
+            android:textSize="16sp"
+            android:fontFamily="@font/montserrat_medium"
+            android:paddingHorizontal="8dp"
+            android:singleLine="true" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:layout_width="120dp"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="@string/length"
+            android:textSize="16sp"
+            android:fontFamily="@font/montserrat_medium"
+            android:paddingHorizontal="8dp"
+            android:singleLine="true" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="@string/volume"
+            android:fontFamily="@font/montserrat_medium"
+            android:textSize="16sp"
+            android:ellipsize="none"
+            android:paddingHorizontal="8dp"
+            android:singleLine="true" />
+    </LinearLayout>
+</HorizontalScrollView>

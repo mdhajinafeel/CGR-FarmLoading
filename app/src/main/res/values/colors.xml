@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#187E5F</color>
+    <color name="colorPrimaryDark">#24994C</color>
+    <color name="colorAccent">#1B7543</color>
+    <color name="colorSecondary">#FF24994C</color>
+    <color name="colorSecondaryDark">#FF228B22</color>
+
+    <color name="notificationBarColor">#252b23</color>
+    <color name="secondaryColor">#252b23</color>
+    <color name="colorWhiteTransparent">#FFFFFFFF</color>
+    <color name="colorBlackTransparent">#FF000000</color>
+    <color name="colorWhite">#FFFFFF</color>
+    <color name="colorBlack">#000000</color>
+    <color name="colorLightGrey">#bababa</color>
+    <color name="colorDarkGrey">#6e6e6e</color>
+    <color name="colorDimGrey">#eeeeee</color>
+    <color name="colorDimGrey1">#E0E0E0</color>
+    <color name="colorCharcoal">#4a4a4a</color>
+    <color name="colorButton">#084262</color>
+    <color name="colorButtonNegative">#012f2f</color>
+    <color name="colorTrans">#00FFFFFF</color>
+    <color name="dark_gray_overlay">#333333</color>
+    <color name="edit_acc_disable_color">#FCFAFA</color>
+    <color name="colorLightBlack">#3F3F3F</color>
+    <color name="colorFabText">#408943</color>
+</resources>

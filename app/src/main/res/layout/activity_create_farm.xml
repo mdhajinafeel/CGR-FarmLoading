@@ -1,0 +1,190 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <!-- Toolbar -->
+    <include
+        android:id="@+id/toolbar"
+        layout="@layout/toolbar_back" />
+
+    <!-- Scrollable Content -->
+    <ScrollView
+        android:id="@+id/scrollview"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/toolbar"
+        android:layout_above="@id/btnSubmit"
+        android:fillViewport="true"
+        android:fitsSystemWindows="true"
+        android:scrollbars="none">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/margin_large"
+            android:orientation="vertical">
+
+            <!-- Supplier Name -->
+            <androidx.appcompat.widget.AppCompatTextView
+                style="@style/style_TitleText_editText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/supplier_name"
+                android:fontFamily="@font/montserrat_semibold"
+                android:textSize="@dimen/text_semismall" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tvSupplierName"
+                style="@style/Style_EditText_withBorder"
+                android:gravity="center_vertical"
+                android:fontFamily="@font/montserrat_medium"
+                android:drawableEnd="@drawable/ic_arrow_down"
+                android:imeOptions="actionNext"
+                android:hint="@string/select"
+                android:singleLine="true" />
+
+            <!-- Wood Species -->
+            <androidx.appcompat.widget.AppCompatTextView
+                style="@style/style_TitleText_editText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_medium"
+                android:text="@string/wood_species"
+                android:fontFamily="@font/montserrat_semibold"
+                android:textSize="@dimen/text_semismall" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tvWoodSpecies"
+                style="@style/Style_EditText_withBorder"
+                android:gravity="center_vertical"
+                android:fontFamily="@font/montserrat_medium"
+                android:drawableEnd="@drawable/ic_arrow_down"
+                android:imeOptions="actionNext"
+                android:hint="@string/select"
+                android:singleLine="true" />
+
+            <!-- Wood Type -->
+            <androidx.appcompat.widget.AppCompatTextView
+                style="@style/style_TitleText_editText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_medium"
+                android:text="@string/wood_type"
+                android:fontFamily="@font/montserrat_semibold"
+                android:textSize="@dimen/text_semismall" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tvWoodType"
+                style="@style/Style_EditText_withBorder"
+                android:gravity="center_vertical"
+                android:fontFamily="@font/montserrat_medium"
+                android:drawableEnd="@drawable/ic_arrow_down"
+                android:imeOptions="actionNext"
+                android:hint="@string/select"
+                android:singleLine="true" />
+
+            <!-- Inventory Number -->
+            <androidx.appcompat.widget.AppCompatTextView
+                style="@style/style_TitleText_editText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_medium"
+                android:text="@string/inventory_number"
+                android:fontFamily="@font/montserrat_semibold"
+                android:textSize="@dimen/text_semismall" />
+
+            <androidx.appcompat.widget.AppCompatEditText
+                android:id="@+id/etInventoryNumber"
+                style="@style/Style_EditText_withBorder"
+                android:gravity="center_vertical"
+                android:hint="@string/hint_text"
+                android:textColorHint="@color/colorTrans"
+                android:fontFamily="@font/montserrat_medium"
+                android:imeOptions="actionNext"
+                android:isScrollContainer="true"
+                android:inputType="textCapCharacters"
+                android:singleLine="true" />
+
+            <!-- Purchase Contract -->
+            <androidx.appcompat.widget.AppCompatTextView
+                style="@style/style_TitleText_editText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_medium"
+                android:text="@string/purchase_contract"
+                android:fontFamily="@font/montserrat_semibold"
+                android:textSize="@dimen/text_semismall" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tvPurchaseContract"
+                style="@style/Style_EditText_withBorder"
+                android:gravity="center_vertical"
+                android:fontFamily="@font/montserrat_medium"
+                android:drawableEnd="@drawable/ic_arrow_down"
+                android:imeOptions="actionNext"
+                android:hint="@string/select"
+                android:singleLine="true" />
+
+            <!-- Purchase Date -->
+            <androidx.appcompat.widget.AppCompatTextView
+                style="@style/style_TitleText_editText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_medium"
+                android:text="@string/purchase_date"
+                android:fontFamily="@font/montserrat_semibold"
+                android:textSize="@dimen/text_semismall" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tvPurchaseDate"
+                style="@style/Style_EditText_withBorder"
+                android:gravity="center_vertical"
+                android:focusable="true"
+                android:clickable="true"
+                android:fontFamily="@font/montserrat_medium"
+                android:drawableEnd="@drawable/ic_calendar"
+                android:imeOptions="actionNext"
+                android:singleLine="true" />
+
+            <!-- Truck Plate Number -->
+            <androidx.appcompat.widget.AppCompatTextView
+                style="@style/style_TitleText_editText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_medium"
+                android:text="@string/truck_plate_number"
+                android:fontFamily="@font/montserrat_semibold"
+                android:textSize="@dimen/text_semismall" />
+
+            <androidx.appcompat.widget.AppCompatEditText
+                android:id="@+id/etTruckPlateNumber"
+                style="@style/Style_EditText_withBorder"
+                android:layout_marginBottom="@dimen/margin_large_medium"
+                android:gravity="center_vertical"
+                android:hint="@string/hint_text"
+                android:inputType="textCapCharacters"
+                android:textColorHint="@color/colorTrans"
+                android:isScrollContainer="true"
+                android:fontFamily="@font/montserrat_medium"
+                android:imeOptions="actionNext"
+                android:singleLine="true" />
+        </LinearLayout>
+    </ScrollView>
+
+    <!-- Submit Button -->
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btnSubmit"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:background="@drawable/bg_button"
+        android:enabled="false"
+        android:fontFamily="@font/montserrat_semibold"
+        android:gravity="center"
+        android:padding="@dimen/padding_medium"
+        android:textAllCaps="true"
+        android:text="@string/submit"
+        android:textColor="@color/colorWhiteTransparent"
+        android:textSize="@dimen/text_large" />
+</RelativeLayout>

@@ -1,0 +1,73 @@
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    app:cardElevation="@dimen/corner_elevation_low"
+    android:layout_gravity="center"
+    app:cardCornerRadius="@dimen/card_corner_radius_verysmall"
+    app:cardPreventCornerOverlap="true"
+    app:cardUseCompatPadding="true">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <FrameLayout
+            android:id="@+id/dialogHeader"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/solid_green_rect">
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tvDialogTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/montserrat_bold"
+                android:textColor="@color/colorWhiteTransparent"
+                android:layout_gravity="start|center_vertical"
+                android:layout_marginStart="@dimen/margin_xnormal"
+                android:textSize="@dimen/text_semimedium"/>
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/imgClose"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_close"
+                android:layout_gravity="end|center_vertical"
+                android:layout_marginEnd="@dimen/margin_medium"
+                android:padding="@dimen/margin_medium"/>
+        </FrameLayout>
+
+<!--        <androidx.appcompat.widget.AppCompatEditText-->
+<!--            android:id="@+id/etSearch"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:drawableStart="@drawable/ic_search"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:drawablePadding="@dimen/margin_small"-->
+<!--            android:layout_margin="@dimen/margin_medium"-->
+<!--            android:padding="@dimen/margin_medium"-->
+<!--            android:background="@drawable/solid_rectangle_rounded"-->
+<!--            android:fontFamily="@font/montserrat_bold"-->
+<!--            android:textSize="@dimen/text_large" />-->
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tvNoDataFound"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            android:text="@string/no_data_found"
+            android:gravity="center_horizontal"
+            android:fontFamily="@font/montserrat_bold"
+            android:textSize="@dimen/text_semimedium"/>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rvList"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            tools:listitem="@layout/row_dialog_farm_data_item"
+            android:visibility="visible"/>
+    </LinearLayout>
+</androidx.cardview.widget.CardView>
