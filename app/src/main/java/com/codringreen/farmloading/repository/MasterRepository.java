@@ -5,10 +5,12 @@ import android.util.Log;
 import androidx.annotation.NonNull;
 
 import com.codringreen.farmloading.BuildConfig;
+import com.codringreen.farmloading.db.dao.InventoryNumbersDao;
 import com.codringreen.farmloading.db.dao.PurchaseContractDao;
 import com.codringreen.farmloading.db.dao.SupplierProductTypesDao;
 import com.codringreen.farmloading.db.dao.SupplierProductsDao;
 import com.codringreen.farmloading.db.dao.SuppliersDao;
+import com.codringreen.farmloading.db.entity.InventoryNumbers;
 import com.codringreen.farmloading.db.entity.PurchaseContract;
 import com.codringreen.farmloading.db.entity.SupplierProductTypes;
 import com.codringreen.farmloading.db.entity.SupplierProducts;
@@ -16,6 +18,7 @@ import com.codringreen.farmloading.db.entity.Suppliers;
 import com.codringreen.farmloading.helper.PreferenceManager;
 import com.codringreen.farmloading.model.response.DownloadMaserResponse;
 import com.codringreen.farmloading.model.response.DownloadMasterDataResponse;
+import com.codringreen.farmloading.model.response.FarmMasterResponse;
 import com.codringreen.farmloading.model.response.PurchaseContractMasterResponse;
 import com.codringreen.farmloading.model.response.SupplierMasterResponse;
 import com.codringreen.farmloading.model.response.SupplierProductTypesMasterResponse;
@@ -38,14 +41,17 @@ public class MasterRepository {
     private final SuppliersDao suppliersDao;
     private final SupplierProductsDao supplierProductsDao;
     private final SupplierProductTypesDao supplierProductTypesDao;
+    private final InventoryNumbersDao inventoryNumbersDao;
 
     public MasterRepository(IMasterApiService iMasterApiService, PurchaseContractDao purchaseContractDao, SuppliersDao suppliersDao,
-                            SupplierProductsDao supplierProductsDao, SupplierProductTypesDao supplierProductTypesDao) {
+                            SupplierProductsDao supplierProductsDao, SupplierProductTypesDao supplierProductTypesDao,
+                            InventoryNumbersDao inventoryNumbersDao) {
         this.iMasterApiService = iMasterApiService;
         this.purchaseContractDao = purchaseContractDao;
         this.suppliersDao = suppliersDao;
         this.supplierProductsDao = supplierProductsDao;
         this.supplierProductTypesDao = supplierProductTypesDao;
+        this.inventoryNumbersDao = inventoryNumbersDao;
     }
 
     public void masterDownload(final ResponseCallBack<DownloadMaserResponse> callBack) {
@@ -92,6 +98,7 @@ public class MasterRepository {
             suppliersDao.deleteAll();
             supplierProductsDao.deleteAll();
             supplierProductTypesDao.deleteAll();
+            inventoryNumbersDao.deleteAll();
         } catch (Exception e) {
             Log.e("MasterRepository", "Error in MasterRepository deleteMasterData", e);
         }
@@ -100,6 +107,7 @@ public class MasterRepository {
     public void saveMasterData(DownloadMasterDataResponse data) {
         insertPurchaseContracts(data.getPurchaseContract());
         insertSuppliers(data.getSuppliers());
+        insertInventoryNumbers(data.getFarmMasters());
     }
 
     private void insertPurchaseContracts(List<PurchaseContractMasterResponse> purchaseContracts) {
@@ -166,6 +174,21 @@ public class MasterRepository {
             }
         } catch (Exception e) {
             Log.e("MasterRepository", "Error in MasterRepository insertSuppliers", e);
+        }
+    }
+
+    private void insertInventoryNumbers(List<FarmMasterResponse> inventoryNumbers) {
+        try {
+            List<InventoryNumbers> inventoryNumbersList = new ArrayList<>();
+            for (FarmMasterResponse farmMasterResponse : inventoryNumbers) {
+                InventoryNumbers inventoryNumber = new InventoryNumbers();
+                inventoryNumber.setInventoryNumber(farmMasterResponse.getInventoryNumber());
+                inventoryNumber.setSupplierId(farmMasterResponse.getSupplierId());
+                inventoryNumbersList.add(inventoryNumber);
+            }
+            inventoryNumbersDao.insertOrReplaceInventoryNumbers(inventoryNumbersList);
+        } catch (Exception e) {
+            Log.e("MasterRepository", "Error in MasterRepository insertInventoryNumbers", e);
         }
     }
 

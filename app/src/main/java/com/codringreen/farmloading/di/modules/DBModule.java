@@ -8,6 +8,7 @@ import com.codringreen.farmloading.db.AppExecutors;
 import com.codringreen.farmloading.db.CGRFarmDatabase;
 import com.codringreen.farmloading.db.dao.FarmCapturedDataDao;
 import com.codringreen.farmloading.db.dao.FarmDetailsDao;
+import com.codringreen.farmloading.db.dao.InventoryNumbersDao;
 import com.codringreen.farmloading.db.dao.PurchaseContractDao;
 import com.codringreen.farmloading.db.dao.SupplierProductTypesDao;
 import com.codringreen.farmloading.db.dao.SupplierProductsDao;
@@ -67,5 +68,11 @@ public class DBModule {
     @Singleton
     FarmCapturedDataDao provideFarmCapturedDataDao(CGRFarmDatabase database) {
         return database.farmCapturedDataDao();
+    }
+
+    @Provides
+    @Singleton
+    InventoryNumbersDao provideInventoryNumbersDao(CGRFarmDatabase database) {
+        return database.inventoryNumbersDao();
     }
 }

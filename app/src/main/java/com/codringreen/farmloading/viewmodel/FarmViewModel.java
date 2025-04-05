@@ -5,6 +5,7 @@ import androidx.lifecycle.MutableLiveData;
 
 import com.codringreen.farmloading.db.entity.FarmCapturedData;
 import com.codringreen.farmloading.db.entity.FarmDetails;
+import com.codringreen.farmloading.db.entity.InventoryNumbers;
 import com.codringreen.farmloading.db.entity.PurchaseContract;
 import com.codringreen.farmloading.db.entity.SupplierProductTypes;
 import com.codringreen.farmloading.db.entity.SupplierProducts;
@@ -180,5 +181,13 @@ public class FarmViewModel extends BaseViewModel{
 
     public LiveData<Boolean> getFarmCreateStatus() {
         return farmCreateStatus;
+    }
+
+    public int getInventoryCount(String inventoryNumber, int supplierId) {
+        return farmRepository.getInventoryCount(inventoryNumber, supplierId);
+    }
+
+    public void saveInventoryNumbers(InventoryNumbers inventoryNumbers) {
+        farmRepository.saveInventoryNumbers(inventoryNumbers);
     }
 }

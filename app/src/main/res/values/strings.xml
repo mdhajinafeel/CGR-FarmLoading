@@ -73,4 +73,5 @@
     <string name="farm_captured_data">Farm Captured Data</string>
     <string name="delete_confirmation">Are you sure you want to delete?</string>
     <string name="data_deleted_successfully">Data Deleted Successfully</string>
+    <string name="inventory_number_already_exists">Inventory Number already exists</string>
 </resources>

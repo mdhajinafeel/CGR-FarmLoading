@@ -2,8 +2,10 @@ package com.codringreen.farmloading.repository;
 
 import com.codringreen.farmloading.db.dao.FarmCapturedDataDao;
 import com.codringreen.farmloading.db.dao.FarmDetailsDao;
+import com.codringreen.farmloading.db.dao.InventoryNumbersDao;
 import com.codringreen.farmloading.db.entity.FarmCapturedData;
 import com.codringreen.farmloading.db.entity.FarmDetails;
+import com.codringreen.farmloading.db.entity.InventoryNumbers;
 
 import java.util.List;
 
@@ -11,10 +13,12 @@ public class FarmRepository {
 
     private final FarmDetailsDao farmDetailsDao;
     private final FarmCapturedDataDao farmCapturedDataDao;
+    private final InventoryNumbersDao inventoryNumbersDao;
 
-    public FarmRepository(FarmDetailsDao farmDetailsDao, FarmCapturedDataDao farmCapturedDataDao) {
+    public FarmRepository(FarmDetailsDao farmDetailsDao, FarmCapturedDataDao farmCapturedDataDao, InventoryNumbersDao inventoryNumbersDao) {
         this.farmDetailsDao = farmDetailsDao;
         this.farmCapturedDataDao = farmCapturedDataDao;
+        this.inventoryNumbersDao = inventoryNumbersDao;
     }
 
     public long saveFarmDetails(FarmDetails farmDetails) {
@@ -78,5 +82,13 @@ public class FarmRepository {
             farmDetailsDao.updateFarmDetails(farmDetails.getInventoryOrder(), farmDetails.getSupplierId(), totalPieces, totalGrossVolume, totalNetVolume);
         }
         return i;
+    }
+
+    public int getInventoryCount(String inventoryNumber, int supplierId) {
+        return inventoryNumbersDao.getInventoryCount(inventoryNumber, supplierId);
+    }
+
+    public void saveInventoryNumbers(InventoryNumbers inventoryNumber) {
+        inventoryNumbersDao.insertOrReplaceInventoryNumbers(inventoryNumber);
     }
 }

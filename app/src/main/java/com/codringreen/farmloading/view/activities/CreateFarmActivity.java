@@ -23,6 +23,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.codringreen.farmloading.R;
 import com.codringreen.farmloading.db.entity.FarmDetails;
+import com.codringreen.farmloading.db.entity.InventoryNumbers;
 import com.codringreen.farmloading.db.entity.PurchaseContract;
 import com.codringreen.farmloading.db.entity.SupplierProductTypes;
 import com.codringreen.farmloading.db.entity.SupplierProducts;
@@ -493,40 +494,56 @@ public class CreateFarmActivity extends BaseActivity {
 
     private void saveFarmDetails() {
         try {
-            FarmDetails farmDetail = new FarmDetails();
-            farmDetail.setFarmId(0);
-            farmDetail.setSupplierId(farmViewModel.selectedSupplier.getSupplierId());
-            farmDetail.setProductId(farmViewModel.selectedSuppliersProducts.getProductId());
-            farmDetail.setProductTypeId(farmViewModel.selectedSuppliersProductTypes.getProductTypeId());
-            farmDetail.setInventoryOrder(Objects.requireNonNull(etInventoryNumber.getText()).toString());
-            farmDetail.setPurchaseContractId(farmViewModel.selectedPurchaseContract.getContractId());
-            farmDetail.setPurchaseDate(Objects.requireNonNull(tvPurchaseDate.getText()).toString());
-            farmDetail.setTruckPlateNumber(Objects.requireNonNull(etTruckPlateNumber.getText()).toString());
-            farmDetail.setSupplierName(farmViewModel.selectedSupplier.getSupplierName());
-            farmDetail.setProductName(farmViewModel.selectedSuppliersProducts.getProductName());
-            farmDetail.setMeasurementSystem(farmViewModel.selectedPurchaseContract.getPurchaseUnit());
-            farmDetail.setCircAllowance(farmViewModel.selectedPurchaseContract.getCircAllowance());
-            farmDetail.setLengthAllowance(farmViewModel.selectedPurchaseContract.getLengthAllowance());
-            farmDetail.setDescription(farmViewModel.selectedPurchaseContract.getDescription());
-            farmDetail.setTotalPieces(0);
-            farmDetail.setGrossVolume(0);
-            farmDetail.setNetVolume(0);
 
-            String tempFarmId = "F_" + CommonUtils.getCurrentLocalDateTimeStamp();
-            if (!Objects.equals(PreferenceManager.INSTANCE.getLastTempReceptionId(), "")) {
-                farmDetail.setTempFarmId(PreferenceManager.INSTANCE.getLastTempReceptionId());
-            } else {
-                farmDetail.setTempFarmId(tempFarmId);
-            }
+            int countInventoryNumber = farmViewModel.getInventoryCount(Objects.requireNonNull(etInventoryNumber.getText()).toString(),
+                    farmViewModel.selectedSupplier.getSupplierId());
 
-            if (!Objects.equals(PreferenceManager.INSTANCE.getLastTempReceptionId(), "")) {
-                Toast.makeText(getApplicationContext(), R.string.farm_created, Toast.LENGTH_SHORT).show();
-                finish();
+            if(countInventoryNumber > 0) {
+                showDialog(getString(R.string.inventory_number_already_exists), getString(R.string.information),
+                        (dialog, which) -> dialog.dismiss(), getString(R.string.text_ok));
             } else {
-                PreferenceManager.INSTANCE.setLastTempReceptionId(tempFarmId);
-                if (farmViewModel.saveFarmDetails(farmDetail) > 0) {
+                FarmDetails farmDetail = new FarmDetails();
+                farmDetail.setFarmId(0);
+                farmDetail.setSupplierId(farmViewModel.selectedSupplier.getSupplierId());
+                farmDetail.setProductId(farmViewModel.selectedSuppliersProducts.getProductId());
+                farmDetail.setProductTypeId(farmViewModel.selectedSuppliersProductTypes.getProductTypeId());
+                farmDetail.setInventoryOrder(Objects.requireNonNull(etInventoryNumber.getText()).toString());
+                farmDetail.setPurchaseContractId(farmViewModel.selectedPurchaseContract.getContractId());
+                farmDetail.setPurchaseDate(Objects.requireNonNull(tvPurchaseDate.getText()).toString());
+                farmDetail.setTruckPlateNumber(Objects.requireNonNull(etTruckPlateNumber.getText()).toString());
+                farmDetail.setSupplierName(farmViewModel.selectedSupplier.getSupplierName());
+                farmDetail.setProductName(farmViewModel.selectedSuppliersProducts.getProductName());
+                farmDetail.setMeasurementSystem(farmViewModel.selectedPurchaseContract.getPurchaseUnit());
+                farmDetail.setCircAllowance(farmViewModel.selectedPurchaseContract.getCircAllowance());
+                farmDetail.setLengthAllowance(farmViewModel.selectedPurchaseContract.getLengthAllowance());
+                farmDetail.setDescription(farmViewModel.selectedPurchaseContract.getDescription());
+                farmDetail.setTotalPieces(0);
+                farmDetail.setGrossVolume(0);
+                farmDetail.setNetVolume(0);
+
+                String tempFarmId = "F_" + CommonUtils.getCurrentLocalDateTimeStamp();
+                if (!Objects.equals(PreferenceManager.INSTANCE.getLastTempReceptionId(), "")) {
+                    farmDetail.setTempFarmId(PreferenceManager.INSTANCE.getLastTempReceptionId());
+                } else {
+                    farmDetail.setTempFarmId(tempFarmId);
+                }
+
+                if (!Objects.equals(PreferenceManager.INSTANCE.getLastTempReceptionId(), "")) {
                     Toast.makeText(getApplicationContext(), R.string.farm_created, Toast.LENGTH_SHORT).show();
                     finish();
+                } else {
+                    PreferenceManager.INSTANCE.setLastTempReceptionId(tempFarmId);
+                    if (farmViewModel.saveFarmDetails(farmDetail) > 0) {
+
+                        InventoryNumbers inventoryNumber = new InventoryNumbers();
+                        inventoryNumber.setInventoryNumber(Objects.requireNonNull(etInventoryNumber.getText()).toString());
+                        inventoryNumber.setSupplierId(farmViewModel.selectedSupplier.getSupplierId());
+
+                        farmViewModel.saveInventoryNumbers(inventoryNumber);
+
+                        Toast.makeText(getApplicationContext(), R.string.farm_created, Toast.LENGTH_SHORT).show();
+                        finish();
+                    }
                 }
             }
         } catch (Exception e) {

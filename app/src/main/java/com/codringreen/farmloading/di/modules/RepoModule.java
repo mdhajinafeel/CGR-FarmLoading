@@ -2,6 +2,7 @@ package com.codringreen.farmloading.di.modules;
 
 import com.codringreen.farmloading.db.dao.FarmCapturedDataDao;
 import com.codringreen.farmloading.db.dao.FarmDetailsDao;
+import com.codringreen.farmloading.db.dao.InventoryNumbersDao;
 import com.codringreen.farmloading.db.dao.PurchaseContractDao;
 import com.codringreen.farmloading.db.dao.SupplierProductTypesDao;
 import com.codringreen.farmloading.db.dao.SupplierProductsDao;
@@ -29,13 +30,14 @@ public class RepoModule {
     @Provides
     @Singleton
     MasterRepository provideMasterRepository(IMasterApiService iMasterApiService, PurchaseContractDao purchaseContractDao, SuppliersDao suppliersDao,
-                                             SupplierProductsDao supplierProductsDao, SupplierProductTypesDao supplierProductTypesDao) {
-        return new MasterRepository(iMasterApiService, purchaseContractDao, suppliersDao, supplierProductsDao, supplierProductTypesDao);
+                                             SupplierProductsDao supplierProductsDao, SupplierProductTypesDao supplierProductTypesDao,
+                                             InventoryNumbersDao inventoryNumbersDao) {
+        return new MasterRepository(iMasterApiService, purchaseContractDao, suppliersDao, supplierProductsDao, supplierProductTypesDao, inventoryNumbersDao);
     }
 
     @Provides
     @Singleton
-    FarmRepository provideFarmRepository(FarmDetailsDao farmDetailsDao, FarmCapturedDataDao farmCapturedDataDao) {
-        return new FarmRepository(farmDetailsDao, farmCapturedDataDao);
+    FarmRepository provideFarmRepository(FarmDetailsDao farmDetailsDao, FarmCapturedDataDao farmCapturedDataDao, InventoryNumbersDao inventoryNumbersDao) {
+        return new FarmRepository(farmDetailsDao, farmCapturedDataDao, inventoryNumbersDao);
     }
 }
