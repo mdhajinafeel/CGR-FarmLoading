@@ -118,6 +118,7 @@ public class MasterRepository {
                 purchaseContract.setContractId(purchaseContractMasterResponse.getContractId());
                 purchaseContract.setContractCode(purchaseContractMasterResponse.getContractCode());
                 purchaseContract.setPurchaseUnit(purchaseContractMasterResponse.getPurchaseUnit());
+                purchaseContract.setPurchaseUnitId(purchaseContractMasterResponse.getPurchaseUnitId());
                 purchaseContract.setCurrency(purchaseContractMasterResponse.getCurrency());
                 purchaseContract.setProduct(purchaseContractMasterResponse.getProduct());
                 purchaseContract.setProductType(purchaseContractMasterResponse.getProductType());

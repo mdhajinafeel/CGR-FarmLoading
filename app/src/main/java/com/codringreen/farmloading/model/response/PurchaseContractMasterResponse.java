@@ -10,6 +10,7 @@ public class PurchaseContractMasterResponse implements Serializable {
     private int product;
     private int productType;
     private String purchaseUnit;
+    private int purchaseUnitId;
     private int supplierId;
     private double circAllowance;
     private double lengthAllowance;
@@ -61,6 +62,14 @@ public class PurchaseContractMasterResponse implements Serializable {
 
     public void setPurchaseUnit(String purchaseUnit) {
         this.purchaseUnit = purchaseUnit;
+    }
+
+    public int getPurchaseUnitId() {
+        return purchaseUnitId;
+    }
+
+    public void setPurchaseUnitId(int purchaseUnitId) {
+        this.purchaseUnitId = purchaseUnitId;
     }
 
     public int getSupplierId() {

@@ -520,6 +520,7 @@ public class CreateFarmActivity extends BaseActivity {
                 farmDetail.setTotalPieces(0);
                 farmDetail.setGrossVolume(0);
                 farmDetail.setNetVolume(0);
+                farmDetail.setPurchaseUnitId(farmViewModel.selectedPurchaseContract.getPurchaseUnitId());
 
                 String tempFarmId = "F_" + CommonUtils.getCurrentLocalDateTimeStamp();
                 if (!Objects.equals(PreferenceManager.INSTANCE.getLastTempReceptionId(), "")) {

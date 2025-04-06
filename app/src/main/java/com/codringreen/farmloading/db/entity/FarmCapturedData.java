@@ -19,6 +19,8 @@ public class FarmCapturedData implements Serializable {
     private double circAllowance;
     private double lengthAllowance;
     private String captureTimeStamp;
+    private int farmDataId;
+    private int farmId;
 
     public int getId() {
         return id;
@@ -98,5 +100,21 @@ public class FarmCapturedData implements Serializable {
 
     public void setCaptureTimeStamp(String captureTimeStamp) {
         this.captureTimeStamp = captureTimeStamp;
+    }
+
+    public int getFarmDataId() {
+        return farmDataId;
+    }
+
+    public void setFarmDataId(int farmDataId) {
+        this.farmDataId = farmDataId;
+    }
+
+    public int getFarmId() {
+        return farmId;
+    }
+
+    public void setFarmId(int farmId) {
+        this.farmId = farmId;
     }
 }

@@ -169,6 +169,8 @@ public class FarmDataActivity extends BaseActivity {
                                 farmCapturedData.setPieces(farmDataModel.getPieces());
                                 farmCapturedData.setGrossVolume(farmDataModel.getGrossVolume());
                                 farmCapturedData.setNetVolume(farmDataModel.getNetVolume());
+                                farmCapturedData.setFarmDataId(0);
+                                farmCapturedData.setFarmId(0);
 
                                 Random random = new Random();
                                 int randomNumber = random.nextInt(9999999) + 1;

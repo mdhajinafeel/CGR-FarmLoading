@@ -16,6 +16,7 @@ public class FarmDetails implements Serializable {
     private int productTypeId;
     private String inventoryOrder;
     private int purchaseContractId;
+    private int purchaseUnitId;
     private String purchaseDate;
     private String truckPlateNumber;
     private int totalPieces;
@@ -29,6 +30,9 @@ public class FarmDetails implements Serializable {
     private double lengthAllowance;
     private String description;
     private boolean isSynced;
+    private boolean isClosed;
+    private int closedBy;
+    private String closedDate;
 
     public int getId() {
         return id;
@@ -84,6 +88,14 @@ public class FarmDetails implements Serializable {
 
     public void setPurchaseContractId(int purchaseContractId) {
         this.purchaseContractId = purchaseContractId;
+    }
+
+    public int getPurchaseUnitId() {
+        return purchaseUnitId;
+    }
+
+    public void setPurchaseUnitId(int purchaseUnitId) {
+        this.purchaseUnitId = purchaseUnitId;
     }
 
     public String getPurchaseDate() {
@@ -188,5 +200,29 @@ public class FarmDetails implements Serializable {
 
     public void setSynced(boolean synced) {
         isSynced = synced;
+    }
+
+    public boolean isClosed() {
+        return isClosed;
+    }
+
+    public void setClosed(boolean closed) {
+        isClosed = closed;
+    }
+
+    public int getClosedBy() {
+        return closedBy;
+    }
+
+    public void setClosedBy(int closedBy) {
+        this.closedBy = closedBy;
+    }
+
+    public String getClosedDate() {
+        return closedDate;
+    }
+
+    public void setClosedDate(String closedDate) {
+        this.closedDate = closedDate;
     }
 }
