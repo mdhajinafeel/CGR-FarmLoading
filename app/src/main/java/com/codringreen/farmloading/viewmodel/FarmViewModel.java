@@ -151,7 +151,7 @@ public class FarmViewModel extends BaseViewModel{
 
     public void updateFarmCapturedData(FarmDetails farmDetails, FarmCapturedData farmCapturedData) {
         farmRepository.updateFarmCapturedData(farmDetails, farmCapturedData.getInventoryOrder(), farmCapturedData.getPieces(), farmCapturedData.getLength(), farmCapturedData.getCircumference(),
-                farmCapturedData.getGrossVolume(), farmCapturedData.getNetVolume(), farmCapturedData.getCaptureTimeStamp());
+                farmCapturedData.getGrossVolume(), farmCapturedData.getNetVolume(), farmCapturedData.getCaptureTimeStamp(), farmCapturedData.getFarmDataId());
     }
 
     public List<FarmCapturedData> getFarmCapturedData(String inventoryOrder) {
@@ -189,5 +189,9 @@ public class FarmViewModel extends BaseViewModel{
 
     public void saveInventoryNumbers(InventoryNumbers inventoryNumbers) {
         farmRepository.saveInventoryNumbers(inventoryNumbers);
+    }
+
+    public int updateFarmDetailsClosed(boolean isClosed, int closedBy, String closedDate, String inventoryOrder) {
+        return farmRepository.updateFarmDetailsClosed(isClosed, closedBy, closedDate, inventoryOrder);
     }
 }

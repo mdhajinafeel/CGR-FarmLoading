@@ -18,9 +18,10 @@ public class FarmCapturedData implements Serializable {
     private double netVolume;
     private double circAllowance;
     private double lengthAllowance;
-    private String captureTimeStamp;
+    private Long captureTimeStamp;
     private int farmDataId;
     private int farmId;
+    private boolean isSynced;
 
     public int getId() {
         return id;
@@ -94,11 +95,11 @@ public class FarmCapturedData implements Serializable {
         this.lengthAllowance = lengthAllowance;
     }
 
-    public String getCaptureTimeStamp() {
+    public Long getCaptureTimeStamp() {
         return captureTimeStamp;
     }
 
-    public void setCaptureTimeStamp(String captureTimeStamp) {
+    public void setCaptureTimeStamp(Long captureTimeStamp) {
         this.captureTimeStamp = captureTimeStamp;
     }
 
@@ -116,5 +117,13 @@ public class FarmCapturedData implements Serializable {
 
     public void setFarmId(int farmId) {
         this.farmId = farmId;
+    }
+
+    public boolean getIsSynced() {
+        return isSynced;
+    }
+
+    public void setIsSynced(boolean isSynced) {
+        this.isSynced = isSynced;
     }
 }

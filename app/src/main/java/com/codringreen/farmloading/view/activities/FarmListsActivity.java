@@ -4,10 +4,12 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.LinearLayout;
 
 import androidx.appcompat.widget.AppCompatButton;
 import androidx.appcompat.widget.AppCompatImageView;
 import androidx.appcompat.widget.AppCompatTextView;
+import androidx.core.content.ContextCompat;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -83,6 +85,15 @@ public class FarmListsActivity extends BaseActivity {
                         holder.setViewText(R.id.tvPurchaseContract, farmDetails.getMeasurementSystem());
                         holder.setViewText(R.id.tvTotalGrossVolume, df.format(farmDetails.getGrossVolume()));
                         holder.setViewText(R.id.tvTotalPieces, String.valueOf(farmDetails.getTotalPieces()));
+
+                        LinearLayout llRowFarmData = holder.getView(R.id.llRowFarmData);
+                        if(farmDetails.isClosed()) {
+                            holder.setViewText(R.id.tvStatus, getString(R.string.closed));
+                            llRowFarmData.setBackgroundColor(ContextCompat.getColor(getApplicationContext(), R.color.colorDimGrey1));
+                        } else {
+                            holder.setViewText(R.id.tvStatus, getString(R.string.opened));
+                            llRowFarmData.setBackgroundColor(ContextCompat.getColor(getApplicationContext(), R.color.colorWhite));
+                        }
 
                         holder.getView(R.id.imgEdit).setOnClickListener(v -> startActivity(new Intent(FarmListsActivity.this, FarmDataActivity.class)
                                 .putExtra("FarmDetail", farmDetails)));

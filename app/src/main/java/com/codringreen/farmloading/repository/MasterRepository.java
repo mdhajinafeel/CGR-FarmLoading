@@ -5,11 +5,15 @@ import android.util.Log;
 import androidx.annotation.NonNull;
 
 import com.codringreen.farmloading.BuildConfig;
+import com.codringreen.farmloading.db.dao.FarmCapturedDataDao;
+import com.codringreen.farmloading.db.dao.FarmDetailsDao;
 import com.codringreen.farmloading.db.dao.InventoryNumbersDao;
 import com.codringreen.farmloading.db.dao.PurchaseContractDao;
 import com.codringreen.farmloading.db.dao.SupplierProductTypesDao;
 import com.codringreen.farmloading.db.dao.SupplierProductsDao;
 import com.codringreen.farmloading.db.dao.SuppliersDao;
+import com.codringreen.farmloading.db.entity.FarmCapturedData;
+import com.codringreen.farmloading.db.entity.FarmDetails;
 import com.codringreen.farmloading.db.entity.InventoryNumbers;
 import com.codringreen.farmloading.db.entity.PurchaseContract;
 import com.codringreen.farmloading.db.entity.SupplierProductTypes;
@@ -18,6 +22,8 @@ import com.codringreen.farmloading.db.entity.Suppliers;
 import com.codringreen.farmloading.helper.PreferenceManager;
 import com.codringreen.farmloading.model.response.DownloadMaserResponse;
 import com.codringreen.farmloading.model.response.DownloadMasterDataResponse;
+import com.codringreen.farmloading.model.response.FarmDataMasterResponse;
+import com.codringreen.farmloading.model.response.FarmDetailsMasterResponse;
 import com.codringreen.farmloading.model.response.FarmMasterResponse;
 import com.codringreen.farmloading.model.response.PurchaseContractMasterResponse;
 import com.codringreen.farmloading.model.response.SupplierMasterResponse;
@@ -42,16 +48,20 @@ public class MasterRepository {
     private final SupplierProductsDao supplierProductsDao;
     private final SupplierProductTypesDao supplierProductTypesDao;
     private final InventoryNumbersDao inventoryNumbersDao;
+    private final FarmDetailsDao farmDetailsDao;
+    private final FarmCapturedDataDao farmCapturedDataDao;
 
     public MasterRepository(IMasterApiService iMasterApiService, PurchaseContractDao purchaseContractDao, SuppliersDao suppliersDao,
                             SupplierProductsDao supplierProductsDao, SupplierProductTypesDao supplierProductTypesDao,
-                            InventoryNumbersDao inventoryNumbersDao) {
+                            InventoryNumbersDao inventoryNumbersDao, FarmDetailsDao farmDetailsDao, FarmCapturedDataDao farmCapturedDataDao) {
         this.iMasterApiService = iMasterApiService;
         this.purchaseContractDao = purchaseContractDao;
         this.suppliersDao = suppliersDao;
         this.supplierProductsDao = supplierProductsDao;
         this.supplierProductTypesDao = supplierProductTypesDao;
         this.inventoryNumbersDao = inventoryNumbersDao;
+        this.farmDetailsDao = farmDetailsDao;
+        this.farmCapturedDataDao = farmCapturedDataDao;
     }
 
     public void masterDownload(final ResponseCallBack<DownloadMaserResponse> callBack) {
@@ -99,6 +109,8 @@ public class MasterRepository {
             supplierProductsDao.deleteAll();
             supplierProductTypesDao.deleteAll();
             inventoryNumbersDao.deleteAll();
+            farmDetailsDao.deleteAll();
+            farmCapturedDataDao.deleteAll();
         } catch (Exception e) {
             Log.e("MasterRepository", "Error in MasterRepository deleteMasterData", e);
         }
@@ -108,6 +120,7 @@ public class MasterRepository {
         insertPurchaseContracts(data.getPurchaseContract());
         insertSuppliers(data.getSuppliers());
         insertInventoryNumbers(data.getFarmMasters());
+        insertFarmDetails(data.getFarmDetails());
     }
 
     private void insertPurchaseContracts(List<PurchaseContractMasterResponse> purchaseContracts) {
@@ -190,6 +203,65 @@ public class MasterRepository {
             inventoryNumbersDao.insertOrReplaceInventoryNumbers(inventoryNumbersList);
         } catch (Exception e) {
             Log.e("MasterRepository", "Error in MasterRepository insertInventoryNumbers", e);
+        }
+    }
+
+    private void insertFarmDetails(List<FarmDetailsMasterResponse> farmDetailsMasters) {
+        try {
+            List<FarmDetails> farmDetailsList = new ArrayList<>();
+            List<FarmCapturedData> farmCapturedDataList = new ArrayList<>();
+            for (FarmDetailsMasterResponse farmDetailsMasterResponse : farmDetailsMasters) {
+                FarmDetails farmDetail = new FarmDetails();
+                farmDetail.setFarmId(farmDetailsMasterResponse.getFarmId());
+                farmDetail.setSupplierId(farmDetailsMasterResponse.getSupplierId());
+                farmDetail.setProductId(farmDetailsMasterResponse.getProductId());
+                farmDetail.setProductTypeId(farmDetailsMasterResponse.getProductTypeId());
+                farmDetail.setInventoryOrder(farmDetailsMasterResponse.getInventoryOrder());
+                farmDetail.setPurchaseContractId(farmDetailsMasterResponse.getPurchaseContractId());
+                farmDetail.setPurchaseUnitId(farmDetailsMasterResponse.getPurchaseUnitId());
+                farmDetail.setPurchaseDate(farmDetailsMasterResponse.getPurchaseDate());
+                farmDetail.setTruckPlateNumber(farmDetailsMasterResponse.getTruckPlateNumber());
+                farmDetail.setTotalPieces(farmDetailsMasterResponse.getTotalPieces());
+                farmDetail.setGrossVolume(farmDetailsMasterResponse.getGrossVolume());
+                farmDetail.setNetVolume(farmDetailsMasterResponse.getNetVolume());
+                farmDetail.setSupplierName(farmDetailsMasterResponse.getSupplierName());
+                farmDetail.setMeasurementSystem(farmDetailsMasterResponse.getMeasurementSystem());
+                farmDetail.setProductName(farmDetailsMasterResponse.getProductName());
+                farmDetail.setTempFarmId("");
+                farmDetail.setCircAllowance(farmDetailsMasterResponse.getCircAllowance());
+                farmDetail.setLengthAllowance(farmDetailsMasterResponse.getLengthAllowance());
+                farmDetail.setDescription(farmDetailsMasterResponse.getDescription());
+                farmDetail.setSynced(true);
+                farmDetail.setClosed(false);
+                farmDetail.setClosedBy(0);
+                farmDetail.setClosedDate("");
+
+                if(farmDetailsMasterResponse.getFarmData() != null && !farmDetailsMasterResponse.getFarmData().isEmpty()) {
+                    for (FarmDataMasterResponse farmDataMasterResponse : farmDetailsMasterResponse.getFarmData()) {
+                        FarmCapturedData farmCapturedData = new FarmCapturedData();
+                        farmCapturedData.setInventoryOrder(farmDetailsMasterResponse.getInventoryOrder());
+                        farmCapturedData.setPieces(farmDataMasterResponse.getPieces());
+                        farmCapturedData.setCircumference(farmDataMasterResponse.getCircumference());
+                        farmCapturedData.setLength(farmDataMasterResponse.getLength());
+                        farmCapturedData.setGrossVolume(farmDataMasterResponse.getGrossVolume());
+                        farmCapturedData.setNetVolume(farmDataMasterResponse.getNetVolume());
+                        farmCapturedData.setCircAllowance(farmDetailsMasterResponse.getCircAllowance());
+                        farmCapturedData.setLengthAllowance(farmDetailsMasterResponse.getLengthAllowance());
+                        farmCapturedData.setCaptureTimeStamp(0L);
+                        farmCapturedData.setFarmDataId(farmDataMasterResponse.getFarmDataId());
+                        farmCapturedData.setFarmId(farmDataMasterResponse.getFarmId());
+                        farmCapturedData.setIsSynced(true);
+
+                        farmCapturedDataList.add(farmCapturedData);
+                    }
+                }
+
+                farmDetailsList.add(farmDetail);
+            }
+            farmDetailsDao.insertOrReplaceFarmDetails(farmDetailsList);
+            farmCapturedDataDao.insertOrReplaceFarmCapturedData(farmCapturedDataList);
+        } catch (Exception e) {
+            Log.e("MasterRepository", "Error in MasterRepository insertFarmDetails", e);
         }
     }
 

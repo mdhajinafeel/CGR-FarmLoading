@@ -12,14 +12,17 @@ import java.util.List;
 @Dao
 public interface FarmDetailsDao {
 
-    @Query("DELETE FROM FarmDetails")
+    @Query("DELETE FROM FarmDetails WHERE isSynced = 1")
     void deleteAll();
 
-    @Query("SELECT * FROM FarmDetails")
+    @Query("SELECT * FROM FarmDetails ORDER BY purchaseDate DESC")
     List<FarmDetails> getFarmDetails();
 
     @Query("SELECT * FROM FarmDetails WHERE inventoryOrder = :inventoryOrder AND supplierId = :supplierId")
     FarmDetails getFarmDetails(String inventoryOrder, int supplierId);
+
+    @Query("SELECT * FROM FarmDetails")
+    List<FarmDetails> getFarmDetailsUnSynced();
 
     @Query("SELECT COUNT(*) AS cnt FROM FarmDetails WHERE inventoryOrder = :inventoryOrder")
     int getInventoryCount(String inventoryOrder);
@@ -33,4 +36,13 @@ public interface FarmDetailsDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     void insertOrReplaceFarmDetails(List<FarmDetails> farmDetails);
+
+    @Query("UPDATE FarmDetails SET farmId = :farmId, isSynced = 1 WHERE tempFarmId = :tempFarmId AND inventoryOrder = :inventoryOrder")
+    void updateFarmDetailsSynced(int farmId, String tempFarmId, String inventoryOrder);
+
+    @Query("UPDATE FarmDetails SET farmId = :farmId, isSynced = 1 WHERE inventoryOrder = :inventoryOrder")
+    void updateFarmDetailsSynced(int farmId, String inventoryOrder);
+
+    @Query("UPDATE FarmDetails SET isClosed = :isClosed, closedBy = :closedBy, closedDate = :closedDate WHERE inventoryOrder = :inventoryOrder")
+    int updateFarmDetailsClosed(boolean isClosed, int closedBy, String closedDate, String inventoryOrder);
 }

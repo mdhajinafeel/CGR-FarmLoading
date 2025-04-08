@@ -114,6 +114,12 @@ public class DashboardActivity extends BaseActivity implements AdapterView.OnIte
                 }
             });
 
+            dashboardViewModel.getSyncStatus().observe(this, aBoolean -> {
+                if(aBoolean) {
+                    Toast.makeText(getApplicationContext(), R.string.data_synced_successfully, Toast.LENGTH_SHORT).show();
+                }
+            });
+
             dashboardViewModel.getProgressBar().observe(this, aBoolean -> {
                 if (aBoolean) {
                     if (getApplicationContext() != null) {
@@ -209,7 +215,7 @@ public class DashboardActivity extends BaseActivity implements AdapterView.OnIte
                 startActivity(new Intent(DashboardActivity.this, FarmListsActivity.class));
                 break;
             case SYNCHRONIZATION:
-                dashboardViewModel.getMasterDownload();
+                dashboardViewModel.syncFarmData();
                 break;
             case EXPORT_DATABASE:
                 if (checkPermission()) {

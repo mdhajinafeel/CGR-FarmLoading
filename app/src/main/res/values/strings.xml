@@ -74,4 +74,10 @@
     <string name="delete_confirmation">Are you sure you want to delete?</string>
     <string name="data_deleted_successfully">Data Deleted Successfully</string>
     <string name="inventory_number_already_exists">Inventory Number already exists</string>
+    <string name="data_synced_successfully">Data synced successfully!!!…</string>
+    <string name="are_you_sure_you_want_to_close_the_farm">Are you sure you want to close the farm?</string>
+    <string name="farm_closed_successfully">Farm Closed Successfully</string>
+    <string name="status">Status</string>
+    <string name="closed">Closed</string>
+    <string name="opened">Opened</string>
 </resources>

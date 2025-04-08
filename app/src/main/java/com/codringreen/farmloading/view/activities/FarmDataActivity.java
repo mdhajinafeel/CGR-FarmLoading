@@ -11,6 +11,7 @@ import android.view.View;
 import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.LinearLayout;
+import android.widget.Toast;
 
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
@@ -24,6 +25,7 @@ import androidx.lifecycle.ViewModelProvider;
 import com.codringreen.farmloading.R;
 import com.codringreen.farmloading.db.entity.FarmCapturedData;
 import com.codringreen.farmloading.db.entity.FarmDetails;
+import com.codringreen.farmloading.helper.PreferenceManager;
 import com.codringreen.farmloading.model.FarmDataModel;
 import com.codringreen.farmloading.utils.CommonUtils;
 import com.codringreen.farmloading.viewmodel.FarmViewModel;
@@ -32,7 +34,6 @@ import com.codringreen.farmloading.viewmodel.ViewModelFactory;
 import java.io.Serializable;
 import java.text.DecimalFormat;
 import java.util.Objects;
-import java.util.Random;
 
 import javax.inject.Inject;
 
@@ -138,7 +139,10 @@ public class FarmDataActivity extends BaseActivity {
                                 farmCapturedData.setPieces(farmDataModel.getPieces());
                                 farmCapturedData.setGrossVolume(farmDataModel.getGrossVolume());
                                 farmCapturedData.setNetVolume(farmDataModel.getNetVolume());
+                                farmCapturedData.setFarmId(farmCapturedDataEdit.getFarmId());
+                                farmCapturedData.setFarmDataId(farmCapturedDataEdit.getFarmDataId());
                                 farmCapturedData.setCaptureTimeStamp(farmCapturedDataEdit.getCaptureTimeStamp());
+                                farmCapturedData.setIsSynced(false);
 
                                 farmViewModel.updateFarmCapturedData(farmDetails, farmCapturedData);
 
@@ -146,7 +150,13 @@ public class FarmDataActivity extends BaseActivity {
                                 if(farmDetails != null) {
                                     tvTotalPieces.setText(String.valueOf(farmDetails.getTotalPieces()));
                                     tvGrossVolume.setText(df.format(farmDetails.getGrossVolume()));
+
+                                    totalPieces = farmDetails.getTotalPieces();
+                                    totalGrossVolume = farmDetails.getGrossVolume();
+                                    totalNetVolume = farmDetails.getNetVolume();
                                 }
+
+                                isEdit = false;
 
                             } else {
                                 totalPieces = totalPieces + farmDataModel.getPieces();
@@ -170,12 +180,9 @@ public class FarmDataActivity extends BaseActivity {
                                 farmCapturedData.setGrossVolume(farmDataModel.getGrossVolume());
                                 farmCapturedData.setNetVolume(farmDataModel.getNetVolume());
                                 farmCapturedData.setFarmDataId(0);
-                                farmCapturedData.setFarmId(0);
-
-                                Random random = new Random();
-                                int randomNumber = random.nextInt(9999999) + 1;
-
-                                farmCapturedData.setCaptureTimeStamp("F_" + randomNumber + "_" + CommonUtils.getCurrentLocalDateTimeStamp());
+                                farmCapturedData.setFarmId(farmDetails.getFarmId());
+                                farmCapturedData.setIsSynced(false);
+                                farmCapturedData.setCaptureTimeStamp(CommonUtils.getCurrentLocalDateTimeStamp());
 
                                 farmViewModel.saveOrUpdateFarmData(farmCapturedData, farmDetails.getInventoryOrder(), farmDetails.getSupplierId(),
                                         totalPieces, totalGrossVolume, totalNetVolume);
@@ -197,6 +204,21 @@ public class FarmDataActivity extends BaseActivity {
                                 .putExtra("FarmData", (Serializable) farmViewModel.getFarmCapturedData(farmDetails.getInventoryOrder()));
                         farmDataLauncher.launch(intent);
                     });
+
+                    btnCloseFarm.setOnClickListener(v ->
+                            showDialogWithCancel(getString(R.string.are_you_sure_you_want_to_close_the_farm), getString(R.string.confirmation), (dialogInterface, i) -> {
+
+                        //CLOSE FARM
+                        int closedFarm = farmViewModel.updateFarmDetailsClosed(true, PreferenceManager.INSTANCE.getUserId(), CommonUtils.convertTimeStampToDate(CommonUtils.getCurrentLocalDateTimeStamp(),
+                                "dd/MM/yyyy"), farmDetails.getInventoryOrder());
+
+                        if(closedFarm > 0) {
+                            Toast.makeText(getApplicationContext(), getString(R.string.farm_closed_successfully), Toast.LENGTH_SHORT).show();
+                            finish();
+                        }
+
+                        dialogInterface.dismiss();
+                    }, getString(R.string.text_ok), getString(R.string.text_cancel)));
                 } else {
                     finish();
                 }
@@ -255,10 +277,12 @@ public class FarmDataActivity extends BaseActivity {
             }
         }, 100);
 
-        etCircumference.setText("");
-        etLength.setText("");
-        etPieces.setText("");
-        isEdit = false;
+        if(!isEdit) {
+            etCircumference.setText("");
+            etLength.setText("");
+            etPieces.setText("");
+            isEdit = false;
+        }
     }
 
     private void enabledCloseFarmBtn() {
@@ -298,6 +322,10 @@ public class FarmDataActivity extends BaseActivity {
             DecimalFormat df = new DecimalFormat("0.000");
             tvTotalPieces.setText(String.valueOf(farmDetails.getTotalPieces()));
             tvGrossVolume.setText(df.format(farmDetails.getGrossVolume()));
+
+            totalPieces = farmDetails.getTotalPieces();
+            totalGrossVolume = farmDetails.getGrossVolume();
+            totalNetVolume = farmDetails.getNetVolume();
 
             focusEditText();
             enabledCloseFarmBtn();

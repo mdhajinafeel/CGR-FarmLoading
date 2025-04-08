@@ -8,6 +8,7 @@ public class DownloadMasterDataResponse implements Serializable {
     private List<PurchaseContractMasterResponse> purchaseContract;
     private List<SupplierMasterResponse> suppliers;
     private List<FarmMasterResponse> farmMasters;
+    private List<FarmDetailsMasterResponse> farmDetails;
     private UserDataResponse userData;
 
     public List<PurchaseContractMasterResponse> getPurchaseContract() {
@@ -40,5 +41,13 @@ public class DownloadMasterDataResponse implements Serializable {
 
     public void setUserData(UserDataResponse userData) {
         this.userData = userData;
+    }
+
+    public List<FarmDetailsMasterResponse> getFarmDetails() {
+        return farmDetails;
+    }
+
+    public void setFarmDetails(List<FarmDetailsMasterResponse> farmDetails) {
+        this.farmDetails = farmDetails;
     }
 }

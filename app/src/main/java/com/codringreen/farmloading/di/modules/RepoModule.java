@@ -10,8 +10,10 @@ import com.codringreen.farmloading.db.dao.SuppliersDao;
 import com.codringreen.farmloading.repository.FarmRepository;
 import com.codringreen.farmloading.repository.LoginRepository;
 import com.codringreen.farmloading.repository.MasterRepository;
+import com.codringreen.farmloading.repository.SyncRepository;
 import com.codringreen.farmloading.service.api.IAuthApiService;
 import com.codringreen.farmloading.service.api.IMasterApiService;
+import com.codringreen.farmloading.service.api.ISyncApiService;
 
 import javax.inject.Singleton;
 
@@ -31,13 +33,20 @@ public class RepoModule {
     @Singleton
     MasterRepository provideMasterRepository(IMasterApiService iMasterApiService, PurchaseContractDao purchaseContractDao, SuppliersDao suppliersDao,
                                              SupplierProductsDao supplierProductsDao, SupplierProductTypesDao supplierProductTypesDao,
-                                             InventoryNumbersDao inventoryNumbersDao) {
-        return new MasterRepository(iMasterApiService, purchaseContractDao, suppliersDao, supplierProductsDao, supplierProductTypesDao, inventoryNumbersDao);
+                                             InventoryNumbersDao inventoryNumbersDao, FarmDetailsDao farmDetailsDao, FarmCapturedDataDao farmCapturedDataDao) {
+        return new MasterRepository(iMasterApiService, purchaseContractDao, suppliersDao, supplierProductsDao, supplierProductTypesDao, inventoryNumbersDao,
+                farmDetailsDao, farmCapturedDataDao);
     }
 
     @Provides
     @Singleton
     FarmRepository provideFarmRepository(FarmDetailsDao farmDetailsDao, FarmCapturedDataDao farmCapturedDataDao, InventoryNumbersDao inventoryNumbersDao) {
         return new FarmRepository(farmDetailsDao, farmCapturedDataDao, inventoryNumbersDao);
+    }
+
+    @Provides
+    @Singleton
+    SyncRepository provideSyncRepository(ISyncApiService iSyncApiService, FarmDetailsDao farmDetailsDao, FarmCapturedDataDao farmCapturedDataDao) {
+        return new SyncRepository(iSyncApiService, farmDetailsDao, farmCapturedDataDao);
     }
 }

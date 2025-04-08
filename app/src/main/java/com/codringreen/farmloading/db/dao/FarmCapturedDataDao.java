@@ -12,7 +12,7 @@ import java.util.List;
 @Dao
 public interface FarmCapturedDataDao {
 
-    @Query("DELETE FROM FarmCapturedData")
+    @Query("DELETE FROM FarmCapturedData WHERE isSynced = 1")
     void deleteAll();
 
     @Query("DELETE FROM FarmCapturedData WHERE inventoryOrder = :inventoryOrder")
@@ -21,7 +21,7 @@ public interface FarmCapturedDataDao {
     @Query("DELETE FROM FarmCapturedData WHERE pieces = :pieces AND inventoryOrder = :inventoryOrder " +
             "AND circumference = :circumference AND length = :length AND grossVolume = :grossVolume AND netVolume = :netVolume " +
             "AND captureTimeStamp = :capturedTimeStamp")
-    int deleteFarmCapturedData(String inventoryOrder, int pieces, double circumference, double length, double grossVolume, double netVolume, String capturedTimeStamp);
+    int deleteFarmCapturedData(String inventoryOrder, int pieces, double circumference, double length, double grossVolume, double netVolume, Long capturedTimeStamp);
 
     @Query("SELECT * FROM FarmCapturedData")
     List<FarmCapturedData> getFarmCapturedData();
@@ -38,9 +38,22 @@ public interface FarmCapturedDataDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     void insertOrReplaceFarmCapturedData(List<FarmCapturedData> farmDataEntryList);
 
-    @Query("UPDATE FarmCapturedData SET circumference = :circumference, length = :length, grossVolume = :grossVolume, " +
+    @Query("UPDATE FarmCapturedData SET isSynced = 0, circumference = :circumference, length = :length, grossVolume = :grossVolume, " +
             "netVolume = :netVolume, pieces = :pieces " +
             "WHERE captureTimeStamp = :captureTimeStamp " +
             "AND inventoryOrder = :inventoryOrder")
-    void updateFarmCapturedData(String inventoryOrder, int pieces, double length, double circumference, double grossVolume, double netVolume, String captureTimeStamp);
+    int updateFarmCapturedData(String inventoryOrder, int pieces, double length, double circumference, double grossVolume, double netVolume,
+                                Long captureTimeStamp);
+
+    @Query("UPDATE FarmCapturedData SET isSynced = 0, circumference = :circumference, length = :length, grossVolume = :grossVolume, " +
+            "netVolume = :netVolume, pieces = :pieces " +
+            "WHERE captureTimeStamp = :captureTimeStamp " +
+            "AND inventoryOrder = :inventoryOrder AND farmDataId = :farmDataId")
+    int updateFarmCapturedData(String inventoryOrder, int pieces, double length, double circumference, double grossVolume, double netVolume,
+                               Long captureTimeStamp, int farmDataId);
+    @Query("UPDATE FarmCapturedData SET isSynced = 1 WHERE inventoryOrder = :inventoryOrder")
+    void updateFarmCapturedDataSynced(String inventoryOrder);
+
+    @Query("SELECT * FROM FarmCapturedData WHERE isSynced = 0 AND inventoryOrder = :inventoryOrder")
+    List<FarmCapturedData> getFarmCapturedDataUnSynced(String inventoryOrder);
 }

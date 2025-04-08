@@ -7,6 +7,7 @@ import com.codringreen.farmloading.managers.interceptors.BasicAuthInterceptor;
 import com.codringreen.farmloading.managers.interceptors.BasicTokenInterceptor;
 import com.codringreen.farmloading.service.api.IAuthApiService;
 import com.codringreen.farmloading.service.api.IMasterApiService;
+import com.codringreen.farmloading.service.api.ISyncApiService;
 
 import java.util.concurrent.TimeUnit;
 
@@ -61,5 +62,11 @@ public class ApiModule {
     @Singleton
     IMasterApiService provideIMasterApiService(Retrofit retrofit) {
         return retrofit.create(IMasterApiService.class);
+    }
+
+    @Provides
+    @Singleton
+    ISyncApiService provideISyncApiService(Retrofit retrofit) {
+        return retrofit.create(ISyncApiService.class);
     }
 }

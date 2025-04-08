@@ -8,6 +8,7 @@ import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.Locale;
 import java.util.TimeZone;
 
@@ -55,5 +56,19 @@ public class CommonUtils {
         double powerValue = Math.pow(truncValue - 5, 2);
         double multiplication = powerValue * 0.7854 * (length - 5) / 1000000;
         return Math.round(multiplication * 1000.0) / 1000.0;
+    }
+
+    public static String convertDateTimeFormatWithDefaultLocale(String input, String fromFormat, String toFormat) {
+        try {
+            SimpleDateFormat sdf = new SimpleDateFormat(fromFormat,
+                    Locale.getDefault());
+            Date dateObj = sdf.parse(input);
+            if(dateObj != null) {
+                return new SimpleDateFormat(toFormat, Locale.getDefault()).format(dateObj);
+            }
+        } catch (Exception e) {
+            Log.e("CommonUtils", "Error in CommonUtils convertDateTimeFormatWithDefaultLocale", e);
+        }
+        return input;
     }
 }

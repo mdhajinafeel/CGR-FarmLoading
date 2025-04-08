@@ -47,25 +47,32 @@ public class FarmRepository {
     }
 
     public void updateFarmCapturedData(FarmDetails farmDetails, String inventoryOrder, int pieces, double length, double circumference, double grossVolume,
-                                       double netVolume, String captureTimeStamp) {
+                                       double netVolume, Long captureTimeStamp, int farmDataId) {
 
-        farmCapturedDataDao.updateFarmCapturedData(inventoryOrder, pieces, length, circumference, grossVolume, netVolume, captureTimeStamp);
-
-        List<FarmCapturedData> farmCapturedDataList = farmCapturedDataDao.getFarmCapturedData(inventoryOrder);
-        int totalPieces = 0;
-        double totalGrossVolume = 0;
-        double totalNetVolume = 0;
-        for (FarmCapturedData farmCapturedData : farmCapturedDataList) {
-            totalPieces = totalPieces + farmCapturedData.getPieces();
-            totalGrossVolume = totalGrossVolume + farmCapturedData.getGrossVolume();
-            totalNetVolume = totalNetVolume + farmCapturedData.getNetVolume();
+        int updateFarmData = 0;
+        if(farmDataId > 0) {
+            updateFarmData = farmCapturedDataDao.updateFarmCapturedData(inventoryOrder, pieces, length, circumference, grossVolume, netVolume, captureTimeStamp, farmDataId);
+        } else {
+            updateFarmData = farmCapturedDataDao.updateFarmCapturedData(inventoryOrder, pieces, length, circumference, grossVolume, netVolume, captureTimeStamp);
         }
 
-        farmDetailsDao.updateFarmDetails(farmDetails.getInventoryOrder(), farmDetails.getSupplierId(), totalPieces, totalGrossVolume, totalNetVolume);
+        if(updateFarmData > 0) {
+            List<FarmCapturedData> farmCapturedDataList = farmCapturedDataDao.getFarmCapturedData(inventoryOrder);
+            int totalPieces = 0;
+            double totalGrossVolume = 0;
+            double totalNetVolume = 0;
+            for (FarmCapturedData farmCapturedData : farmCapturedDataList) {
+                totalPieces = totalPieces + farmCapturedData.getPieces();
+                totalGrossVolume = totalGrossVolume + farmCapturedData.getGrossVolume();
+                totalNetVolume = totalNetVolume + farmCapturedData.getNetVolume();
+            }
+
+            farmDetailsDao.updateFarmDetails(farmDetails.getInventoryOrder(), farmDetails.getSupplierId(), totalPieces, totalGrossVolume, totalNetVolume);
+        }
     }
 
     public int deleteFarmCapturedData(FarmDetails farmDetails, String inventoryOrder, int pieces, double length, double circumference, double grossVolume,
-                                      double netVolume, String captureTimeStamp) {
+                                      double netVolume, Long captureTimeStamp) {
         int i = farmCapturedDataDao.deleteFarmCapturedData(inventoryOrder, pieces, circumference, length, grossVolume, netVolume, captureTimeStamp);
 
         if(i > 0 ) {
@@ -90,5 +97,17 @@ public class FarmRepository {
 
     public void saveInventoryNumbers(InventoryNumbers inventoryNumber) {
         inventoryNumbersDao.insertOrReplaceInventoryNumbers(inventoryNumber);
+    }
+
+    public List<FarmDetails> unSyncedFarmDetails() {
+       return farmDetailsDao.getFarmDetailsUnSynced();
+    }
+
+    public List<FarmCapturedData> unSyncedFarmCapturedData(String inventoryOrder) {
+        return farmCapturedDataDao.getFarmCapturedDataUnSynced(inventoryOrder);
+    }
+
+    public int updateFarmDetailsClosed(boolean isClosed, int closedBy, String closedDate, String inventoryOrder) {
+        return farmDetailsDao.updateFarmDetailsClosed(isClosed, closedBy, closedDate, inventoryOrder);
     }
 }

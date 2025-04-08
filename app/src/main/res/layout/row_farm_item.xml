@@ -6,6 +6,7 @@
     android:scrollbars="none">
 
     <LinearLayout
+        android:id="@+id/llRowFarmData"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
@@ -73,6 +74,16 @@
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/tvPurchaseContract"
             android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:paddingHorizontal="8dp"
+            android:singleLine="true"
+            android:textSize="16sp" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tvStatus"
+            android:layout_width="100dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:gravity="center"

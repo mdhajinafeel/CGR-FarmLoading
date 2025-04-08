@@ -83,5 +83,15 @@
             android:textSize="16sp"
             android:paddingHorizontal="8dp"
             android:singleLine="true" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:fontFamily="@font/montserrat_medium"
+            android:text="@string/status"
+            android:textSize="16sp"
+            android:paddingHorizontal="8dp"
+            android:singleLine="true" />
     </LinearLayout>
 </HorizontalScrollView>
