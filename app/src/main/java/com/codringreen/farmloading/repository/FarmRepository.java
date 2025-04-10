@@ -6,6 +6,7 @@ import com.codringreen.farmloading.db.dao.InventoryNumbersDao;
 import com.codringreen.farmloading.db.entity.FarmCapturedData;
 import com.codringreen.farmloading.db.entity.FarmDetails;
 import com.codringreen.farmloading.db.entity.InventoryNumbers;
+import com.codringreen.farmloading.model.FarmDetailDashboardModel;
 
 import java.util.List;
 
@@ -109,5 +110,13 @@ public class FarmRepository {
 
     public int updateFarmDetailsClosed(boolean isClosed, int closedBy, String closedDate, String inventoryOrder) {
         return farmDetailsDao.updateFarmDetailsClosed(isClosed, closedBy, closedDate, inventoryOrder);
+    }
+
+    public FarmDetailDashboardModel fetchTodayDashboardData(String todayDate) {
+        return farmDetailsDao.fetchTodayDashboardData(todayDate);
+    }
+
+    public FarmDetailDashboardModel fetchRecentDashboardData(String startDate, String endDate) {
+        return farmDetailsDao.fetchRecentDashboardData(startDate, endDate);
     }
 }

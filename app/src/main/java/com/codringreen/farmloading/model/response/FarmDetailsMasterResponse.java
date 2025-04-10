@@ -8,6 +8,7 @@ public class FarmDetailsMasterResponse implements Serializable {
     private int farmId, supplierId, productId, productTypeId, purchaseContractId, purchaseUnitId, totalPieces;
     private String inventoryOrder, purchaseDate, truckPlateNumber, supplierName, measurementSystem, productName, description;
     private double grossVolume, netVolume, circAllowance, lengthAllowance;
+    private boolean isForData;
     private List<FarmDataMasterResponse> farmData;
 
     public int getFarmId() {
@@ -152,6 +153,14 @@ public class FarmDetailsMasterResponse implements Serializable {
 
     public void setLengthAllowance(double lengthAllowance) {
         this.lengthAllowance = lengthAllowance;
+    }
+
+    public boolean isForData() {
+        return isForData;
+    }
+
+    public void setForData(boolean forData) {
+        isForData = forData;
     }
 
     public List<FarmDataMasterResponse> getFarmData() {

@@ -11,6 +11,7 @@ import com.codringreen.farmloading.R;
 import com.codringreen.farmloading.db.entity.FarmCapturedData;
 import com.codringreen.farmloading.db.entity.FarmDetails;
 import com.codringreen.farmloading.helper.PreferenceManager;
+import com.codringreen.farmloading.model.FarmDetailDashboardModel;
 import com.codringreen.farmloading.model.request.FarmCapturedDataRequest;
 import com.codringreen.farmloading.model.request.FarmDetailsRequest;
 import com.codringreen.farmloading.model.request.FarmSyncRequest;
@@ -80,7 +81,7 @@ public class DashboardViewModel extends BaseViewModel {
                         farmDetailsRequest.setClosedBy(farmDetail.getClosedBy());
                         farmDetailsRequest.setOriginId(PreferenceManager.INSTANCE.getOriginId());
                         farmDetailsRequest.setCircAllowance(farmDetail.getCircAllowance());
-                        farmDetailsRequest.setLengthAllowance(farmDetail.getCircAllowance());
+                        farmDetailsRequest.setLengthAllowance(farmDetail.getLengthAllowance());
                         farmDetailsRequest.setGrossVolume(farmDetail.getGrossVolume());
                         farmDetailsRequest.setNetVolume(farmDetail.getNetVolume());
                         farmDetailsRequest.setClosed(farmDetail.isClosed());
@@ -231,5 +232,13 @@ public class DashboardViewModel extends BaseViewModel {
 
     public LiveData<Boolean> getSyncStatus() {
         return syncStatus;
+    }
+
+    public FarmDetailDashboardModel fetchTodayDashboardData(String todayDate) {
+        return farmRepository.fetchTodayDashboardData(todayDate);
+    }
+
+    public FarmDetailDashboardModel fetchRecentDashboardData(String startDate, String endDate) {
+        return farmRepository.fetchRecentDashboardData(startDate, endDate);
     }
 }

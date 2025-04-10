@@ -20,6 +20,7 @@ import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.widget.AppCompatImageView;
 import androidx.appcompat.widget.AppCompatTextView;
 import androidx.appcompat.widget.Toolbar;
+import androidx.cardview.widget.CardView;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.core.view.GravityCompat;
@@ -32,6 +33,7 @@ import com.codringreen.farmloading.BuildConfig;
 import com.codringreen.farmloading.R;
 import com.codringreen.farmloading.constants.NavigationType;
 import com.codringreen.farmloading.helper.PreferenceManager;
+import com.codringreen.farmloading.model.FarmDetailDashboardModel;
 import com.codringreen.farmloading.model.MenuModel;
 import com.codringreen.farmloading.utils.CircularImageView;
 import com.codringreen.farmloading.utils.CommonUtils;
@@ -45,6 +47,7 @@ import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.nio.channels.FileChannel;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -58,7 +61,7 @@ public class DashboardActivity extends BaseActivity implements AdapterView.OnIte
     private ListView lstMenu;
     private List<MenuModel> menuModels;
     private Toolbar toolBar;
-    private AppCompatTextView tvName;
+    private AppCompatTextView tvName, tvSupplierCount, tvVolume, tvRecentSupplierCount, tvRecentVolume, tvICACount, tvRecentICACount;
     private boolean exitCode = false;
 
     private DashboardViewModel dashboardViewModel;
@@ -80,15 +83,28 @@ public class DashboardActivity extends BaseActivity implements AdapterView.OnIte
             toolBar = findViewById(R.id.toolbar);
             lstMenu = findViewById(R.id.lstMenu);
             tvName = findViewById(R.id.tvName);
+
+            tvSupplierCount = findViewById(R.id.tvSupplierCount);
+            tvVolume = findViewById(R.id.tvVolume);
+            tvRecentSupplierCount = findViewById(R.id.tvRecentSupplierCount);
+            tvRecentVolume = findViewById(R.id.tvRecentVolume);
+            tvICACount = findViewById(R.id.tvICACount);
+            tvRecentICACount = findViewById(R.id.tvRecentICACount);
+
             AppCompatTextView tvLogout = findViewById(R.id.tvLogout);
             AppCompatTextView tvVersion = findViewById(R.id.tvVersion);
             AppCompatImageView imgClose = findViewById(R.id.imgClose);
             imgProfile = findViewById(R.id.imgProfile);
+            CardView cvFarmLists = findViewById(R.id.cvFarmLists);
+            CardView cvSync = findViewById(R.id.cvSync);
 
             Bundle extras = getIntent().getExtras();
 
+            dashboardViewModel = new ViewModelProvider(this, viewModelFactory).get(DashboardViewModel.class);
+
             setMenus();
             setUserProfile();
+            setDashboardDetails();
 
             PackageInfo packageInfo = getApplicationContext().getPackageManager().getPackageInfo(getApplicationContext().getPackageName(), 0);
             tvVersion.setText(String.format("%s: %s.%s", getString(R.string.version), packageInfo.versionName, packageInfo.versionCode));
@@ -97,8 +113,6 @@ public class DashboardActivity extends BaseActivity implements AdapterView.OnIte
             imgClose.setOnClickListener(v -> closeDrawers());
             tvLogout.setOnClickListener(v -> showConfirmation());
             lstMenu.setOnItemClickListener(this);
-
-            dashboardViewModel = new ViewModelProvider(this, viewModelFactory).get(DashboardViewModel.class);
 
             if (extras != null && extras.containsKey("DownloadMaster") && extras.getString("DownloadMaster") != null && Objects.requireNonNull(extras.getString("DownloadMaster")).equalsIgnoreCase("Yes")) {
                 dashboardViewModel.getMasterDownload();
@@ -112,12 +126,14 @@ public class DashboardActivity extends BaseActivity implements AdapterView.OnIte
                 if(aBoolean) {
                     Toast.makeText(getApplicationContext(), R.string.data_download_success, Toast.LENGTH_SHORT).show();
                 }
+                setDashboardDetails();
             });
 
             dashboardViewModel.getSyncStatus().observe(this, aBoolean -> {
                 if(aBoolean) {
                     Toast.makeText(getApplicationContext(), R.string.data_synced_successfully, Toast.LENGTH_SHORT).show();
                 }
+                setDashboardDetails();
             });
 
             dashboardViewModel.getProgressBar().observe(this, aBoolean -> {
@@ -147,6 +163,10 @@ public class DashboardActivity extends BaseActivity implements AdapterView.OnIte
                     new Handler().postDelayed(() -> exitCode = false,10000);
                 }
             });
+
+            cvFarmLists.setOnClickListener(v -> startActivity(new Intent(DashboardActivity.this, FarmListsActivity.class)));
+
+            cvSync.setOnClickListener(v -> dashboardViewModel.syncFarmData());
         } catch (Exception e) {
             Log.e("DashboardActivity", "Error in DashboardActivity InitComponents", e);
         }
@@ -173,6 +193,37 @@ public class DashboardActivity extends BaseActivity implements AdapterView.OnIte
         }
     }
 
+    private void setDashboardDetails() {
+        try {
+
+            FarmDetailDashboardModel farmDetailDashboardModel = dashboardViewModel.fetchTodayDashboardData(CommonUtils.convertTimeStampToDate(CommonUtils.getCurrentLocalDateTimeStamp(), "dd/MM/yyy"));
+            if(farmDetailDashboardModel != null) {
+                DecimalFormat df = new DecimalFormat("0.000");
+                tvSupplierCount.setText(String.valueOf(farmDetailDashboardModel.getSupplierCount()));
+                tvICACount.setText(String.valueOf(farmDetailDashboardModel.getTotalICA()));
+                tvVolume.setText(df.format(farmDetailDashboardModel.getGrossVolume()));
+            } else {
+                tvSupplierCount.setText("0");
+                tvICACount.setText("0");
+                tvVolume.setText("0");
+            }
+
+            FarmDetailDashboardModel farmDetailDashboardRecent = dashboardViewModel.fetchRecentDashboardData(CommonUtils.getDateByType("fifth"), CommonUtils.getDateByType("today"));
+            if(farmDetailDashboardRecent != null) {
+                DecimalFormat df = new DecimalFormat("0.000");
+                tvRecentSupplierCount.setText(String.valueOf(farmDetailDashboardRecent.getSupplierCount()));
+                tvRecentICACount.setText(String.valueOf(farmDetailDashboardRecent.getTotalICA()));
+                tvRecentVolume.setText(df.format(farmDetailDashboardRecent.getGrossVolume()));
+            } else {
+                tvRecentSupplierCount.setText("0");
+                tvRecentICACount.setText("0");
+                tvRecentVolume.setText("0");
+            }
+        } catch (Exception e) {
+            Log.e("DashboardActivity", "Error in DashboardActivity setDashboardDetails", e);
+        }
+    }
+
     public void setupDrawerToggle() {
         try {
             ActionBarDrawerToggle actionBarDrawerToggle = new ActionBarDrawerToggle(this, drawerLayout, toolBar, R.string.app_name, R.string.app_name);
@@ -187,7 +238,6 @@ public class DashboardActivity extends BaseActivity implements AdapterView.OnIte
             Log.e("DashboardActivity", "Error in DashboardActivity setupDrawerToggle", e);
         }
     }
-
 
     private List<MenuModel> getMenuListItems() {
         menuModels = new ArrayList<>();
@@ -318,4 +368,10 @@ public class DashboardActivity extends BaseActivity implements AdapterView.OnIte
                             Toast.makeText(this, "Permission Denied", Toast.LENGTH_SHORT).show();
                         }
                     });
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        setDashboardDetails();
+    }
 }

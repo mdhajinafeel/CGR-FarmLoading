@@ -71,4 +71,15 @@ public class CommonUtils {
         }
         return input;
     }
+
+    public static String getDateByType(String type) {
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
+        Calendar calendar = Calendar.getInstance();
+
+        if ("fifth".equalsIgnoreCase(type)) {
+            calendar.add(Calendar.DAY_OF_YEAR, -4);  // 5th date including today
+        }
+
+        return sdf.format(calendar.getTime());
+    }
 }

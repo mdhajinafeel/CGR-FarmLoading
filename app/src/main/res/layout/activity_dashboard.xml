@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.drawerlayout.widget.DrawerLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/drawerLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
@@ -11,6 +13,499 @@
         <include
             android:id="@+id/toolbar"
             layout="@layout/toolbar_menu" />
+
+        <LinearLayout
+            android:id="@+id/llDetails"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/toolbar"
+            android:layout_marginStart="@dimen/margin_medium"
+            android:layout_marginTop="@dimen/margin_large"
+            android:layout_marginEnd="@dimen/margin_medium"
+            android:orientation="horizontal"
+            android:weightSum="1">
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/cvFarmLists"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.5"
+                app:cardBackgroundColor="@color/colorPrimary"
+                app:cardCornerRadius="@dimen/padding_small"
+                app:cardElevation="10dp"
+                app:cardMaxElevation="10dp"
+                app:cardPreventCornerOverlap="true"
+                app:cardUseCompatPadding="true">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:orientation="horizontal"
+                    android:padding="@dimen/padding_medium">
+
+                    <androidx.appcompat.widget.AppCompatImageView
+                        android:layout_width="32dp"
+                        android:layout_height="32dp"
+                        android:src="@drawable/ic_farm_list_white" />
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginStart="@dimen/margin_medium"
+                        android:fontFamily="@font/montserrat_semibold"
+                        android:gravity="start"
+                        android:text="@string/farm_list"
+                        android:textColor="@color/colorWhite"
+                        android:textSize="@dimen/text_small" />
+
+                </LinearLayout>
+
+            </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/cvSync"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.5"
+                app:cardBackgroundColor="@color/colorPrimary"
+                app:cardCornerRadius="@dimen/padding_small"
+                app:cardElevation="10dp"
+                app:cardMaxElevation="10dp"
+                app:cardPreventCornerOverlap="true"
+                app:cardUseCompatPadding="true">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:orientation="horizontal"
+                    android:padding="@dimen/padding_medium">
+
+                    <androidx.appcompat.widget.AppCompatImageView
+                        android:layout_width="32dp"
+                        android:layout_height="32dp"
+                        android:src="@drawable/ic_sync_white" />
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginStart="@dimen/margin_medium"
+                        android:fontFamily="@font/montserrat_semibold"
+                        android:gravity="start"
+                        android:text="@string/synchronization"
+                        android:textColor="@color/colorWhite"
+                        android:textSize="@dimen/text_small" />
+
+                </LinearLayout>
+
+            </androidx.cardview.widget.CardView>
+        </LinearLayout>
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tvTodayHeader"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/llDetails"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="@dimen/margin_xmedium"
+            android:fontFamily="@font/montserrat_medium"
+            android:text="@string/today_transactions"
+            android:textColor="@color/colorWhite"
+            android:textSize="@dimen/text_semimedium" />
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/cvTodayList"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/tvTodayHeader"
+            android:layout_marginStart="@dimen/margin_normal"
+            android:layout_marginTop="@dimen/margin_xmedium"
+            android:layout_marginEnd="@dimen/margin_normal"
+            android:layout_marginBottom="@dimen/margin_lxmedium"
+            android:elevation="@dimen/margin_medium"
+            app:cardBackgroundColor="@color/home_dashboard_enable_bg"
+            app:cardCornerRadius="@dimen/margin_medium"
+            app:cardPreventCornerOverlap="true"
+            app:cardUseCompatPadding="true"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:paddingBottom="@dimen/margin_medium"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/constraintLayout1"
+                    android:layout_width="@dimen/margin_zero"
+                    android:layout_height="@dimen/home_dashboard_item_height"
+                    android:layout_marginStart="@dimen/margin_medium"
+                    android:layout_marginTop="@dimen/margin_medium"
+                    android:background="@drawable/solid_white_rounded"
+                    app:layout_constraintEnd_toStartOf="@+id/constraintLayout2"
+                    app:layout_constraintHorizontal_weight=".50"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <androidx.appcompat.widget.AppCompatImageView
+                        android:id="@+id/ivSupplier"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/margin_medium"
+                        android:layout_marginTop="@dimen/margin_medium"
+                        android:src="@drawable/ic_suppliers"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        tools:ignore="ContentDescription" />
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/tvSupplierCount"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/montserrat_bold"
+                        android:textColor="@color/colorCharcoal"
+                        android:textSize="24sp"
+                        app:layout_constraintStart_toStartOf="@id/ivSupplier"
+                        app:layout_constraintTop_toBottomOf="@id/ivSupplier" />
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:layout_width="@dimen/margin_zero"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/margin_xmedium"
+                        android:layout_marginTop="@dimen/margin_lxmedium"
+                        android:fontFamily="@font/montserrat_regular"
+                        android:paddingBottom="2dp"
+                        android:text="@string/suppliers"
+                        android:textColor="@color/colorCharcoal"
+                        android:textSize="@dimen/text_semimedium"
+                        app:layout_constraintBottom_toBottomOf="@+id/tvSupplierCount"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toEndOf="@id/tvSupplierCount"
+                        app:layout_constraintTop_toBottomOf="@id/ivSupplier" />
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:layout_width="@dimen/margin_zero"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/margin_minor"
+                        android:fontFamily="@font/montserrat_medium"
+                        android:text="@string/total"
+                        android:textColor="@color/colorCharcoal"
+                        android:textSize="@dimen/text_semismall"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="@id/tvSupplierCount"
+                        app:layout_constraintTop_toBottomOf="@id/tvSupplierCount" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/constraintLayout2"
+                    android:layout_width="@dimen/margin_zero"
+                    android:layout_height="@dimen/home_dashboard_item_height"
+                    android:layout_marginStart="@dimen/margin_medium"
+                    android:layout_marginTop="@dimen/margin_medium"
+                    android:layout_marginEnd="@dimen/margin_medium"
+                    android:background="@drawable/solid_white_rounded"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_weight=".50"
+                    app:layout_constraintStart_toEndOf="@+id/constraintLayout1"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <androidx.appcompat.widget.AppCompatImageView
+                        android:id="@+id/ivVolume"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/margin_medium"
+                        android:layout_marginTop="@dimen/margin_medium"
+                        android:src="@drawable/ic_volume"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        tools:ignore="ContentDescription" />
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/tvICACount"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/montserrat_bold"
+                        android:textColor="@color/colorCharcoal"
+                        android:textSize="24sp"
+                        app:layout_constraintStart_toStartOf="@id/ivVolume"
+                        app:layout_constraintTop_toBottomOf="@id/ivVolume" />
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:layout_width="@dimen/margin_zero"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/margin_xmedium"
+                        android:layout_marginTop="@dimen/margin_lxmedium"
+                        android:fontFamily="@font/montserrat_regular"
+                        android:paddingBottom="2dp"
+                        android:text="@string/icas"
+                        android:textColor="@color/colorCharcoal"
+                        android:textSize="@dimen/text_semimedium"
+                        app:layout_constraintBottom_toBottomOf="@+id/tvICACount"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toEndOf="@id/tvICACount"
+                        app:layout_constraintTop_toBottomOf="@id/ivVolume" />
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:layout_width="@dimen/margin_zero"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/margin_minor"
+                        android:fontFamily="@font/montserrat_medium"
+                        android:text="@string/total"
+                        android:textColor="@color/colorCharcoal"
+                        android:textSize="@dimen/text_semismall"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="@id/tvICACount"
+                        app:layout_constraintTop_toBottomOf="@id/tvICACount" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/constraintLayout3"
+                    android:layout_width="@dimen/margin_zero"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/margin_medium"
+                    android:background="@drawable/solid_white_rounded"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/constraintLayout1">
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/tvVolume"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/montserrat_semibold"
+                        android:padding="@dimen/margin_medium"
+                        android:textColor="@color/colorCharcoal"
+                        android:textSize="@dimen/text_semimedium"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:layout_width="@dimen/margin_zero"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/montserrat_medium"
+                        android:gravity="start"
+                        android:text="@string/m"
+                        android:textColor="@color/colorBlack"
+                        android:textSize="@dimen/text_medium"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toEndOf="@id/tvVolume"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.cardview.widget.CardView>
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tvRecentHeader"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/cvTodayList"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="@dimen/margin_xmedium"
+            android:fontFamily="@font/montserrat_medium"
+            android:text="@string/last_5_days_transactions"
+            android:textColor="@color/colorWhite"
+            android:textSize="@dimen/text_semimedium" />
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/cvRecentList"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/tvRecentHeader"
+            android:layout_marginStart="@dimen/margin_normal"
+            android:layout_marginTop="@dimen/margin_xmedium"
+            android:layout_marginEnd="@dimen/margin_normal"
+            android:layout_marginBottom="@dimen/margin_lxmedium"
+            android:elevation="@dimen/margin_medium"
+            app:cardBackgroundColor="@color/home_dashboard_enable_bg"
+            app:cardCornerRadius="@dimen/margin_medium"
+            app:cardPreventCornerOverlap="true"
+            app:cardUseCompatPadding="true"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:paddingBottom="@dimen/margin_medium"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/constraintLayout11"
+                    android:layout_width="@dimen/margin_zero"
+                    android:layout_height="@dimen/home_dashboard_item_height"
+                    android:layout_marginStart="@dimen/margin_medium"
+                    android:layout_marginTop="@dimen/margin_medium"
+                    android:background="@drawable/solid_white_rounded"
+                    app:layout_constraintEnd_toStartOf="@+id/constraintLayout22"
+                    app:layout_constraintHorizontal_weight=".50"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <androidx.appcompat.widget.AppCompatImageView
+                        android:id="@+id/ivRecentSupplier"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/margin_medium"
+                        android:layout_marginTop="@dimen/margin_medium"
+                        android:src="@drawable/ic_suppliers"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        tools:ignore="ContentDescription" />
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/tvRecentSupplierCount"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/montserrat_bold"
+                        android:textColor="@color/colorCharcoal"
+                        android:textSize="24sp"
+                        app:layout_constraintStart_toStartOf="@id/ivRecentSupplier"
+                        app:layout_constraintTop_toBottomOf="@id/ivRecentSupplier" />
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:layout_width="@dimen/margin_zero"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/margin_xmedium"
+                        android:layout_marginTop="@dimen/margin_lxmedium"
+                        android:fontFamily="@font/montserrat_regular"
+                        android:paddingBottom="2dp"
+                        android:text="@string/suppliers"
+                        android:textColor="@color/colorCharcoal"
+                        android:textSize="@dimen/text_semimedium"
+                        app:layout_constraintBottom_toBottomOf="@+id/tvRecentSupplierCount"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toEndOf="@id/tvRecentSupplierCount"
+                        app:layout_constraintTop_toBottomOf="@id/ivRecentSupplier" />
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:layout_width="@dimen/margin_zero"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/margin_minor"
+                        android:fontFamily="@font/montserrat_medium"
+                        android:text="@string/total"
+                        android:textColor="@color/colorCharcoal"
+                        android:textSize="@dimen/text_semismall"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="@id/tvRecentSupplierCount"
+                        app:layout_constraintTop_toBottomOf="@id/tvRecentSupplierCount" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/constraintLayout22"
+                    android:layout_width="@dimen/margin_zero"
+                    android:layout_height="@dimen/home_dashboard_item_height"
+                    android:layout_marginStart="@dimen/margin_medium"
+                    android:layout_marginTop="@dimen/margin_medium"
+                    android:layout_marginEnd="@dimen/margin_medium"
+                    android:background="@drawable/solid_white_rounded"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_weight=".50"
+                    app:layout_constraintStart_toEndOf="@+id/constraintLayout11"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <androidx.appcompat.widget.AppCompatImageView
+                        android:id="@+id/ivRecentVolume"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/margin_medium"
+                        android:layout_marginTop="@dimen/margin_medium"
+                        android:src="@drawable/ic_volume"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        tools:ignore="ContentDescription" />
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/tvRecentICACount"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/montserrat_bold"
+                        android:textColor="@color/colorCharcoal"
+                        android:textSize="24sp"
+                        app:layout_constraintStart_toStartOf="@id/ivRecentVolume"
+                        app:layout_constraintTop_toBottomOf="@id/ivRecentVolume" />
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:layout_width="@dimen/margin_zero"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/margin_xmedium"
+                        android:layout_marginTop="@dimen/margin_lxmedium"
+                        android:fontFamily="@font/montserrat_regular"
+                        android:paddingBottom="2dp"
+                        android:text="@string/icas"
+                        android:textColor="@color/colorCharcoal"
+                        android:textSize="@dimen/text_semimedium"
+                        app:layout_constraintBottom_toBottomOf="@+id/tvRecentICACount"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toEndOf="@id/tvRecentICACount"
+                        app:layout_constraintTop_toBottomOf="@id/ivRecentVolume" />
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:layout_width="@dimen/margin_zero"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/margin_minor"
+                        android:fontFamily="@font/montserrat_medium"
+                        android:text="@string/total"
+                        android:textColor="@color/colorCharcoal"
+                        android:textSize="@dimen/text_semismall"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="@id/tvRecentICACount"
+                        app:layout_constraintTop_toBottomOf="@id/tvRecentICACount" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/constraintLayout33"
+                    android:layout_width="@dimen/margin_zero"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/margin_medium"
+                    android:background="@drawable/solid_white_rounded"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/constraintLayout11">
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/tvRecentVolume"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/montserrat_semibold"
+                        android:padding="@dimen/margin_medium"
+                        android:textColor="@color/colorCharcoal"
+                        android:textSize="@dimen/text_semimedium"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:layout_width="@dimen/margin_zero"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/montserrat_medium"
+                        android:gravity="start"
+                        android:text="@string/m"
+                        android:textColor="@color/colorBlack"
+                        android:textSize="@dimen/text_medium"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toEndOf="@id/tvRecentVolume"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.cardview.widget.CardView>
 
     </RelativeLayout>
 

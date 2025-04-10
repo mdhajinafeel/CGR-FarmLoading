@@ -6,6 +6,7 @@ import androidx.room.OnConflictStrategy;
 import androidx.room.Query;
 
 import com.codringreen.farmloading.db.entity.FarmDetails;
+import com.codringreen.farmloading.model.FarmDetailDashboardModel;
 
 import java.util.List;
 
@@ -15,13 +16,13 @@ public interface FarmDetailsDao {
     @Query("DELETE FROM FarmDetails WHERE isSynced = 1")
     void deleteAll();
 
-    @Query("SELECT * FROM FarmDetails ORDER BY purchaseDate DESC")
+    @Query("SELECT * FROM FarmDetails WHERE isForData = 0 ORDER BY purchaseDate DESC")
     List<FarmDetails> getFarmDetails();
 
     @Query("SELECT * FROM FarmDetails WHERE inventoryOrder = :inventoryOrder AND supplierId = :supplierId")
     FarmDetails getFarmDetails(String inventoryOrder, int supplierId);
 
-    @Query("SELECT * FROM FarmDetails")
+    @Query("SELECT * FROM FarmDetails WHERE isForData = 0")
     List<FarmDetails> getFarmDetailsUnSynced();
 
     @Query("SELECT COUNT(*) AS cnt FROM FarmDetails WHERE inventoryOrder = :inventoryOrder")
@@ -45,4 +46,15 @@ public interface FarmDetailsDao {
 
     @Query("UPDATE FarmDetails SET isClosed = :isClosed, closedBy = :closedBy, closedDate = :closedDate WHERE inventoryOrder = :inventoryOrder")
     int updateFarmDetailsClosed(boolean isClosed, int closedBy, String closedDate, String inventoryOrder);
+
+    @Query("SELECT COUNT(DISTINCT supplierId) AS supplierCount, SUM(grossVolume) AS grossVolume, COUNT(inventoryOrder) AS totalICA " +
+            "FROM FarmDetails WHERE purchaseDate = :todayDate")
+    FarmDetailDashboardModel fetchTodayDashboardData(String todayDate);
+
+    @Query("SELECT COUNT(DISTINCT supplierId) AS supplierCount, SUM(grossVolume) AS grossVolume, " +
+            "COUNT(inventoryOrder) AS totalICA " +
+            "FROM FarmDetails " +
+            "WHERE DATE(SUBSTR(purchaseDate, 7, 4) || '-' || SUBSTR(purchaseDate, 4, 2) || '-' || " +
+            "SUBSTR(purchaseDate, 1, 2)) BETWEEN DATE(:startDate) AND DATE(:endDate)")
+    FarmDetailDashboardModel fetchRecentDashboardData(String startDate, String endDate);
 }

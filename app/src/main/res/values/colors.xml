@@ -16,7 +16,7 @@
     <color name="colorDarkGrey">#6e6e6e</color>
     <color name="colorDimGrey">#eeeeee</color>
     <color name="colorDimGrey1">#E0E0E0</color>
-    <color name="colorCharcoal">#4a4a4a</color>
+    <color name="colorCharcoal">#2A2929</color>
     <color name="colorButton">#084262</color>
     <color name="colorButtonNegative">#012f2f</color>
     <color name="colorTrans">#00FFFFFF</color>
@@ -24,4 +24,6 @@
     <color name="edit_acc_disable_color">#FCFAFA</color>
     <color name="colorLightBlack">#3F3F3F</color>
     <color name="colorFabText">#408943</color>
+    <color name="home_dashboard_enable_bg">#DBE4AC</color>
+    <color name="home_dashboard_disable_bg">#dfdfdf</color>
 </resources>

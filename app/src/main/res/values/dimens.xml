@@ -11,6 +11,7 @@
     <dimen name="corner_elevation_low">4dp</dimen>
     <dimen name="card_corner_radius_verysmall">8dp</dimen>
     <dimen name="button_height">60dp</dimen>
+    <dimen name="home_dashboard_item_height">100dp</dimen>
 
     <!-- FONT TEXT SIZE -->
     <dimen name="text_small">12sp</dimen>

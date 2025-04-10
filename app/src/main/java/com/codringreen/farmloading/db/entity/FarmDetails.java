@@ -33,6 +33,7 @@ public class FarmDetails implements Serializable {
     private boolean isClosed;
     private int closedBy;
     private String closedDate;
+    private boolean isForData;
 
     public int getId() {
         return id;
@@ -224,5 +225,13 @@ public class FarmDetails implements Serializable {
 
     public void setClosedDate(String closedDate) {
         this.closedDate = closedDate;
+    }
+
+    public boolean isForData() {
+        return isForData;
+    }
+
+    public void setForData(boolean forData) {
+        isForData = forData;
     }
 }

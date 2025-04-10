@@ -1,0 +1,33 @@
+package com.codringreen.farmloading.model;
+
+import java.io.Serializable;
+
+public class FarmDetailDashboardModel implements Serializable {
+
+    private int supplierCount, totalICA;
+    private double grossVolume;
+
+    public int getSupplierCount() {
+        return supplierCount;
+    }
+
+    public void setSupplierCount(int supplierCount) {
+        this.supplierCount = supplierCount;
+    }
+
+    public int getTotalICA() {
+        return totalICA;
+    }
+
+    public void setTotalICA(int totalICA) {
+        this.totalICA = totalICA;
+    }
+
+    public double getGrossVolume() {
+        return grossVolume;
+    }
+
+    public void setGrossVolume(double grossVolume) {
+        this.grossVolume = grossVolume;
+    }
+}
