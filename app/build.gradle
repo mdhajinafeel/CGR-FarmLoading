@@ -44,7 +44,7 @@ android {
             buildConfigField "String", "CLIENT_USERNAME", "\"codringreenadmin\""
             buildConfigField "String", "CLIENT_PASSWORD", "\"CodRinGreeN@dm1n#123\""
             //buildConfigField "String", "INVENTORY_BASE_URL", "\"https://portal.codringreen.com/api/\""
-            buildConfigField "String", "INVENTORY_BASE_URL", "\"http://192.168.1.106/cgr/erp-codringreen/api/\""
+            buildConfigField "String", "INVENTORY_BASE_URL", "\"http://192.168.1.104/cgr/erp-codringreen/api/\""
             buildConfigField "String", "CONTENT_TYPE", "\"application/json\""
             buildConfigField "int", "ROLE_ID", "9"
         }
@@ -57,7 +57,7 @@ android {
             buildConfigField "String", "CLIENT_USERNAME", "\"codringreenadmin\""
             buildConfigField "String", "CLIENT_PASSWORD", "\"CodRinGreeN@dm1n#123\""
             //buildConfigField "String", "INVENTORY_BASE_URL", "\"https://portal.codringreen.com/api/\""
-            buildConfigField "String", "INVENTORY_BASE_URL", "\"http://192.168.1.106/cgr/erp-codringreen/api/\""
+            buildConfigField "String", "INVENTORY_BASE_URL", "\"http://192.168.1.104/cgr/erp-codringreen/api/\""
             buildConfigField "String", "CONTENT_TYPE", "\"application/json\""
             buildConfigField "int", "ROLE_ID", "9"
         }
