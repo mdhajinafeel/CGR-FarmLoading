@@ -214,8 +214,16 @@ public class CreateFarmActivity extends BaseActivity {
 
             rvList.setAdapter(suppliersCommonRecyclerViewAdapter);
             suppliersCommonRecyclerViewAdapter.setOnItemClickListener((view, position) -> {
-                tvSupplierName.setText(suppliersList.get(position).getSupplierName());
-                farmViewModel.setSelectedSupplier(suppliersList, suppliersArrayList, suppliersList.get(position), position);
+
+                Suppliers suppliers;
+                if (!suppliersArrayList.isEmpty()) {
+                    suppliers = suppliersArrayList.get(position);
+                } else {
+                    suppliers = suppliersList.get(position);
+                }
+
+                tvSupplierName.setText(suppliers.getSupplierName());
+                farmViewModel.setSelectedSupplier(suppliersList, suppliersArrayList, suppliers, position);
                 farmViewModel.selectedSuppliersProducts = null;
                 farmViewModel.selectedSuppliersProductTypes = null;
                 farmViewModel.selectedPurchaseContract = null;
@@ -224,7 +232,7 @@ public class CreateFarmActivity extends BaseActivity {
                 suppliersProductTypesList = new ArrayList<>();
                 purchaseContractList = new ArrayList<>();
 
-                suppliersProductsList = farmViewModel.fetchSupplierProducts(suppliersList.get(position).getSupplierId());
+                suppliersProductsList = farmViewModel.fetchSupplierProducts(suppliers.getSupplierId());
 
                 tvPurchaseContract.setText("");
                 tvWoodType.setText("");
@@ -258,16 +266,24 @@ public class CreateFarmActivity extends BaseActivity {
 
             rvList.setAdapter(supplierProductsCommonRecyclerViewAdapter);
             supplierProductsCommonRecyclerViewAdapter.setOnItemClickListener((view, position) -> {
-                tvWoodSpecies.setText(suppliersProductsList.get(position).getProductName());
-                farmViewModel.setSelectedSupplierProducts(suppliersProductsList, suppliersProductsArrayList, suppliersProductsList.get(position), position);
+
+                SupplierProducts supplierProducts;
+                if(!suppliersProductsArrayList.isEmpty()) {
+                    supplierProducts = suppliersProductsArrayList.get(position);
+                } else {
+                    supplierProducts = suppliersProductsList.get(position);
+                }
+
+                tvWoodSpecies.setText(supplierProducts.getProductName());
+                farmViewModel.setSelectedSupplierProducts(suppliersProductsList, suppliersProductsArrayList, supplierProducts, position);
                 farmViewModel.selectedSuppliersProductTypes = null;
                 farmViewModel.selectedPurchaseContract = null;
 
                 suppliersProductTypesList = new ArrayList<>();
                 purchaseContractList = new ArrayList<>();
 
-                suppliersProductTypesList = farmViewModel.fetchSuppliersProductsType(suppliersProductsList.get(position).getSupplierId(),
-                        suppliersProductsList.get(position).getProductId());
+                suppliersProductTypesList = farmViewModel.fetchSuppliersProductsType(supplierProducts.getSupplierId(),
+                        supplierProducts.getProductId());
 
                 tvPurchaseContract.setText("");
                 tvWoodType.setText("");
@@ -300,8 +316,16 @@ public class CreateFarmActivity extends BaseActivity {
 
             rvList.setAdapter(supplierProductTypesCommonRecyclerViewAdapter);
             supplierProductTypesCommonRecyclerViewAdapter.setOnItemClickListener((view, position) -> {
-                tvWoodType.setText(suppliersProductTypesList.get(position).getProductTypeName());
-                farmViewModel.setSelectedSuppliersProductTypes(suppliersProductTypesList, suppliersProductTypesArrayList, suppliersProductTypesList.get(position), position);
+
+                SupplierProductTypes supplierProductTypes;
+                if(!suppliersProductTypesArrayList.isEmpty()) {
+                    supplierProductTypes = suppliersProductTypesArrayList.get(position);
+                } else {
+                    supplierProductTypes = suppliersProductTypesList.get(position);
+                }
+
+                tvWoodType.setText(supplierProductTypes.getProductTypeName());
+                farmViewModel.setSelectedSuppliersProductTypes(suppliersProductTypesList, suppliersProductTypesArrayList, supplierProductTypes, position);
                 farmViewModel.selectedPurchaseContract = null;
 
                 purchaseContractList = new ArrayList<>();
@@ -315,8 +339,8 @@ public class CreateFarmActivity extends BaseActivity {
                     productTypesList.add(3);
                 }
 
-                purchaseContractList = farmViewModel.fetchPurchaseContractList(suppliersProductTypesList.get(position).getSupplierId(),
-                        suppliersProductTypesList.get(position).getProductId(), productTypesList);
+                purchaseContractList = farmViewModel.fetchPurchaseContractList(supplierProductTypes.getSupplierId(),
+                        supplierProductTypes.getProductId(), productTypesList);
 
                 tvPurchaseContract.setText("");
 
@@ -353,8 +377,22 @@ public class CreateFarmActivity extends BaseActivity {
 
             rvList.setAdapter(purchaseContractCommonRecyclerViewAdapter);
             purchaseContractCommonRecyclerViewAdapter.setOnItemClickListener((view, position) -> {
-                tvPurchaseContract.setText(String.format("%s - %s", purchaseContractList.get(position).getDescription(), purchaseContractList.get(position).getPurchaseUnit()));
-                farmViewModel.setSelectedPurchaseContract(purchaseContractList, purchaseContractArrayList, purchaseContractList.get(position), position);
+
+                PurchaseContract purchaseContract;
+                if(!purchaseContractArrayList.isEmpty()) {
+                    purchaseContract = purchaseContractArrayList.get(position);
+                } else {
+                    purchaseContract = purchaseContractList.get(position);
+                }
+
+                if(purchaseContract.getDescription() != null && !Objects.equals(purchaseContract.getDescription(), "")) {
+                    tvPurchaseContract.setText(String.format("%s - %s", purchaseContract.getDescription(), purchaseContract.getPurchaseUnit()));
+                } else {
+                    tvPurchaseContract.setText(String.format("%s", purchaseContract.getPurchaseUnit()));
+                }
+
+
+                farmViewModel.setSelectedPurchaseContract(purchaseContractList, purchaseContractArrayList, purchaseContract, position);
 
                 validateFields();
                 dialog.dismiss();
@@ -428,7 +466,8 @@ public class CreateFarmActivity extends BaseActivity {
                 purchaseContractArrayList = new ArrayList<>();
                 for (PurchaseContract purchaseContract : purchaseContractList) {
                     if (purchaseContract.getContractCode().toLowerCase().contains(searchText.toLowerCase())
-                            || purchaseContract.getPurchaseUnit().toLowerCase().contains(searchText.toLowerCase())) {
+                            || purchaseContract.getPurchaseUnit().toLowerCase().contains(searchText.toLowerCase())
+                            || purchaseContract.getDescription().toLowerCase().contains(searchText.toLowerCase())) {
                         purchaseContractArrayList.add(purchaseContract);
                     }
                 }
