@@ -42,11 +42,14 @@
                     android:fontFamily="@font/montserrat_semibold"
                     android:shadowColor="@color/colorDarkGrey"
                     android:shadowDx="5"
+                    android:paddingStart="30dp"
+                    android:paddingEnd="30dp"
                     android:shadowDy="6"
-                    android:text="@string/create_farm"
-                    android:textAllCaps="true"
-                    android:textColor="@color/colorWhite"
-                    android:textSize="@dimen/text_large" />
+                    android:drawableStart="@drawable/ic_add_inset"
+                android:text="@string/create_farm"
+                android:textAllCaps="true"
+                android:textColor="@color/colorWhite"
+                android:textSize="@dimen/text_large" />
             </RelativeLayout>
 
             <androidx.cardview.widget.CardView

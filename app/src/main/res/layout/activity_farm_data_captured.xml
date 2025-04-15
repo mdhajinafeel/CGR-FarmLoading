@@ -48,7 +48,7 @@
                     <LinearLayout
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_weight="0.40"
+                        android:layout_weight="0.50"
                         android:orientation="vertical">
 
                         <androidx.appcompat.widget.AppCompatTextView
@@ -100,6 +100,7 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="start"
                         android:layout_weight="0.10"
+                        android:visibility="gone"
                         android:orientation="vertical">
 
                         <androidx.appcompat.widget.AppCompatImageView
@@ -251,7 +252,7 @@
                             android:fontFamily="@font/montserrat_medium"
                             android:text="@string/total_gross_volume"
                             android:textColor="@color/colorCharcoal"
-                            android:textSize="@dimen/text_small" />
+                            android:textSize="@dimen/text_semimedium" />
 
                         <androidx.appcompat.widget.AppCompatTextView
                             android:id="@+id/tvGrossVolume"
@@ -260,7 +261,7 @@
                             android:layout_height="wrap_content"
                             android:fontFamily="@font/montserrat_semibold"
                             android:textColor="@color/colorCharcoal"
-                            android:textSize="@dimen/text_small" />
+                            android:textSize="@dimen/text_semimedium" />
                     </LinearLayout>
                 </LinearLayout>
             </RelativeLayout>

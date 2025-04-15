@@ -3,6 +3,8 @@ package com.codringreen.farmloading.view.activities;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.content.res.Resources;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
@@ -33,6 +35,8 @@ import com.codringreen.farmloading.viewmodel.ViewModelFactory;
 
 import java.io.Serializable;
 import java.text.DecimalFormat;
+import java.text.NumberFormat;
+import java.util.Locale;
 import java.util.Objects;
 
 import javax.inject.Inject;
@@ -106,12 +110,20 @@ public class FarmDataActivity extends BaseActivity {
                     tvTruckPlateNumber.setText(farmDetails.getTruckPlateNumber());
                     tvPurchaseContract.setText(String.format("%s - %s", farmDetails.getDescription(), farmDetails.getMeasurementSystem()));
                     tvTotalPieces.setText(String.valueOf(farmDetails.getTotalPieces()));
+                    Locale currentLocale;
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+                        currentLocale = Resources.getSystem().getConfiguration().getLocales().get(0);
+                    } else {
+                        currentLocale = Resources.getSystem().getConfiguration().locale;
+                    }
+
+                    NumberFormat nf = NumberFormat.getInstance(currentLocale);
                     DecimalFormat df = new DecimalFormat("0.000");
                     tvGrossVolume.setText(df.format(farmDetails.getGrossVolume()));
 
                     totalPieces = farmDetails.getTotalPieces();
-                    totalGrossVolume = Double.parseDouble(df.format(farmDetails.getGrossVolume()));
-                    totalNetVolume = Double.parseDouble(df.format(farmDetails.getNetVolume()));
+                    totalGrossVolume = Objects.requireNonNull(nf.parse(df.format(farmDetails.getGrossVolume()))).doubleValue(); //Double.parseDouble(df.format(farmDetails.getGrossVolume()));
+                    totalNetVolume = Objects.requireNonNull(nf.parse(df.format(farmDetails.getNetVolume()))).doubleValue(); //Double.parseDouble(df.format(farmDetails.getNetVolume()));
 
                     ivExpand.setOnClickListener(v -> {
                         if (llFarmDetails2.getVisibility() == View.VISIBLE) {

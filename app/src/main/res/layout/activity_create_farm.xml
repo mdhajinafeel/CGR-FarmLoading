@@ -138,10 +138,11 @@
 
             <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/tvPurchaseDate"
-                style="@style/Style_EditText_withBorder"
+                style="@style/Style_EditText_withBorder_Disabled"
                 android:gravity="center_vertical"
-                android:focusable="true"
-                android:clickable="true"
+                android:focusable="false"
+                android:enabled="false"
+                android:clickable="false"
                 android:fontFamily="@font/montserrat_medium"
                 android:drawableEnd="@drawable/ic_calendar"
                 android:imeOptions="actionNext"

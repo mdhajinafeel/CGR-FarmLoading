@@ -48,9 +48,7 @@ public abstract class BaseActivity extends DaggerAppCompatActivity {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle(message);
         builder.setCancelable(false);
-        builder.setPositiveButton(positiveText, (dialog, which) -> {
-            dialog.dismiss();
-        });
+        builder.setPositiveButton(positiveText, (dialog, which) -> dialog.dismiss());
         AlertDialog dialog = builder.create();
         if (!dialog.isShowing())
             dialog.show();

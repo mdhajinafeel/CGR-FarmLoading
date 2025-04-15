@@ -45,20 +45,20 @@
                     android:padding="@dimen/padding_medium">
 
                     <androidx.appcompat.widget.AppCompatImageView
-                        android:layout_width="32dp"
-                        android:layout_height="32dp"
+                        android:layout_width="28dp"
+                        android:layout_height="28dp"
                         android:src="@drawable/ic_farm_list_white" />
 
                     <androidx.appcompat.widget.AppCompatTextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
-                        android:layout_marginStart="@dimen/margin_medium"
+                        android:layout_marginStart="@dimen/margin_lxmedium"
                         android:fontFamily="@font/montserrat_semibold"
                         android:gravity="start"
                         android:text="@string/farm_list"
                         android:textColor="@color/colorWhite"
-                        android:textSize="@dimen/text_small" />
+                        android:textSize="@dimen/text_semimedium" />
 
                 </LinearLayout>
 
@@ -84,20 +84,20 @@
                     android:padding="@dimen/padding_medium">
 
                     <androidx.appcompat.widget.AppCompatImageView
-                        android:layout_width="32dp"
-                        android:layout_height="32dp"
+                        android:layout_width="28dp"
+                        android:layout_height="28dp"
                         android:src="@drawable/ic_sync_white" />
 
                     <androidx.appcompat.widget.AppCompatTextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
-                        android:layout_marginStart="@dimen/margin_medium"
+                        android:layout_marginStart="@dimen/margin_lxmedium"
                         android:fontFamily="@font/montserrat_semibold"
                         android:gravity="start"
                         android:text="@string/synchronization"
                         android:textColor="@color/colorWhite"
-                        android:textSize="@dimen/text_small" />
+                        android:textSize="@dimen/text_semimedium" />
 
                 </LinearLayout>
 

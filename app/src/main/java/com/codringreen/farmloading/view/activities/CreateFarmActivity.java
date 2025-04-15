@@ -125,7 +125,7 @@ public class CreateFarmActivity extends BaseActivity {
             tvWoodSpecies.setOnClickListener(v -> showDataDialog("Product"));
             tvWoodType.setOnClickListener(v -> showDataDialog("ProductType"));
             tvPurchaseContract.setOnClickListener(v -> showDataDialog("PurchaseContract"));
-            tvPurchaseDate.setOnClickListener(v -> showDatePickerDialog());
+            //tvPurchaseDate.setOnClickListener(v -> showDatePickerDialog());
 
             etInventoryNumber.addTextChangedListener(new TextWatcher() {
                 @Override
@@ -343,6 +343,17 @@ public class CreateFarmActivity extends BaseActivity {
                         supplierProductTypes.getProductId(), productTypesList);
 
                 tvPurchaseContract.setText("");
+
+                if(purchaseContractList.size() == 1) {
+                    PurchaseContract purchaseContract = purchaseContractList.get(0);
+                    farmViewModel.setSelectedPurchaseContract(purchaseContractList, purchaseContractList, purchaseContract, 0);
+
+                    if(purchaseContract.getDescription() != null && !Objects.equals(purchaseContract.getDescription(), "")) {
+                        tvPurchaseContract.setText(String.format("%s - %s", purchaseContract.getDescription(), purchaseContract.getPurchaseUnit()));
+                    } else {
+                        tvPurchaseContract.setText(String.format("%s", purchaseContract.getPurchaseUnit()));
+                    }
+                }
 
                 validateFields();
                 dialog.dismiss();

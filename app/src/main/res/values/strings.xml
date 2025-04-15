@@ -3,7 +3,7 @@
     <string name="app_name">Finca Carga</string>
 
     <string name="text_cancel">Cancel</string>
-    <string name="text_done">Done</string>
+    <string name="text_done">Submit</string>
     <string name="text_ok">OK</string>
     <string name="username">Username</string>
     <string name="password">Password</string>
@@ -28,27 +28,27 @@
     <string name="dashboard">Dashboard</string>
     <string name="synchronization">Synchronization</string>
     <string name="farm_list">Farm Lists</string>
-    <string name="export_database">Export Database</string>
-    <string name="export_database_success">Database Exported Successfully</string>
-    <string name="create_farm">Create Farm</string>
+    <string name="export_database">Export Data</string>
+    <string name="export_database_success">Data Exported Successfully!!!…</string>
+    <string name="create_farm">Create</string>
     <string name="hint_text">Hint Text</string>
     <string name="supplier_name">Supplier Name</string>
-    <string name="wood_species">Wood Species</string>
-    <string name="wood_type">Wood Type</string>
-    <string name="inventory_number">Inventory Number</string>
-    <string name="purchase_contract">Purchase Contract</string>
-    <string name="purchase_date">Purchase Date</string>
+    <string name="wood_species">Species</string>
+    <string name="wood_type">Type</string>
+    <string name="inventory_number">ICA</string>
+    <string name="purchase_contract">Contract</string>
+    <string name="purchase_date">Date</string>
     <string name="truck_plate_number">Truck Plate Number</string>
     <string name="submit">Submit</string>
     <string name="select">--- Select ---</string>
     <string name="farm_data">Farm Data</string>
     <string name="truck_no">Truck No</string>
     <string name="total_pieces">Total Pieces</string>
-    <string name="total_gross_volume">Total Gross Volume (m³)</string>
+    <string name="total_gross_volume">Total Volume (m³)</string>
     <string name="circumference">Circumference</string>
     <string name="length">Length</string>
     <string name="pieces">Pieces</string>
-    <string name="close_farm">Close Farm</string>
+    <string name="close_farm">Close</string>
     <string name="_1">1</string>
     <string name="_2">2</string>
     <string name="_3">3</string>
@@ -73,7 +73,7 @@
     <string name="farm_captured_data">Farm Captured Data</string>
     <string name="delete_confirmation">Are you sure you want to delete?</string>
     <string name="data_deleted_successfully">Data Deleted Successfully</string>
-    <string name="inventory_number_already_exists">Inventory Number already exists</string>
+    <string name="inventory_number_already_exists">ICA already exists</string>
     <string name="data_synced_successfully">Data synced successfully!!!…</string>
     <string name="are_you_sure_you_want_to_close_the_farm">Are you sure you want to close the farm?</string>
     <string name="farm_closed_successfully">Farm Closed Successfully</string>
@@ -83,7 +83,7 @@
     <string name="suppliers">Suppliers</string>
     <string name="total">Total</string>
     <string name="m">m³</string>
-    <string name="today_transactions"><u /></string>
+    <string name="today_transactions">Today Transactions</string>
     <string name="last_5_days_transactions"><u>Recent Transactions</u></string>
     <string name="icas">ICAs</string>
 </resources>

@@ -3,11 +3,11 @@
     <string name="app_name">Finca Carga</string>
 
     <string name="text_cancel">Cancelar</string>
-    <string name="text_done">Hecho</string>
+    <string name="text_done">Entregar</string>
     <string name="text_ok">OK</string>
-    <string name="username">Nombre de usuario</string>
+    <string name="username">Usuario</string>
     <string name="password">Contraseña</string>
-    <string name="login">Acceso</string>
+    <string name="login">Iniciar sesión</string>
     <string name="error">Error</string>
     <string name="common_error">Hay un error. Inténtalo de nuevo.</string>
     <string name="information">Información</string>
@@ -25,30 +25,30 @@
     <string name="data_synced_success">¡¡¡Datos sincronizados exitosamente!!!…</string>
     <string name="data_download_success">¡¡¡Master descargado exitosamente!!!…</string>
 
-    <string name="dashboard">Panel</string>
+    <string name="dashboard">Inicio</string>
     <string name="synchronization">Sincronización</string>
     <string name="farm_list">Listas de finca</string>
-    <string name="export_database">Exportar base de datos</string>
-    <string name="export_database_success">Base de datos exportada exitosamente</string>
-    <string name="create_farm">Crear Finca</string>
+    <string name="export_database">Exportar datos</string>
+    <string name="export_database_success">¡¡¡Datos exportada exitosamente!!!…</string>
+    <string name="create_farm">Crear</string>
     <string name="hint_text">Texto de sugerencia</string>
     <string name="supplier_name">Nombre del proveedor</string>
-    <string name="wood_species">Especies de madera</string>
-    <string name="wood_type">Tipo de madera</string>
+    <string name="wood_species">Especies</string>
+    <string name="wood_type">Tipo</string>
     <string name="inventory_number">ICA</string>
-    <string name="purchase_contract">Contrato de compra</string>
-    <string name="purchase_date">Fecha de compra</string>
-    <string name="truck_plate_number">Número de camión</string>
-    <string name="submit">Hecho</string>
+    <string name="purchase_contract">Contrato</string>
+    <string name="purchase_date">Fecha</string>
+    <string name="truck_plate_number">Placa</string>
+    <string name="submit">Entregar</string>
     <string name="select">--- Seleccionar ---</string>
     <string name="farm_data">Datos de la finca</string>
-    <string name="truck_no">Número de camión</string>
+    <string name="truck_no">Placa</string>
     <string name="total_pieces">Piezas totales</string>
-    <string name="total_gross_volume">Volumen bruto total (m³)</string>
+    <string name="total_gross_volume">Volumen (m³)</string>
     <string name="circumference">Girth</string>
     <string name="length">Largo</string>
     <string name="pieces">Piezas</string>
-    <string name="close_farm">Cerrar Finca</string>
+    <string name="close_farm">Cerrar</string>
     <string name="_1">1</string>
     <string name="_2">2</string>
     <string name="_3">3</string>
@@ -65,7 +65,7 @@
     <string name="gross_volume">Volumen bruto (m³)</string>
     <string name="ica">ICA</string>
     <string name="supplier">Proveedor</string>
-    <string name="volume">Volume (m³)</string>
+    <string name="volume">Volumen (m³)</string>
     <string name="date">Fecha</string>
     <string name="contract">Contrato</string>
     <string name="farm_created">Finca creada con éxito</string>
@@ -83,7 +83,7 @@
     <string name="suppliers">Proveedores</string>
     <string name="total">Total</string>
     <string name="m">m³</string>
-    <string name="today_transactions"><u>Transacciones de hoy</u></string>
-    <string name="last_5_days_transactions"><u>Transacciones recientes</u></string>
+    <string name="today_transactions"><u>Resumen de hoy</u></string>
+    <string name="last_5_days_transactions"><u>Resumen recientes</u></string>
     <string name="icas">ICAs</string>
 </resources>

@@ -87,16 +87,20 @@ public class FarmListsActivity extends BaseActivity {
                         holder.setViewText(R.id.tvTotalPieces, String.valueOf(farmDetails.getTotalPieces()));
 
                         LinearLayout llRowFarmData = holder.getView(R.id.llRowFarmData);
+                        AppCompatImageView imgEdit = holder.getView(R.id.imgEdit);
                         if(farmDetails.isClosed()) {
                             holder.setViewText(R.id.tvStatus, getString(R.string.closed));
                             llRowFarmData.setBackgroundColor(ContextCompat.getColor(getApplicationContext(), R.color.colorDimGrey1));
+
+                           imgEdit.setColorFilter(ContextCompat.getColor(getApplicationContext(), R.color.colorDimGrey1));
                         } else {
                             holder.setViewText(R.id.tvStatus, getString(R.string.opened));
                             llRowFarmData.setBackgroundColor(ContextCompat.getColor(getApplicationContext(), R.color.colorWhite));
-                        }
 
-                        holder.getView(R.id.imgEdit).setOnClickListener(v -> startActivity(new Intent(FarmListsActivity.this, FarmDataActivity.class)
-                                .putExtra("FarmDetail", farmDetails)));
+                            imgEdit.setColorFilter(null);
+                            imgEdit.setOnClickListener(v -> startActivity(new Intent(FarmListsActivity.this, FarmDataActivity.class)
+                                    .putExtra("FarmDetail", farmDetails)));
+                        }
                     }
                 }
             };
