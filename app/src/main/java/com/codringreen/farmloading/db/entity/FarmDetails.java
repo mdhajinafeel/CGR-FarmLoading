@@ -19,6 +19,7 @@ public class FarmDetails implements Serializable {
     private int purchaseUnitId;
     private String purchaseDate;
     private String truckPlateNumber;
+    private String truckDriverName;
     private int totalPieces;
     private double grossVolume;
     private double netVolume;
@@ -233,5 +234,13 @@ public class FarmDetails implements Serializable {
 
     public void setForData(boolean forData) {
         isForData = forData;
+    }
+
+    public String getTruckDriverName() {
+        return truckDriverName;
+    }
+
+    public void setTruckDriverName(String truckDriverName) {
+        this.truckDriverName = truckDriverName;
     }
 }

@@ -6,7 +6,7 @@ import java.util.List;
 public class FarmDetailsMasterResponse implements Serializable {
 
     private int farmId, supplierId, productId, productTypeId, purchaseContractId, purchaseUnitId, totalPieces;
-    private String inventoryOrder, purchaseDate, truckPlateNumber, supplierName, measurementSystem, productName, description;
+    private String inventoryOrder, purchaseDate, truckPlateNumber, truckDriverName, supplierName, measurementSystem, productName, description;
     private double grossVolume, netVolume, circAllowance, lengthAllowance;
     private boolean isForData;
     private List<FarmDataMasterResponse> farmData;
@@ -169,5 +169,13 @@ public class FarmDetailsMasterResponse implements Serializable {
 
     public void setFarmData(List<FarmDataMasterResponse> farmData) {
         this.farmData = farmData;
+    }
+
+    public String getTruckDriverName() {
+        return truckDriverName;
+    }
+
+    public void setTruckDriverName(String truckDriverName) {
+        this.truckDriverName = truckDriverName;
     }
 }

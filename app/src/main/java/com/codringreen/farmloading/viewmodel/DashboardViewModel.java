@@ -71,6 +71,7 @@ public class DashboardViewModel extends BaseViewModel {
                         farmDetailsRequest.setInventoryOrder(farmDetail.getInventoryOrder());
                         farmDetailsRequest.setPurchaseDate(CommonUtils.convertDateTimeFormatWithDefaultLocale(farmDetail.getPurchaseDate(), "dd/MM/yyyy", "yyyy-MM-dd"));
                         farmDetailsRequest.setTruckPlateNumber(farmDetail.getTruckPlateNumber());
+                        farmDetailsRequest.setTruckDriverName(farmDetail.getTruckDriverName());
                         farmDetailsRequest.setClosedDate(farmDetail.getClosedDate());
                         farmDetailsRequest.setSupplierId(farmDetail.getSupplierId());
                         farmDetailsRequest.setProductId(farmDetail.getProductId());

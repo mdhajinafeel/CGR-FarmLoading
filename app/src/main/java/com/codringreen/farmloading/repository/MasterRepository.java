@@ -66,7 +66,7 @@ public class MasterRepository {
 
     public void masterDownload(final ResponseCallBack<DownloadMaserResponse> callBack) {
         try {
-            iMasterApiService.masterDownload(BuildConfig.CONTENT_TYPE).enqueue(new Callback<DownloadMaserResponse>() { // from class: com.codringreen.receptionloading.repository.MasterRepository.2
+            iMasterApiService.masterDownload(BuildConfig.CONTENT_TYPE).enqueue(new Callback<DownloadMaserResponse>() {
                 public void onResponse(@NonNull Call<DownloadMaserResponse> call, @NonNull Response<DownloadMaserResponse> response) {
                     if (response.isSuccessful()) {
                         if (response.body() != null) {
@@ -221,6 +221,7 @@ public class MasterRepository {
                 farmDetail.setPurchaseUnitId(farmDetailsMasterResponse.getPurchaseUnitId());
                 farmDetail.setPurchaseDate(farmDetailsMasterResponse.getPurchaseDate());
                 farmDetail.setTruckPlateNumber(farmDetailsMasterResponse.getTruckPlateNumber());
+                farmDetail.setTruckDriverName(farmDetailsMasterResponse.getTruckDriverName());
                 farmDetail.setTotalPieces(farmDetailsMasterResponse.getTotalPieces());
                 farmDetail.setGrossVolume(farmDetailsMasterResponse.getGrossVolume());
                 farmDetail.setNetVolume(farmDetailsMasterResponse.getNetVolume());

@@ -62,7 +62,7 @@
     <string name="delete">Delete</string>
     <string name="reset">Reset</string>
     <string name="action">Action</string>
-    <string name="gross_volume">Gross Volume (m³)</string>
+    <string name="gross_volume">Volume (m³)</string>
     <string name="ica">ICA</string>
     <string name="supplier">Supplier</string>
     <string name="volume">Volume (m³)</string>
@@ -83,7 +83,12 @@
     <string name="suppliers">Suppliers</string>
     <string name="total">Total</string>
     <string name="m">m³</string>
-    <string name="today_transactions">Today Transactions</string>
+    <string name="today_transactions"><u>Today Transactions</u></string>
     <string name="last_5_days_transactions"><u>Recent Transactions</u></string>
     <string name="icas">ICAs</string>
+    <string name="permission_granted">Permission Granted</string>
+    <string name="permission_denied">Permission Denied</string>
+    <string name="square_blocks">Square Blocks</string>
+    <string name="round_logs">Round Logs</string>
+    <string name="truck_driver_name">Truck Driver Name</string>
 </resources>

@@ -61,7 +61,7 @@ public class DashboardActivity extends BaseActivity implements AdapterView.OnIte
     private ListView lstMenu;
     private List<MenuModel> menuModels;
     private Toolbar toolBar;
-    private AppCompatTextView tvName, tvSupplierCount, tvVolume, tvRecentSupplierCount, tvRecentVolume, tvICACount, tvRecentICACount;
+    private AppCompatTextView tvName, tvSupplierCount, tvVolume, tvPieces, tvRecentPieces, tvRecentSupplierCount, tvRecentVolume, tvICACount, tvRecentICACount;
     private boolean exitCode = false;
 
     private DashboardViewModel dashboardViewModel;
@@ -86,8 +86,10 @@ public class DashboardActivity extends BaseActivity implements AdapterView.OnIte
 
             tvSupplierCount = findViewById(R.id.tvSupplierCount);
             tvVolume = findViewById(R.id.tvVolume);
+            tvPieces = findViewById(R.id.tvPieces);
             tvRecentSupplierCount = findViewById(R.id.tvRecentSupplierCount);
             tvRecentVolume = findViewById(R.id.tvRecentVolume);
+            tvRecentPieces = findViewById(R.id.tvRecentPieces);
             tvICACount = findViewById(R.id.tvICACount);
             tvRecentICACount = findViewById(R.id.tvRecentICACount);
 
@@ -120,7 +122,6 @@ public class DashboardActivity extends BaseActivity implements AdapterView.OnIte
 
             dashboardViewModel.getError().observe(this, s ->
                     showDialog(s, dashboardViewModel.getErrorTitle(), null, getString(R.string.text_ok)));
-
 
             dashboardViewModel.getDownloadState().observe(this, aBoolean -> {
                 if(aBoolean) {
@@ -195,17 +196,18 @@ public class DashboardActivity extends BaseActivity implements AdapterView.OnIte
 
     private void setDashboardDetails() {
         try {
-
             FarmDetailDashboardModel farmDetailDashboardModel = dashboardViewModel.fetchTodayDashboardData(CommonUtils.convertTimeStampToDate(CommonUtils.getCurrentLocalDateTimeStamp(), "dd/MM/yyy"));
             if(farmDetailDashboardModel != null) {
                 DecimalFormat df = new DecimalFormat("0.000");
                 tvSupplierCount.setText(String.valueOf(farmDetailDashboardModel.getSupplierCount()));
                 tvICACount.setText(String.valueOf(farmDetailDashboardModel.getTotalICA()));
                 tvVolume.setText(df.format(farmDetailDashboardModel.getGrossVolume()));
+                tvPieces.setText(String.valueOf(farmDetailDashboardModel.getTotalPieces()));
             } else {
                 tvSupplierCount.setText("0");
                 tvICACount.setText("0");
                 tvVolume.setText("0");
+                tvPieces.setText("0");
             }
 
             FarmDetailDashboardModel farmDetailDashboardRecent = dashboardViewModel.fetchRecentDashboardData(CommonUtils.getDateByType("fifth"), CommonUtils.getDateByType("today"));
@@ -214,10 +216,12 @@ public class DashboardActivity extends BaseActivity implements AdapterView.OnIte
                 tvRecentSupplierCount.setText(String.valueOf(farmDetailDashboardRecent.getSupplierCount()));
                 tvRecentICACount.setText(String.valueOf(farmDetailDashboardRecent.getTotalICA()));
                 tvRecentVolume.setText(df.format(farmDetailDashboardRecent.getGrossVolume()));
+                tvRecentPieces.setText(String.valueOf(farmDetailDashboardRecent.getTotalPieces()));
             } else {
                 tvRecentSupplierCount.setText("0");
                 tvRecentICACount.setText("0");
                 tvRecentVolume.setText("0");
+                tvRecentPieces.setText("0");
             }
         } catch (Exception e) {
             Log.e("DashboardActivity", "Error in DashboardActivity setDashboardDetails", e);
@@ -363,9 +367,9 @@ public class DashboardActivity extends BaseActivity implements AdapterView.OnIte
             registerForActivityResult(new ActivityResultContracts.StartActivityForResult(),
                     result -> {
                         if (Build.VERSION.SDK_INT >= 30 && Environment.isExternalStorageManager()) {
-                            Toast.makeText(this, "Permission Granted", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(this, getString(R.string.permission_granted), Toast.LENGTH_SHORT).show();
                         } else {
-                            Toast.makeText(this, "Permission Denied", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(this, getString(R.string.permission_denied), Toast.LENGTH_SHORT).show();
                         }
                     });
 

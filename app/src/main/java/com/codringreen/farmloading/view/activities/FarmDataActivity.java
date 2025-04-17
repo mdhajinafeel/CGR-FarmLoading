@@ -338,9 +338,9 @@ public class FarmDataActivity extends BaseActivity {
             totalPieces = farmDetails.getTotalPieces();
             totalGrossVolume = farmDetails.getGrossVolume();
             totalNetVolume = farmDetails.getNetVolume();
-
-            focusEditText();
-            enabledCloseFarmBtn();
         }
+
+        focusEditText();
+        enabledCloseFarmBtn();
     }
 }

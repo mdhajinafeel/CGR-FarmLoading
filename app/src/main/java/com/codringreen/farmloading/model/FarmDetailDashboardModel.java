@@ -4,7 +4,7 @@ import java.io.Serializable;
 
 public class FarmDetailDashboardModel implements Serializable {
 
-    private int supplierCount, totalICA;
+    private int supplierCount, totalICA, totalPieces;
     private double grossVolume;
 
     public int getSupplierCount() {
@@ -29,5 +29,13 @@ public class FarmDetailDashboardModel implements Serializable {
 
     public void setGrossVolume(double grossVolume) {
         this.grossVolume = grossVolume;
+    }
+
+    public int getTotalPieces() {
+        return totalPieces;
+    }
+
+    public void setTotalPieces(int totalPieces) {
+        this.totalPieces = totalPieces;
     }
 }

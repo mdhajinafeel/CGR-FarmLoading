@@ -84,28 +84,6 @@
                 android:hint="@string/select"
                 android:singleLine="true" />
 
-            <!-- Inventory Number -->
-            <androidx.appcompat.widget.AppCompatTextView
-                style="@style/style_TitleText_editText"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/margin_medium"
-                android:text="@string/inventory_number"
-                android:fontFamily="@font/montserrat_semibold"
-                android:textSize="@dimen/text_semismall" />
-
-            <androidx.appcompat.widget.AppCompatEditText
-                android:id="@+id/etInventoryNumber"
-                style="@style/Style_EditText_withBorder"
-                android:gravity="center_vertical"
-                android:hint="@string/hint_text"
-                android:textColorHint="@color/colorTrans"
-                android:fontFamily="@font/montserrat_medium"
-                android:imeOptions="actionNext"
-                android:isScrollContainer="true"
-                android:inputType="textCapCharacters"
-                android:singleLine="true" />
-
             <!-- Purchase Contract -->
             <androidx.appcompat.widget.AppCompatTextView
                 style="@style/style_TitleText_editText"
@@ -118,8 +96,9 @@
 
             <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/tvPurchaseContract"
-                style="@style/Style_EditText_withBorder"
+                style="@style/Style_EditText_withBorder_Disabled"
                 android:gravity="center_vertical"
+
                 android:fontFamily="@font/montserrat_medium"
                 android:drawableEnd="@drawable/ic_arrow_down"
                 android:imeOptions="actionNext"
@@ -148,6 +127,28 @@
                 android:imeOptions="actionNext"
                 android:singleLine="true" />
 
+            <!-- Inventory Number -->
+            <androidx.appcompat.widget.AppCompatTextView
+                style="@style/style_TitleText_editText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_medium"
+                android:text="@string/inventory_number"
+                android:fontFamily="@font/montserrat_semibold"
+                android:textSize="@dimen/text_semismall" />
+
+            <androidx.appcompat.widget.AppCompatEditText
+                android:id="@+id/etInventoryNumber"
+                style="@style/Style_EditText_withBorder"
+                android:gravity="center_vertical"
+                android:hint="@string/hint_text"
+                android:textColorHint="@color/colorTrans"
+                android:fontFamily="@font/montserrat_medium"
+                android:imeOptions="actionNext"
+                android:isScrollContainer="true"
+                android:inputType="textCapCharacters"
+                android:singleLine="true" />
+
             <!-- Truck Plate Number -->
             <androidx.appcompat.widget.AppCompatTextView
                 style="@style/style_TitleText_editText"
@@ -160,6 +161,28 @@
 
             <androidx.appcompat.widget.AppCompatEditText
                 android:id="@+id/etTruckPlateNumber"
+                style="@style/Style_EditText_withBorder"
+                android:gravity="center_vertical"
+                android:hint="@string/hint_text"
+                android:inputType="textCapCharacters"
+                android:textColorHint="@color/colorTrans"
+                android:isScrollContainer="true"
+                android:fontFamily="@font/montserrat_medium"
+                android:imeOptions="actionNext"
+                android:singleLine="true" />
+
+            <!-- Truck Plate Number -->
+            <androidx.appcompat.widget.AppCompatTextView
+                style="@style/style_TitleText_editText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_medium"
+                android:text="@string/truck_driver_name"
+                android:fontFamily="@font/montserrat_semibold"
+                android:textSize="@dimen/text_semismall" />
+
+            <androidx.appcompat.widget.AppCompatEditText
+                android:id="@+id/etTruckDriverNumber"
                 style="@style/Style_EditText_withBorder"
                 android:layout_marginBottom="@dimen/margin_large_medium"
                 android:gravity="center_vertical"

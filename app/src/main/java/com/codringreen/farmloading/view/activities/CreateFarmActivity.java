@@ -16,6 +16,7 @@ import androidx.appcompat.widget.AppCompatButton;
 import androidx.appcompat.widget.AppCompatEditText;
 import androidx.appcompat.widget.AppCompatImageView;
 import androidx.appcompat.widget.AppCompatTextView;
+import androidx.core.content.ContextCompat;
 import androidx.core.content.res.ResourcesCompat;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -49,7 +50,7 @@ import javax.inject.Inject;
 public class CreateFarmActivity extends BaseActivity {
 
     private AppCompatTextView tvSupplierName, tvWoodSpecies, tvWoodType, tvPurchaseContract, tvPurchaseDate, tvNoDataFound;
-    private AppCompatEditText etInventoryNumber, etTruckPlateNumber;
+    private AppCompatEditText etInventoryNumber, etTruckPlateNumber, etTruckDriverNumber;
     private AppCompatButton btnSubmit;
     private List<Suppliers> suppliersList, suppliersArrayList;
     private List<SupplierProducts> suppliersProductsList, suppliersProductsArrayList;
@@ -86,6 +87,7 @@ public class CreateFarmActivity extends BaseActivity {
             tvPurchaseDate = findViewById(R.id.tvPurchaseDate);
             etInventoryNumber = findViewById(R.id.etInventoryNumber);
             etTruckPlateNumber = findViewById(R.id.etTruckPlateNumber);
+            etTruckDriverNumber = findViewById(R.id.etTruckDriverNumber);
             btnSubmit = findViewById(R.id.btnSubmit);
 
             farmViewModel = new ViewModelProvider(this, viewModelFactory).get(FarmViewModel.class);
@@ -145,6 +147,23 @@ public class CreateFarmActivity extends BaseActivity {
             });
 
             etTruckPlateNumber.addTextChangedListener(new TextWatcher() {
+                @Override
+                public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+                }
+
+                @Override
+                public void onTextChanged(CharSequence s, int start, int before, int count) {
+                    validateFields();
+                }
+
+                @Override
+                public void afterTextChanged(Editable s) {
+
+                }
+            });
+
+            etTruckDriverNumber.addTextChangedListener(new TextWatcher() {
                 @Override
                 public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 
@@ -309,7 +328,12 @@ public class CreateFarmActivity extends BaseActivity {
                             holder.setViewTypeface(R.id.tvName, ResourcesCompat.getFont(
                                     holder.itemView.getContext(), R.font.montserrat_medium));
                         }
-                        holder.setViewText(R.id.tvName, supplierProductType.getProductTypeName());
+
+                        if(supplierProductType.getProductTypeId() == 1 || supplierProductType.getProductTypeId() == 3) {
+                            holder.setViewText(R.id.tvName, getString(R.string.square_blocks));
+                        } else {
+                            holder.setViewText(R.id.tvName, getString(R.string.round_logs));
+                        }
                     }
                 }
             };
@@ -342,8 +366,6 @@ public class CreateFarmActivity extends BaseActivity {
                 purchaseContractList = farmViewModel.fetchPurchaseContractList(supplierProductTypes.getSupplierId(),
                         supplierProductTypes.getProductId(), productTypesList);
 
-                tvPurchaseContract.setText("");
-
                 if(purchaseContractList.size() == 1) {
                     PurchaseContract purchaseContract = purchaseContractList.get(0);
                     farmViewModel.setSelectedPurchaseContract(purchaseContractList, purchaseContractList, purchaseContract, 0);
@@ -353,6 +375,13 @@ public class CreateFarmActivity extends BaseActivity {
                     } else {
                         tvPurchaseContract.setText(String.format("%s", purchaseContract.getPurchaseUnit()));
                     }
+
+                    tvPurchaseContract.setEnabled(false);
+                    tvPurchaseContract.setBackgroundDrawable(ContextCompat.getDrawable(getApplicationContext(), R.drawable.rectangle_border_disabled));
+                } else {
+                    tvPurchaseContract.setEnabled(true);
+                    tvPurchaseContract.setBackgroundDrawable(ContextCompat.getDrawable(getApplicationContext(), R.drawable.rectangle_border_black));
+                    tvPurchaseContract.setText("");
                 }
 
                 validateFields();
@@ -521,7 +550,11 @@ public class CreateFarmActivity extends BaseActivity {
                     if (farmViewModel.selectedSuppliersProductTypes != null && farmViewModel.selectedSuppliersProductTypes.getProductTypeId() > 0) {
                         if (farmViewModel.selectedPurchaseContract != null && farmViewModel.selectedPurchaseContract.getContractId() > 0) {
                             if (Objects.requireNonNull(etInventoryNumber.getText()).length() > 0) {
-                                btnSubmit.setEnabled(Objects.requireNonNull(etTruckPlateNumber.getText()).length() > 0);
+                                if (Objects.requireNonNull(etTruckPlateNumber.getText()).length() > 0) {
+                                    btnSubmit.setEnabled(Objects.requireNonNull(etTruckDriverNumber.getText()).length() > 0);
+                                } else {
+                                    btnSubmit.setEnabled(false);
+                                }
                             } else {
                                 btnSubmit.setEnabled(false);
                             }
@@ -561,6 +594,7 @@ public class CreateFarmActivity extends BaseActivity {
                 farmDetail.setPurchaseContractId(farmViewModel.selectedPurchaseContract.getContractId());
                 farmDetail.setPurchaseDate(Objects.requireNonNull(tvPurchaseDate.getText()).toString());
                 farmDetail.setTruckPlateNumber(Objects.requireNonNull(etTruckPlateNumber.getText()).toString());
+                farmDetail.setTruckDriverName(Objects.requireNonNull(etTruckDriverNumber.getText()).toString());
                 farmDetail.setSupplierName(farmViewModel.selectedSupplier.getSupplierName());
                 farmDetail.setProductName(farmViewModel.selectedSuppliersProducts.getProductName());
                 farmDetail.setMeasurementSystem(farmViewModel.selectedPurchaseContract.getPurchaseUnit());

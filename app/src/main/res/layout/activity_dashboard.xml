@@ -276,31 +276,73 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/constraintLayout1">
 
-                    <androidx.appcompat.widget.AppCompatTextView
-                        android:id="@+id/tvVolume"
-                        android:layout_width="wrap_content"
+                    <LinearLayout
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:fontFamily="@font/montserrat_semibold"
-                        android:padding="@dimen/margin_medium"
-                        android:textColor="@color/colorCharcoal"
-                        android:textSize="@dimen/text_semimedium"
+                        android:orientation="horizontal"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
+                        app:layout_constraintTop_toTopOf="parent"
+                        android:weightSum="1">
 
-                    <androidx.appcompat.widget.AppCompatTextView
-                        android:layout_width="@dimen/margin_zero"
-                        android:layout_height="wrap_content"
-                        android:fontFamily="@font/montserrat_medium"
-                        android:gravity="start"
-                        android:text="@string/m"
-                        android:textColor="@color/colorBlack"
-                        android:textSize="@dimen/text_medium"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toEndOf="@id/tvVolume"
-                        app:layout_constraintTop_toTopOf="parent" />
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            android:layout_weight="0.50">
 
+                            <androidx.appcompat.widget.AppCompatTextView
+                                android:id="@+id/tvPieces"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:fontFamily="@font/montserrat_semibold"
+                                android:padding="@dimen/margin_medium"
+                                android:textColor="@color/colorCharcoal"
+                                android:textSize="@dimen/text_medium" />
+
+                            <androidx.appcompat.widget.AppCompatTextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:fontFamily="@font/montserrat_medium"
+                                android:gravity="start"
+                                android:text="@string/pieces"
+                                android:textColor="@color/colorBlack"
+                                android:textSize="@dimen/text_semimedium" />
+                        </LinearLayout>
+
+                        <View
+                            android:layout_marginTop="@dimen/margin_medium"
+                            android:layout_marginBottom="@dimen/margin_medium"
+                            android:layout_width="1dp"
+                            android:layout_height="match_parent"
+                            android:background="@color/home_dashboard_dark" />
+
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            android:layout_weight="0.50">
+
+                            <androidx.appcompat.widget.AppCompatTextView
+                                android:id="@+id/tvVolume"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:fontFamily="@font/montserrat_semibold"
+                                android:padding="@dimen/margin_medium"
+                                android:textColor="@color/colorCharcoal"
+                                android:textSize="@dimen/text_medium" />
+
+                            <androidx.appcompat.widget.AppCompatTextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:fontFamily="@font/montserrat_medium"
+                                android:gravity="start"
+                                android:text="@string/m"
+                                android:textColor="@color/colorBlack"
+                                android:textSize="@dimen/text_semimedium" />
+                        </LinearLayout>
+
+                    </LinearLayout>
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
             </androidx.constraintlayout.widget.ConstraintLayout>
@@ -478,30 +520,73 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/constraintLayout11">
 
-                    <androidx.appcompat.widget.AppCompatTextView
-                        android:id="@+id/tvRecentVolume"
-                        android:layout_width="wrap_content"
+                    <LinearLayout
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:fontFamily="@font/montserrat_semibold"
-                        android:padding="@dimen/margin_medium"
-                        android:textColor="@color/colorCharcoal"
-                        android:textSize="@dimen/text_semimedium"
+                        android:orientation="horizontal"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
+                        app:layout_constraintTop_toTopOf="parent"
+                        android:weightSum="1">
 
-                    <androidx.appcompat.widget.AppCompatTextView
-                        android:layout_width="@dimen/margin_zero"
-                        android:layout_height="wrap_content"
-                        android:fontFamily="@font/montserrat_medium"
-                        android:gravity="start"
-                        android:text="@string/m"
-                        android:textColor="@color/colorBlack"
-                        android:textSize="@dimen/text_medium"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toEndOf="@id/tvRecentVolume"
-                        app:layout_constraintTop_toTopOf="parent" />
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            android:layout_weight="0.50">
+
+                            <androidx.appcompat.widget.AppCompatTextView
+                                android:id="@+id/tvRecentPieces"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:fontFamily="@font/montserrat_semibold"
+                                android:padding="@dimen/margin_medium"
+                                android:textColor="@color/colorCharcoal"
+                                android:textSize="@dimen/text_medium" />
+
+                            <androidx.appcompat.widget.AppCompatTextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:fontFamily="@font/montserrat_medium"
+                                android:gravity="start"
+                                android:text="@string/pieces"
+                                android:textColor="@color/colorBlack"
+                                android:textSize="@dimen/text_semimedium" />
+                        </LinearLayout>
+
+                        <View
+                            android:layout_marginTop="@dimen/margin_medium"
+                            android:layout_marginBottom="@dimen/margin_medium"
+                            android:layout_width="1dp"
+                            android:layout_height="match_parent"
+                            android:background="@color/home_dashboard_dark" />
+
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            android:layout_weight="0.50">
+
+                            <androidx.appcompat.widget.AppCompatTextView
+                                android:id="@+id/tvRecentVolume"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:fontFamily="@font/montserrat_semibold"
+                                android:padding="@dimen/margin_medium"
+                                android:textColor="@color/colorCharcoal"
+                                android:textSize="@dimen/text_medium" />
+
+                            <androidx.appcompat.widget.AppCompatTextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:fontFamily="@font/montserrat_medium"
+                                android:gravity="start"
+                                android:text="@string/m"
+                                android:textColor="@color/colorBlack"
+                                android:textSize="@dimen/text_semimedium" />
+                        </LinearLayout>
+
+                    </LinearLayout>
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
             </androidx.constraintlayout.widget.ConstraintLayout>

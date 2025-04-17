@@ -47,11 +47,11 @@ public interface FarmDetailsDao {
     @Query("UPDATE FarmDetails SET isClosed = :isClosed, closedBy = :closedBy, closedDate = :closedDate WHERE inventoryOrder = :inventoryOrder")
     int updateFarmDetailsClosed(boolean isClosed, int closedBy, String closedDate, String inventoryOrder);
 
-    @Query("SELECT COUNT(DISTINCT supplierId) AS supplierCount, SUM(grossVolume) AS grossVolume, COUNT(inventoryOrder) AS totalICA " +
+    @Query("SELECT COUNT(DISTINCT supplierId) AS supplierCount, SUM(totalPieces) AS totalPieces, SUM(grossVolume) AS grossVolume, COUNT(inventoryOrder) AS totalICA " +
             "FROM FarmDetails WHERE purchaseDate = :todayDate")
     FarmDetailDashboardModel fetchTodayDashboardData(String todayDate);
 
-    @Query("SELECT COUNT(DISTINCT supplierId) AS supplierCount, SUM(grossVolume) AS grossVolume, " +
+    @Query("SELECT COUNT(DISTINCT supplierId) AS supplierCount, SUM(totalPieces) AS totalPieces, SUM(grossVolume) AS grossVolume, " +
             "COUNT(inventoryOrder) AS totalICA " +
             "FROM FarmDetails " +
             "WHERE DATE(SUBSTR(purchaseDate, 7, 4) || '-' || SUBSTR(purchaseDate, 4, 2) || '-' || " +

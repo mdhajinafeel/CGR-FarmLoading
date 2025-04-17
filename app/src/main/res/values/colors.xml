@@ -26,4 +26,5 @@
     <color name="colorFabText">#408943</color>
     <color name="home_dashboard_enable_bg">#DBE4AC</color>
     <color name="home_dashboard_disable_bg">#dfdfdf</color>
+    <color name="home_dashboard_dark">#656A45</color>
 </resources>

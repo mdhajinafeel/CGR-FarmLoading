@@ -5,7 +5,7 @@ import java.util.List;
 
 public class FarmDetailsRequest implements Serializable {
 
-    private String tempFarmId, inventoryOrder, purchaseDate, truckPlateNumber, closedDate;
+    private String tempFarmId, inventoryOrder, purchaseDate, truckPlateNumber, truckDriverName, closedDate;
     private int farmId, supplierId, productId, productTypeId, purchaseUnitId, purchaseContractId, totalPieces, createdBy, closedBy, originId;
     private double grossVolume, netVolume, circAllowance, lengthAllowance;
     private boolean isClosed;
@@ -177,5 +177,13 @@ public class FarmDetailsRequest implements Serializable {
 
     public void setFarmCapturedData(List<FarmCapturedDataRequest> farmCapturedData) {
         this.farmCapturedData = farmCapturedData;
+    }
+
+    public String getTruckDriverName() {
+        return truckDriverName;
+    }
+
+    public void setTruckDriverName(String truckDriverName) {
+        this.truckDriverName = truckDriverName;
     }
 }
