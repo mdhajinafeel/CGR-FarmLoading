@@ -140,71 +140,84 @@ public class FarmDataActivity extends BaseActivity {
                     etPieces.setOnEditorActionListener((v, actionId, event) -> {
                         if (actionId == EditorInfo.IME_ACTION_DONE) {
 
-                            FarmDataModel farmDataModel = calculateVolume();
-                            if(isEdit) {
-                                FarmCapturedData farmCapturedData = new FarmCapturedData();
-                                farmCapturedData.setInventoryOrder(farmDataModel.getInventoryOrder());
-                                farmCapturedData.setCircumference(farmDataModel.getCircumference());
-                                farmCapturedData.setLength(farmDataModel.getLength());
-                                farmCapturedData.setCircAllowance(farmDataModel.getCircAllowance());
-                                farmCapturedData.setLengthAllowance(farmDataModel.getLengthAllowance());
-                                farmCapturedData.setPieces(farmDataModel.getPieces());
-                                farmCapturedData.setGrossVolume(farmDataModel.getGrossVolume());
-                                farmCapturedData.setNetVolume(farmDataModel.getNetVolume());
-                                farmCapturedData.setFarmId(farmCapturedDataEdit.getFarmId());
-                                farmCapturedData.setFarmDataId(farmCapturedDataEdit.getFarmDataId());
-                                farmCapturedData.setCaptureTimeStamp(farmCapturedDataEdit.getCaptureTimeStamp());
-                                farmCapturedData.setIsSynced(false);
+                            boolean isValid = true;
 
-                                farmViewModel.updateFarmCapturedData(farmDetails, farmCapturedData);
-
-                                farmDetails = farmViewModel.fetchFarmDetails(farmDetails.getInventoryOrder(), farmDetails.getSupplierId());
-                                if(farmDetails != null) {
-                                    tvTotalPieces.setText(String.valueOf(farmDetails.getTotalPieces()));
-                                    tvGrossVolume.setText(df.format(farmDetails.getGrossVolume()));
-
-                                    totalPieces = farmDetails.getTotalPieces();
-                                    totalGrossVolume = farmDetails.getGrossVolume();
-                                    totalNetVolume = farmDetails.getNetVolume();
-                                }
-
-                                isEdit = false;
-
-                            } else {
-                                totalPieces = totalPieces + farmDataModel.getPieces();
-                                totalGrossVolume = totalGrossVolume + farmDataModel.getGrossVolume();
-                                totalNetVolume = totalNetVolume + farmDataModel.getNetVolume();
-
-                                tvTotalPieces.setText(String.valueOf(totalPieces));
-                                tvGrossVolume.setText(df.format(totalGrossVolume));
-
-                                etCircumference.setText("");
-                                etLength.setText("");
-                                etPieces.setText("");
-
-                                FarmCapturedData farmCapturedData = new FarmCapturedData();
-                                farmCapturedData.setInventoryOrder(farmDataModel.getInventoryOrder());
-                                farmCapturedData.setCircumference(farmDataModel.getCircumference());
-                                farmCapturedData.setLength(farmDataModel.getLength());
-                                farmCapturedData.setCircAllowance(farmDataModel.getCircAllowance());
-                                farmCapturedData.setLengthAllowance(farmDataModel.getLengthAllowance());
-                                farmCapturedData.setPieces(farmDataModel.getPieces());
-                                farmCapturedData.setGrossVolume(farmDataModel.getGrossVolume());
-                                farmCapturedData.setNetVolume(farmDataModel.getNetVolume());
-                                farmCapturedData.setFarmDataId(0);
-                                farmCapturedData.setFarmId(farmDetails.getFarmId());
-                                farmCapturedData.setIsSynced(false);
-                                farmCapturedData.setCaptureTimeStamp(CommonUtils.getCurrentLocalDateTimeStamp());
-
-                                farmViewModel.saveOrUpdateFarmData(farmCapturedData, farmDetails.getInventoryOrder(), farmDetails.getSupplierId(),
-                                        totalPieces, totalGrossVolume, totalNetVolume);
-
+                            if(Double.parseDouble(Objects.requireNonNull(etCircumference.getText()).toString()) <= 0) {
+                                isValid = false;
+                                Toast.makeText(getApplicationContext(), "Girth should not be equal or lesser than zero", Toast.LENGTH_SHORT).show();
+                            } else if(Double.parseDouble(Objects.requireNonNull(etLength.getText()).toString()) <= 0) {
+                                isValid = false;
+                                Toast.makeText(getApplicationContext(), "Length should not be equal or lesser than zero", Toast.LENGTH_SHORT).show();
+                            } else if(Integer.parseInt(Objects.requireNonNull(etPieces.getText()).toString()) <= 0) {
+                                isValid = false;
+                                Toast.makeText(getApplicationContext(), "Pieces should not be equal or lesser than zero", Toast.LENGTH_SHORT).show();
                             }
 
-                            focusEditText();
-                            enabledCloseFarmBtn();
-                            return true;
+                            if(isValid) {
+                                FarmDataModel farmDataModel = calculateVolume();
+                                if(isEdit) {
+                                    FarmCapturedData farmCapturedData = new FarmCapturedData();
+                                    farmCapturedData.setInventoryOrder(farmDataModel.getInventoryOrder());
+                                    farmCapturedData.setCircumference(farmDataModel.getCircumference());
+                                    farmCapturedData.setLength(farmDataModel.getLength());
+                                    farmCapturedData.setCircAllowance(farmDataModel.getCircAllowance());
+                                    farmCapturedData.setLengthAllowance(farmDataModel.getLengthAllowance());
+                                    farmCapturedData.setPieces(farmDataModel.getPieces());
+                                    farmCapturedData.setGrossVolume(farmDataModel.getGrossVolume());
+                                    farmCapturedData.setNetVolume(farmDataModel.getNetVolume());
+                                    farmCapturedData.setFarmId(farmCapturedDataEdit.getFarmId());
+                                    farmCapturedData.setFarmDataId(farmCapturedDataEdit.getFarmDataId());
+                                    farmCapturedData.setCaptureTimeStamp(farmCapturedDataEdit.getCaptureTimeStamp());
+                                    farmCapturedData.setIsSynced(false);
 
+                                    farmViewModel.updateFarmCapturedData(farmDetails, farmCapturedData);
+
+                                    farmDetails = farmViewModel.fetchFarmDetails(farmDetails.getInventoryOrder(), farmDetails.getSupplierId());
+                                    if(farmDetails != null) {
+                                        tvTotalPieces.setText(String.valueOf(farmDetails.getTotalPieces()));
+                                        tvGrossVolume.setText(df.format(farmDetails.getGrossVolume()));
+
+                                        totalPieces = farmDetails.getTotalPieces();
+                                        totalGrossVolume = farmDetails.getGrossVolume();
+                                        totalNetVolume = farmDetails.getNetVolume();
+                                    }
+
+                                    isEdit = false;
+
+                                } else {
+                                    totalPieces = totalPieces + farmDataModel.getPieces();
+                                    totalGrossVolume = totalGrossVolume + farmDataModel.getGrossVolume();
+                                    totalNetVolume = totalNetVolume + farmDataModel.getNetVolume();
+
+                                    tvTotalPieces.setText(String.valueOf(totalPieces));
+                                    tvGrossVolume.setText(df.format(totalGrossVolume));
+
+                                    etCircumference.setText("");
+                                    etLength.setText("");
+                                    etPieces.setText("");
+
+                                    FarmCapturedData farmCapturedData = new FarmCapturedData();
+                                    farmCapturedData.setInventoryOrder(farmDataModel.getInventoryOrder());
+                                    farmCapturedData.setCircumference(farmDataModel.getCircumference());
+                                    farmCapturedData.setLength(farmDataModel.getLength());
+                                    farmCapturedData.setCircAllowance(farmDataModel.getCircAllowance());
+                                    farmCapturedData.setLengthAllowance(farmDataModel.getLengthAllowance());
+                                    farmCapturedData.setPieces(farmDataModel.getPieces());
+                                    farmCapturedData.setGrossVolume(farmDataModel.getGrossVolume());
+                                    farmCapturedData.setNetVolume(farmDataModel.getNetVolume());
+                                    farmCapturedData.setFarmDataId(0);
+                                    farmCapturedData.setFarmId(farmDetails.getFarmId());
+                                    farmCapturedData.setIsSynced(false);
+                                    farmCapturedData.setCaptureTimeStamp(CommonUtils.getCurrentLocalDateTimeStamp());
+
+                                    farmViewModel.saveOrUpdateFarmData(farmCapturedData, farmDetails.getInventoryOrder(), farmDetails.getSupplierId(),
+                                            totalPieces, totalGrossVolume, totalNetVolume);
+                                }
+
+                                focusEditText();
+                                enabledCloseFarmBtn();
+                                return true;
+                            }
                         }
                         return false;
                     });
