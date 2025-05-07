@@ -15,6 +15,7 @@ public enum PreferenceManager {
     private static final String KEY_USER_ID = "userId";
     private static final String KEY_ORIGIN_ID = "originId";
     private static final String LAST_TEMP_RECEPTION_ID = "LAST_TEMP_RECEPTION_ID";
+    private static final String KEY_FIREBASE_TOKEN = "fb_token";
     public static final String PREF_NAME = "CGR_FARM_PREF";
 
     private UserPreferences preferenceHandle;
@@ -93,6 +94,14 @@ public enum PreferenceManager {
 
     public String getLastTempReceptionId() {
         return this.preferenceHandle.getString(LAST_TEMP_RECEPTION_ID, "");
+    }
+
+    public String getKeyFirebaseToken() {
+        return this.preferenceHandle.getString(KEY_FIREBASE_TOKEN, "");
+    }
+
+    public void setKeyFirebaseToken(String firebaseToken) {
+        this.preferenceHandle.setString(KEY_FIREBASE_TOKEN, firebaseToken);
     }
 
     public void clearLoginDetails() {

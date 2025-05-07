@@ -1,7 +1,10 @@
 package com.codringreen.farmloading.view.activities;
 
+import android.Manifest;
 import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.os.Build;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.InputType;
@@ -11,6 +14,8 @@ import android.view.MotionEvent;
 
 import androidx.appcompat.widget.AppCompatButton;
 import androidx.appcompat.widget.AppCompatEditText;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.codringreen.farmloading.BuildConfig;
@@ -43,6 +48,14 @@ public class LoginActivity extends BaseActivity {
         try {
 
             hideKeyboard(this);
+
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+                if (ContextCompat.checkSelfPermission(this, Manifest.permission.POST_NOTIFICATIONS)
+                        != PackageManager.PERMISSION_GRANTED) {
+                    ActivityCompat.requestPermissions(this,
+                            new String[]{Manifest.permission.POST_NOTIFICATIONS}, 1);
+                }
+            }
 
             etUserName = findViewById(R.id.etUserName);
             etPassword = findViewById(R.id.etPassword);
@@ -106,8 +119,17 @@ public class LoginActivity extends BaseActivity {
             });
 
             btnLogin.setOnClickListener(v -> {
+
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+                    if (ContextCompat.checkSelfPermission(this, Manifest.permission.POST_NOTIFICATIONS)
+                            != PackageManager.PERMISSION_GRANTED) {
+                        ActivityCompat.requestPermissions(this,
+                                new String[]{Manifest.permission.POST_NOTIFICATIONS}, 1);
+                    }
+                }
+
                 LoginRequest loginRequest = new LoginRequest(1, BuildConfig.ROLE_ID, Objects.requireNonNull(etUserName.getText()).toString(),
-                        Objects.requireNonNull(etPassword.getText()).toString());
+                        Objects.requireNonNull(etPassword.getText()).toString(), PreferenceManager.INSTANCE.getKeyFirebaseToken());
 
                 loginViewModel.postLogin(loginRequest);
             });

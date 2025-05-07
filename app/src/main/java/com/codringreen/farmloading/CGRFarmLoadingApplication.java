@@ -5,6 +5,7 @@ import android.app.Application;
 import com.codringreen.farmloading.di.component.DaggerAppComponent;
 import com.codringreen.farmloading.helper.PreferenceManager;
 import com.facebook.stetho.Stetho;
+import com.google.firebase.FirebaseApp;
 
 import javax.inject.Inject;
 

@@ -16,6 +16,7 @@ import androidx.core.content.res.ResourcesCompat;
 
 import com.codringreen.farmloading.R;
 import com.codringreen.farmloading.utils.CommonUtils;
+import com.google.firebase.FirebaseApp;
 
 import dagger.android.AndroidInjection;
 import dagger.android.support.DaggerAppCompatActivity;
@@ -27,6 +28,9 @@ public abstract class BaseActivity extends DaggerAppCompatActivity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         AndroidInjection.inject(this);
+
+        //FIREBASE
+        FirebaseApp.initializeApp(this);
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
             lockPortraitMode();

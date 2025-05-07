@@ -1,6 +1,7 @@
 [versions]
 agp = "8.8.2"
 daggerCompiler = "2.50"
+firebaseBom = "33.12.0"
 glide = "4.16.0"
 junit = "4.13.2"
 junitVersion = "1.2.1"
@@ -13,6 +14,7 @@ roomRuntime = "2.6.1"
 securedpreferencestore = "0.3.0"
 securestoragelibrary = "1.2.3"
 stetho = "1.6.0"
+firebaseMessaging = "24.1.1"
 
 [libraries]
 compiler = { module = "com.github.bumptech.glide:compiler", version.ref = "glide" }
@@ -22,6 +24,8 @@ dagger-android = { module = "com.google.dagger:dagger-android", version.ref = "d
 dagger-android-processor = { module = "com.google.dagger:dagger-android-processor", version.ref = "daggerCompiler" }
 dagger-android-support = { module = "com.google.dagger:dagger-android-support", version.ref = "daggerCompiler" }
 dagger-compiler = { module = "com.google.dagger:dagger-compiler", version.ref = "daggerCompiler" }
+firebase-analytics = { module = "com.google.firebase:firebase-analytics" }
+firebase-bom = { module = "com.google.firebase:firebase-bom", version.ref = "firebaseBom" }
 glide = { module = "com.github.bumptech.glide:glide", version.ref = "glide" }
 junit = { group = "junit", name = "junit", version.ref = "junit" }
 ext-junit = { group = "androidx.test.ext", name = "junit", version.ref = "junitVersion" }
@@ -37,6 +41,7 @@ securedpreferencestore = { module = "devliving.online:SecuredPreferenceStore", v
 securestoragelibrary = { module = "de.adorsys.android:securestoragelibrary", version.ref = "securestoragelibrary" }
 stetho = { module = "com.facebook.stetho:stetho", version.ref = "stetho" }
 stetho-okhttp3 = { module = "com.facebook.stetho:stetho-okhttp3", version.ref = "stetho" }
+firebase-messaging = { group = "com.google.firebase", name = "firebase-messaging", version.ref = "firebaseMessaging" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }

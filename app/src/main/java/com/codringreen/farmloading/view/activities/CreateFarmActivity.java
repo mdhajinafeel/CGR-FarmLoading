@@ -1,6 +1,5 @@
 package com.codringreen.farmloading.view.activities;
 
-import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.os.Bundle;
 import android.text.Editable;
@@ -38,11 +37,8 @@ import com.codringreen.farmloading.view.adapter.ViewHolder;
 import com.codringreen.farmloading.viewmodel.FarmViewModel;
 import com.codringreen.farmloading.viewmodel.ViewModelFactory;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.List;
-import java.util.Locale;
 import java.util.Objects;
 
 import javax.inject.Inject;
@@ -60,7 +56,6 @@ public class CreateFarmActivity extends BaseActivity {
     private CommonRecyclerViewAdapter<SupplierProducts> supplierProductsCommonRecyclerViewAdapter;
     private CommonRecyclerViewAdapter<SupplierProductTypes> supplierProductTypesCommonRecyclerViewAdapter;
     private CommonRecyclerViewAdapter<PurchaseContract> purchaseContractCommonRecyclerViewAdapter;
-    private final Calendar calendar = Calendar.getInstance();
 
     private FarmViewModel farmViewModel;
 
@@ -95,15 +90,8 @@ public class CreateFarmActivity extends BaseActivity {
             txtTitle.setText(getString(R.string.create_farm));
             imgBack.setOnClickListener(v -> finish());
 
-            farmViewModel.getError().observe(this, s ->
-                    showDialog(s, farmViewModel.getErrorTitle(), null, getString(R.string.text_ok)));
-
-
-            farmViewModel.getFarmCreateStatus().observe(this, aBoolean -> {
-                if (aBoolean) {
-                    Toast.makeText(getApplicationContext(), R.string.data_download_success, Toast.LENGTH_SHORT).show();
-                }
-            });
+            //private final Calendar calendar = Calendar.getInstance();
+            Bundle bundle = getIntent().getExtras();
 
             farmViewModel.getProgressBar().observe(this, aBoolean -> {
                 if (aBoolean) {
@@ -117,70 +105,186 @@ public class CreateFarmActivity extends BaseActivity {
                 }
             });
 
-            btnSubmit.setOnClickListener(v -> saveFarmDetails());
+            farmViewModel.getError().observe(this, s ->
+                    showDialog(s, farmViewModel.getErrorTitle(), null, getString(R.string.text_ok)));
 
-            tvPurchaseDate.setText(CommonUtils.convertTimeStampToDate(CommonUtils.getCurrentLocalDateTimeStamp(), "dd/MM/yyyy"));
-            suppliersList = new ArrayList<>();
-            suppliersList = farmViewModel.fetchSupplierList();
+            if (bundle != null) {
+                if (bundle.getBoolean("IsEdit")) {
 
-            tvSupplierName.setOnClickListener(v -> showDataDialog("Supplier"));
-            tvWoodSpecies.setOnClickListener(v -> showDataDialog("Product"));
-            tvWoodType.setOnClickListener(v -> showDataDialog("ProductType"));
-            tvPurchaseContract.setOnClickListener(v -> showDataDialog("PurchaseContract"));
-            //tvPurchaseDate.setOnClickListener(v -> showDatePickerDialog());
+                    tvSupplierName.setEnabled(false);
+                    tvWoodSpecies.setEnabled(false);
+                    tvWoodType.setEnabled(false);
+                    tvPurchaseContract.setEnabled(false);
+                    tvPurchaseDate.setEnabled(false);
 
-            etInventoryNumber.addTextChangedListener(new TextWatcher() {
-                @Override
-                public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+                    tvSupplierName.setBackgroundDrawable(ContextCompat.getDrawable(getApplicationContext(), R.drawable.rectangle_border_disabled));
+                    tvWoodSpecies.setBackgroundDrawable(ContextCompat.getDrawable(getApplicationContext(), R.drawable.rectangle_border_disabled));
+                    tvWoodType.setBackgroundDrawable(ContextCompat.getDrawable(getApplicationContext(), R.drawable.rectangle_border_disabled));
+                    tvPurchaseContract.setBackgroundDrawable(ContextCompat.getDrawable(getApplicationContext(), R.drawable.rectangle_border_disabled));
+                    tvPurchaseDate.setBackgroundDrawable(ContextCompat.getDrawable(getApplicationContext(), R.drawable.rectangle_border_disabled));
 
+                    FarmDetails farmDetails = (FarmDetails) bundle.getSerializable("FarmDetail");
+
+                    if (farmDetails != null) {
+
+                        tvSupplierName.setText(farmDetails.getSupplierName());
+                        tvWoodSpecies.setText(farmDetails.getProductName());
+                        if (farmDetails.getProductTypeId() == 1 || farmDetails.getProductTypeId() == 2) {
+                            tvWoodType.setText(getString(R.string.square_blocks));
+                        } else {
+                            tvWoodType.setText(getString(R.string.round_logs));
+                        }
+                        tvPurchaseContract.setText(String.format("%s - %s", farmDetails.getDescription(), farmDetails.getMeasurementSystem()));
+                        tvPurchaseDate.setText(farmDetails.getPurchaseDate());
+                        etInventoryNumber.setText(farmDetails.getInventoryOrder());
+                        etTruckPlateNumber.setText(farmDetails.getTruckPlateNumber());
+                        etTruckDriverNumber.setText(farmDetails.getTruckDriverName());
+
+                        etInventoryNumber.addTextChangedListener(new TextWatcher() {
+                            @Override
+                            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+                            }
+
+                            @Override
+                            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                                validateFieldsEdit();
+                            }
+
+                            @Override
+                            public void afterTextChanged(Editable s) {
+
+                            }
+                        });
+
+                        etTruckPlateNumber.addTextChangedListener(new TextWatcher() {
+                            @Override
+                            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+                            }
+
+                            @Override
+                            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                                validateFieldsEdit();
+                            }
+
+                            @Override
+                            public void afterTextChanged(Editable s) {
+
+                            }
+                        });
+
+                        etTruckDriverNumber.addTextChangedListener(new TextWatcher() {
+                            @Override
+                            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+                            }
+
+                            @Override
+                            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                                validateFieldsEdit();
+                            }
+
+                            @Override
+                            public void afterTextChanged(Editable s) {
+
+                            }
+                        });
+
+                        btnSubmit.setEnabled(true);
+
+                        btnSubmit.setOnClickListener(v -> {
+                            String truckDriverName = Objects.requireNonNull(etTruckDriverNumber.getText()).toString().trim();
+                            String truckPlateNumber = Objects.requireNonNull(etTruckPlateNumber.getText()).toString().trim();
+                            String inventoryNumber = Objects.requireNonNull(etInventoryNumber.getText()).toString().trim();
+
+                            if (farmViewModel.updateFarmDetails(truckDriverName, truckPlateNumber, inventoryNumber, farmDetails.getInventoryOrder(), farmDetails.getSupplierId()) > 0) {
+                                Toast.makeText(getApplicationContext(), getString(R.string.farm_updated), Toast.LENGTH_SHORT).show();
+                                finish();
+                            }
+                        });
+                    }
+
+                } else {
+
+                    farmViewModel.getFarmCreateStatus().observe(this, aBoolean -> {
+                        if (aBoolean) {
+                            Toast.makeText(getApplicationContext(), R.string.data_download_success, Toast.LENGTH_SHORT).show();
+                        }
+                    });
+
+                    btnSubmit.setOnClickListener(v -> saveFarmDetails());
+
+                    tvPurchaseDate.setText(CommonUtils.convertTimeStampToDate(CommonUtils.getCurrentLocalDateTimeStamp(), "dd/MM/yyyy"));
+                    suppliersList = new ArrayList<>();
+                    suppliersList = farmViewModel.fetchSupplierList();
+
+                    tvSupplierName.setOnClickListener(v -> showDataDialog("Supplier"));
+                    tvWoodSpecies.setOnClickListener(v -> showDataDialog("Product"));
+                    tvWoodType.setOnClickListener(v -> showDataDialog("ProductType"));
+                    tvPurchaseContract.setOnClickListener(v -> showDataDialog("PurchaseContract"));
+
+                    tvSupplierName.setBackgroundDrawable(ContextCompat.getDrawable(getApplicationContext(), R.drawable.rectangle_border_black));
+                    tvWoodSpecies.setBackgroundDrawable(ContextCompat.getDrawable(getApplicationContext(), R.drawable.rectangle_border_black));
+                    tvWoodType.setBackgroundDrawable(ContextCompat.getDrawable(getApplicationContext(), R.drawable.rectangle_border_black));
+                    tvPurchaseContract.setBackgroundDrawable(ContextCompat.getDrawable(getApplicationContext(), R.drawable.rectangle_border_black));
+                    tvPurchaseDate.setBackgroundDrawable(ContextCompat.getDrawable(getApplicationContext(), R.drawable.rectangle_border_black));
+                    //tvPurchaseDate.setOnClickListener(v -> showDatePickerDialog());
+
+                    etInventoryNumber.addTextChangedListener(new TextWatcher() {
+                        @Override
+                        public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+                        }
+
+                        @Override
+                        public void onTextChanged(CharSequence s, int start, int before, int count) {
+                            validateFields();
+                        }
+
+                        @Override
+                        public void afterTextChanged(Editable s) {
+
+                        }
+                    });
+
+                    etTruckPlateNumber.addTextChangedListener(new TextWatcher() {
+                        @Override
+                        public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+                        }
+
+                        @Override
+                        public void onTextChanged(CharSequence s, int start, int before, int count) {
+                            validateFields();
+                        }
+
+                        @Override
+                        public void afterTextChanged(Editable s) {
+
+                        }
+                    });
+
+                    etTruckDriverNumber.addTextChangedListener(new TextWatcher() {
+                        @Override
+                        public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+                        }
+
+                        @Override
+                        public void onTextChanged(CharSequence s, int start, int before, int count) {
+                            validateFields();
+                        }
+
+                        @Override
+                        public void afterTextChanged(Editable s) {
+
+                        }
+                    });
+
+                    PreferenceManager.INSTANCE.setLastTempReceptionId("");
                 }
-
-                @Override
-                public void onTextChanged(CharSequence s, int start, int before, int count) {
-                    validateFields();
-                }
-
-                @Override
-                public void afterTextChanged(Editable s) {
-
-                }
-            });
-
-            etTruckPlateNumber.addTextChangedListener(new TextWatcher() {
-                @Override
-                public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-                }
-
-                @Override
-                public void onTextChanged(CharSequence s, int start, int before, int count) {
-                    validateFields();
-                }
-
-                @Override
-                public void afterTextChanged(Editable s) {
-
-                }
-            });
-
-            etTruckDriverNumber.addTextChangedListener(new TextWatcher() {
-                @Override
-                public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-                }
-
-                @Override
-                public void onTextChanged(CharSequence s, int start, int before, int count) {
-                    validateFields();
-                }
-
-                @Override
-                public void afterTextChanged(Editable s) {
-
-                }
-            });
-
-            PreferenceManager.INSTANCE.setLastTempReceptionId("");
+            }
         } catch (Exception e) {
             Log.e("CreateFarmActivity", "Error in CreateFarmActivity InitComponents", e);
         }
@@ -287,7 +391,7 @@ public class CreateFarmActivity extends BaseActivity {
             supplierProductsCommonRecyclerViewAdapter.setOnItemClickListener((view, position) -> {
 
                 SupplierProducts supplierProducts;
-                if(!suppliersProductsArrayList.isEmpty()) {
+                if (!suppliersProductsArrayList.isEmpty()) {
                     supplierProducts = suppliersProductsArrayList.get(position);
                 } else {
                     supplierProducts = suppliersProductsList.get(position);
@@ -329,7 +433,7 @@ public class CreateFarmActivity extends BaseActivity {
                                     holder.itemView.getContext(), R.font.montserrat_medium));
                         }
 
-                        if(supplierProductType.getProductTypeId() == 1 || supplierProductType.getProductTypeId() == 3) {
+                        if (supplierProductType.getProductTypeId() == 1 || supplierProductType.getProductTypeId() == 3) {
                             holder.setViewText(R.id.tvName, getString(R.string.square_blocks));
                         } else {
                             holder.setViewText(R.id.tvName, getString(R.string.round_logs));
@@ -342,7 +446,7 @@ public class CreateFarmActivity extends BaseActivity {
             supplierProductTypesCommonRecyclerViewAdapter.setOnItemClickListener((view, position) -> {
 
                 SupplierProductTypes supplierProductTypes;
-                if(!suppliersProductTypesArrayList.isEmpty()) {
+                if (!suppliersProductTypesArrayList.isEmpty()) {
                     supplierProductTypes = suppliersProductTypesArrayList.get(position);
                 } else {
                     supplierProductTypes = suppliersProductTypesList.get(position);
@@ -366,11 +470,11 @@ public class CreateFarmActivity extends BaseActivity {
                 purchaseContractList = farmViewModel.fetchPurchaseContractList(supplierProductTypes.getSupplierId(),
                         supplierProductTypes.getProductId(), productTypesList);
 
-                if(purchaseContractList.size() == 1) {
+                if (purchaseContractList.size() == 1) {
                     PurchaseContract purchaseContract = purchaseContractList.get(0);
                     farmViewModel.setSelectedPurchaseContract(purchaseContractList, purchaseContractList, purchaseContract, 0);
 
-                    if(purchaseContract.getDescription() != null && !Objects.equals(purchaseContract.getDescription(), "")) {
+                    if (purchaseContract.getDescription() != null && !Objects.equals(purchaseContract.getDescription(), "")) {
                         tvPurchaseContract.setText(String.format("%s - %s", purchaseContract.getDescription(), purchaseContract.getPurchaseUnit()));
                     } else {
                         tvPurchaseContract.setText(String.format("%s", purchaseContract.getPurchaseUnit()));
@@ -419,13 +523,13 @@ public class CreateFarmActivity extends BaseActivity {
             purchaseContractCommonRecyclerViewAdapter.setOnItemClickListener((view, position) -> {
 
                 PurchaseContract purchaseContract;
-                if(!purchaseContractArrayList.isEmpty()) {
+                if (!purchaseContractArrayList.isEmpty()) {
                     purchaseContract = purchaseContractArrayList.get(position);
                 } else {
                     purchaseContract = purchaseContractList.get(position);
                 }
 
-                if(purchaseContract.getDescription() != null && !Objects.equals(purchaseContract.getDescription(), "")) {
+                if (purchaseContract.getDescription() != null && !Objects.equals(purchaseContract.getDescription(), "")) {
                     tvPurchaseContract.setText(String.format("%s - %s", purchaseContract.getDescription(), purchaseContract.getPurchaseUnit()));
                 } else {
                     tvPurchaseContract.setText(String.format("%s", purchaseContract.getPurchaseUnit()));
@@ -523,28 +627,29 @@ public class CreateFarmActivity extends BaseActivity {
         }
     }
 
-    private void showDatePickerDialog() {
-        int year = calendar.get(Calendar.YEAR);
-        int month = calendar.get(Calendar.MONTH);
-        int day = calendar.get(Calendar.DAY_OF_MONTH);
-
-        DatePickerDialog datePickerDialog = new DatePickerDialog(this,
-                (view, selectedYear, selectedMonth, selectedDay) -> {
-                    calendar.set(Calendar.YEAR, selectedYear);
-                    calendar.set(Calendar.MONTH, selectedMonth);
-                    calendar.set(Calendar.DAY_OF_MONTH, selectedDay);
-
-                    String myFormat = "dd/MM/yyyy";
-                    SimpleDateFormat sdf = new SimpleDateFormat(myFormat, Locale.getDefault());
-                    tvPurchaseDate.setText(sdf.format(calendar.getTime()));
-
-                }, year, month, day);
-
-        datePickerDialog.show();
-    }
+//    private void showDatePickerDialog() {
+//        int year = calendar.get(Calendar.YEAR);
+//        int month = calendar.get(Calendar.MONTH);
+//        int day = calendar.get(Calendar.DAY_OF_MONTH);
+//
+//        DatePickerDialog datePickerDialog = new DatePickerDialog(this,
+//                (view, selectedYear, selectedMonth, selectedDay) -> {
+//                    calendar.set(Calendar.YEAR, selectedYear);
+//                    calendar.set(Calendar.MONTH, selectedMonth);
+//                    calendar.set(Calendar.DAY_OF_MONTH, selectedDay);
+//
+//                    String myFormat = "dd/MM/yyyy";
+//                    SimpleDateFormat sdf = new SimpleDateFormat(myFormat, Locale.getDefault());
+//                    tvPurchaseDate.setText(sdf.format(calendar.getTime()));
+//
+//                }, year, month, day);
+//
+//        datePickerDialog.show();
+//    }
 
     private void validateFields() {
         try {
+
             if (farmViewModel.selectedSupplier != null && farmViewModel.selectedSupplier.getSupplierId() > 0) {
                 if (farmViewModel.selectedSuppliersProducts != null && farmViewModel.selectedSuppliersProducts.getProductId() > 0) {
                     if (farmViewModel.selectedSuppliersProductTypes != null && farmViewModel.selectedSuppliersProductTypes.getProductTypeId() > 0) {
@@ -581,7 +686,7 @@ public class CreateFarmActivity extends BaseActivity {
             int countInventoryNumber = farmViewModel.getInventoryCount(Objects.requireNonNull(etInventoryNumber.getText()).toString(),
                     farmViewModel.selectedSupplier.getSupplierId());
 
-            if(countInventoryNumber > 0) {
+            if (countInventoryNumber > 0) {
                 showDialog(getString(R.string.inventory_number_already_exists), getString(R.string.information),
                         (dialog, which) -> dialog.dismiss(), getString(R.string.text_ok));
             } else {
@@ -633,6 +738,22 @@ public class CreateFarmActivity extends BaseActivity {
             }
         } catch (Exception e) {
             Log.e("CreateFarmActivity", "Error in CreateFarmActivity saveFarmDetails", e);
+        }
+    }
+
+    private void validateFieldsEdit() {
+        try {
+            if (Objects.requireNonNull(etInventoryNumber.getText()).length() > 0) {
+                if (Objects.requireNonNull(etTruckPlateNumber.getText()).length() > 0) {
+                    btnSubmit.setEnabled(Objects.requireNonNull(etTruckDriverNumber.getText()).length() > 0);
+                } else {
+                    btnSubmit.setEnabled(false);
+                }
+            } else {
+                btnSubmit.setEnabled(false);
+            }
+        } catch (Exception e) {
+            Log.e("CreateFarmActivity", "Error in CreateFarmActivity validateFields", e);
         }
     }
 }

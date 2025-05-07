@@ -1,7 +1,12 @@
 package com.codringreen.farmloading.view.activities;
 
+import android.Manifest;
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
+import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -22,6 +27,7 @@ import androidx.appcompat.widget.AppCompatTextView;
 import androidx.appcompat.widget.Toolbar;
 import androidx.cardview.widget.CardView;
 import androidx.core.app.ActivityCompat;
+import androidx.core.app.NotificationCompat;
 import androidx.core.content.ContextCompat;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
@@ -78,6 +84,14 @@ public class DashboardActivity extends BaseActivity implements AdapterView.OnIte
     private void initComponents() {
         try {
             hideKeyboard(this);
+
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+                if (ContextCompat.checkSelfPermission(this, Manifest.permission.POST_NOTIFICATIONS)
+                        != PackageManager.PERMISSION_GRANTED) {
+                    ActivityCompat.requestPermissions(this,
+                            new String[]{Manifest.permission.POST_NOTIFICATIONS}, 1);
+                }
+            }
 
             drawerLayout = findViewById(R.id.drawerLayout);
             toolBar = findViewById(R.id.toolbar);
@@ -315,7 +329,7 @@ public class DashboardActivity extends BaseActivity implements AdapterView.OnIte
         File externalStorageDirectory = Environment.getExternalStorageDirectory();
         File dataDirectory = Environment.getDataDirectory();
         String str = "cgr_farmloading" + ("_" + CommonUtils.convertTimeStampToDate(CommonUtils.getCurrentLocalDateTimeStamp(), "dd_MM_yyyy_HH_mm_ss_S")) + ".db";
-        File file = new File(dataDirectory, "/data/" + BuildConfig.APPLICATION_ID +"/databases/cgr_farmloading.db");
+        File file = new File(dataDirectory, "/data/" + BuildConfig.APPLICATION_ID +"/databases/cgr_farmloadingv1.db");
         File file2 = new File(externalStorageDirectory + "/Codrin Green", str);
         File file3 = new File(externalStorageDirectory + "/Codrin Green");
         if (!file3.exists()) {

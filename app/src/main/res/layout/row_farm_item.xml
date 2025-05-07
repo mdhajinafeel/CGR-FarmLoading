@@ -14,12 +14,21 @@
 
         <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/imgEdit"
-            android:layout_width="70dp"
+            android:layout_width="35dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:gravity="center"
             android:padding="8dp"
             android:src="@drawable/ic_edit" />
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/imgView"
+            android:layout_width="35dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:padding="8dp"
+            android:src="@drawable/ic_view" />
 
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/tvInventoryOrder"

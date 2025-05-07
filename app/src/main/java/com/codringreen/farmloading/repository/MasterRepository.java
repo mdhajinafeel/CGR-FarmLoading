@@ -237,6 +237,7 @@ public class MasterRepository {
                 farmDetail.setClosedBy(0);
                 farmDetail.setClosedDate("");
                 farmDetail.setForData(farmDetailsMasterResponse.isForData());
+                farmDetail.setProductTypeName(farmDetailsMasterResponse.getProductTypeName());
 
                 if(farmDetailsMasterResponse.getFarmData() != null && !farmDetailsMasterResponse.getFarmData().isEmpty()) {
                     for (FarmDataMasterResponse farmDataMasterResponse : farmDetailsMasterResponse.getFarmData()) {

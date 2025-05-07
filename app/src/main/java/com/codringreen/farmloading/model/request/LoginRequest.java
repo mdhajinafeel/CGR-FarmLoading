@@ -6,6 +6,7 @@ public class LoginRequest implements Serializable {
 
     private int originId, roleId;
     private String username, password;
+    private String fcmToken;
 
     public int getOriginId() {
         return originId;
@@ -39,10 +40,19 @@ public class LoginRequest implements Serializable {
         this.password = password;
     }
 
-    public LoginRequest(int originId, int roleId, String username, String password) {
+    public LoginRequest(int originId, int roleId, String username, String password, String fcmToken) {
         this.originId = originId;
         this.roleId = roleId;
         this.username = username;
         this.password = password;
+        this.fcmToken = fcmToken;
+    }
+
+    public String getFcmToken() {
+        return fcmToken;
+    }
+
+    public void setFcmToken(String fcmToken) {
+        this.fcmToken = fcmToken;
     }
 }

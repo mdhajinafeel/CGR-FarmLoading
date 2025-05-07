@@ -194,4 +194,8 @@ public class FarmViewModel extends BaseViewModel{
     public int updateFarmDetailsClosed(boolean isClosed, int closedBy, String closedDate, String inventoryOrder) {
         return farmRepository.updateFarmDetailsClosed(isClosed, closedBy, closedDate, inventoryOrder);
     }
+
+    public int updateFarmDetails(String truckDriverName, String truckPlateNumber, String inventoryOrder, String existingInventoryOrder, int supplierId) {
+        return farmRepository.updateFarmDetails(truckDriverName, truckPlateNumber, inventoryOrder, existingInventoryOrder, supplierId);
+    }
 }

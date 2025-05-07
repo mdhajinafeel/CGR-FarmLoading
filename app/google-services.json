@@ -1,0 +1,67 @@
+{
+  "project_info": {
+    "project_number": "803901296639",
+    "project_id": "cgr-farm-loading",
+    "storage_bucket": "cgr-farm-loading.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:803901296639:android:d5911f079a9c25403f21ca",
+        "android_client_info": {
+          "package_name": "com.codringreen.farmloading"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDKQMjmJxY4mGIxyEbfPibXLxYNDobcetk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:803901296639:android:37e1a9fd768dfbf63f21ca",
+        "android_client_info": {
+          "package_name": "com.codringreen.farmloading.demo"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDKQMjmJxY4mGIxyEbfPibXLxYNDobcetk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:803901296639:android:f74a05a62796c3523f21ca",
+        "android_client_info": {
+          "package_name": "com.codringreen.farmloading.dev"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDKQMjmJxY4mGIxyEbfPibXLxYNDobcetk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -119,4 +119,8 @@ public class FarmRepository {
     public FarmDetailDashboardModel fetchRecentDashboardData(String startDate, String endDate) {
         return farmDetailsDao.fetchRecentDashboardData(startDate, endDate);
     }
+
+    public int updateFarmDetails(String truckDriverName, String truckPlateNumber, String inventoryOrder, String existingInventoryOrder, int supplierId) {
+        return farmDetailsDao.updateFarmDetails(truckDriverName, truckPlateNumber, inventoryOrder, existingInventoryOrder, supplierId);
+    }
 }

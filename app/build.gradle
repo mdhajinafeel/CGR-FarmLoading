@@ -1,5 +1,6 @@
 plugins {
     alias(libs.plugins.android.application)
+    id 'com.google.gms.google-services'
 }
 
 android {
@@ -15,7 +16,7 @@ android {
         minSdk 21
         targetSdk 35
         versionCode 2
-        versionName "1.0"
+        versionName "1.1"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -44,7 +45,7 @@ android {
             buildConfigField "String", "CLIENT_USERNAME", "\"codringreenadmin\""
             buildConfigField "String", "CLIENT_PASSWORD", "\"CodRinGreeN@dm1n#123\""
             buildConfigField "String", "INVENTORY_BASE_URL", "\"https://portal.codringreen.com/api/\""
-            //buildConfigField "String", "INVENTORY_BASE_URL", "\"http://192.168.1.104/cgr/erp-codringreen/api/\""
+            //buildConfigField "String", "INVENTORY_BASE_URL", "\"http://192.168.1.34/cgr/erp-codringreen/api/\""
             buildConfigField "String", "CONTENT_TYPE", "\"application/json\""
             buildConfigField "int", "ROLE_ID", "9"
         }
@@ -57,7 +58,20 @@ android {
             buildConfigField "String", "CLIENT_USERNAME", "\"codringreenadmin\""
             buildConfigField "String", "CLIENT_PASSWORD", "\"CodRinGreeN@dm1n#123\""
             buildConfigField "String", "INVENTORY_BASE_URL", "\"https://portal.codringreen.com/api/\""
-            //buildConfigField "String", "INVENTORY_BASE_URL", "\"http://192.168.1.104/cgr/erp-codringreen/api/\""
+            //buildConfigField "String", "INVENTORY_BASE_URL", "\"http://192.168.1.34/cgr/erp-codringreen/api/\""
+            buildConfigField "String", "CONTENT_TYPE", "\"application/json\""
+            buildConfigField "int", "ROLE_ID", "9"
+        }
+
+        demo {
+            dimension "environment"
+            applicationId "com.codringreen.farmloading.demo"
+            buildConfigField "String", "APPLICATION_NAME", "\"Finca Carga - Demo\""
+            buildConfigField "String", "APP_INSTANCE_PREFIX", "\"CGR_FARMLOADING-Demo\""
+            buildConfigField "String", "CLIENT_USERNAME", "\"codringreenadmin\""
+            buildConfigField "String", "CLIENT_PASSWORD", "\"CodRinGreeN@dm1n#123\""
+            buildConfigField "String", "INVENTORY_BASE_URL", "\"https://portal.codringreen.com/api/\""
+            //buildConfigField "String", "INVENTORY_BASE_URL", "\"http://192.168.1.34/cgr/erp-codringreen/api/\""
             buildConfigField "String", "CONTENT_TYPE", "\"application/json\""
             buildConfigField "int", "ROLE_ID", "9"
         }
@@ -106,4 +120,9 @@ dependencies {
     testImplementation libs.junit
     androidTestImplementation libs.ext.junit
     androidTestImplementation libs.espresso.core
+
+    //Firebase
+    implementation platform(libs.firebase.bom)
+    implementation libs.firebase.analytics
+    implementation libs.firebase.messaging
 }

@@ -57,4 +57,7 @@ public interface FarmDetailsDao {
             "WHERE DATE(SUBSTR(purchaseDate, 7, 4) || '-' || SUBSTR(purchaseDate, 4, 2) || '-' || " +
             "SUBSTR(purchaseDate, 1, 2)) BETWEEN DATE(:startDate) AND DATE(:endDate)")
     FarmDetailDashboardModel fetchRecentDashboardData(String startDate, String endDate);
+
+    @Query("UPDATE FarmDetails SET isSynced = 0, inventoryOrder = :inventoryOrder, truckDriverName = :truckDriverName, truckPlateNumber = :truckPlateNumber WHERE inventoryOrder = :existingInventoryOrder AND supplierId = :supplierId")
+    int updateFarmDetails(String truckDriverName, String truckPlateNumber, String inventoryOrder, String existingInventoryOrder, int supplierId);
 }

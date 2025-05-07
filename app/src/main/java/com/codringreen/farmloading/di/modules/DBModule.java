@@ -25,7 +25,7 @@ public class DBModule {
     @Provides
     @Singleton
     CGRFarmDatabase provideDatabase(Application application) {
-        return Room.databaseBuilder(application, CGRFarmDatabase.class, "cgr_farmloading.db").allowMainThreadQueries().fallbackToDestructiveMigration().build();
+        return Room.databaseBuilder(application, CGRFarmDatabase.class, "cgr_farmloadingv1.db").allowMainThreadQueries().fallbackToDestructiveMigration().build();
     }
 
     @Provides

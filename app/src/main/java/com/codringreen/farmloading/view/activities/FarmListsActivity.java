@@ -60,7 +60,7 @@ public class FarmListsActivity extends BaseActivity {
 
             farmViewModel = new ViewModelProvider(this, viewModelFactory).get(FarmViewModel.class);
 
-            btnCreateFarm.setOnClickListener(v -> startActivity(new Intent(FarmListsActivity.this, CreateFarmActivity.class)));
+            btnCreateFarm.setOnClickListener(v -> startActivity(new Intent(FarmListsActivity.this, CreateFarmActivity.class).putExtra("IsEdit", false)));
 
             fetchData();
 
@@ -74,7 +74,7 @@ public class FarmListsActivity extends BaseActivity {
         farmDetailsList = farmViewModel.fetchFarmDetails();
         DecimalFormat df = new DecimalFormat("0.000");
 
-        if(!farmDetailsList.isEmpty()) {
+        if (!farmDetailsList.isEmpty()) {
             CommonRecyclerViewAdapter<FarmDetails> farmDetailsCommonRecyclerViewAdapter = new CommonRecyclerViewAdapter<FarmDetails>(this, farmDetailsList, R.layout.row_farm_item) {
                 @Override
                 public void onPostBindViewHolder(ViewHolder holder, FarmDetails farmDetails) {
@@ -88,11 +88,12 @@ public class FarmListsActivity extends BaseActivity {
 
                         LinearLayout llRowFarmData = holder.getView(R.id.llRowFarmData);
                         AppCompatImageView imgEdit = holder.getView(R.id.imgEdit);
-                        if(farmDetails.isClosed()) {
+                        AppCompatImageView imgView = holder.getView(R.id.imgView);
+                        if (farmDetails.isClosed()) {
                             holder.setViewText(R.id.tvStatus, getString(R.string.closed));
                             llRowFarmData.setBackgroundColor(ContextCompat.getColor(getApplicationContext(), R.color.colorDimGrey1));
 
-                           imgEdit.setColorFilter(ContextCompat.getColor(getApplicationContext(), R.color.colorDimGrey1));
+                            imgEdit.setColorFilter(ContextCompat.getColor(getApplicationContext(), R.color.colorDimGrey1));
                         } else {
                             holder.setViewText(R.id.tvStatus, getString(R.string.opened));
                             llRowFarmData.setBackgroundColor(ContextCompat.getColor(getApplicationContext(), R.color.colorWhite));
@@ -101,6 +102,10 @@ public class FarmListsActivity extends BaseActivity {
                             imgEdit.setOnClickListener(v -> startActivity(new Intent(FarmListsActivity.this, FarmDataActivity.class)
                                     .putExtra("FarmDetail", farmDetails)));
                         }
+
+                        imgView.setOnClickListener(v -> startActivity(new Intent(FarmListsActivity.this, CreateFarmActivity.class)
+                                .putExtra("IsEdit", true)
+                                .putExtra("FarmDetail", farmDetails)));
                     }
                 }
             };

@@ -35,6 +35,7 @@ public class FarmDetails implements Serializable {
     private int closedBy;
     private String closedDate;
     private boolean isForData;
+    private String productTypeName;
 
     public int getId() {
         return id;
@@ -242,5 +243,13 @@ public class FarmDetails implements Serializable {
 
     public void setTruckDriverName(String truckDriverName) {
         this.truckDriverName = truckDriverName;
+    }
+
+    public String getProductTypeName() {
+        return productTypeName;
+    }
+
+    public void setProductTypeName(String productTypeName) {
+        this.productTypeName = productTypeName;
     }
 }
