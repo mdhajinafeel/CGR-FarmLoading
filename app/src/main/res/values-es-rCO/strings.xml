@@ -91,5 +91,8 @@
     <string name="square_blocks">Bloques cuadrados</string>
     <string name="round_logs">Troncos redondos</string>
     <string name="truck_driver_name">Conductor</string>
-    <string name="farm_updated">Data has been updated</string>
+    <string name="farm_updated">Los datos han sido actualizados</string>
+    <string name="girth_check">La girth no debe ser igual ni menor que cero</string>
+    <string name="length_check">La largo no debe ser igual ni menor que cero</string>
+    <string name="pieces_check">La pieza no debe ser igual ni menor que cero</string>
 </resources>

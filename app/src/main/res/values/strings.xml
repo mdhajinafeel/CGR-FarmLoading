@@ -92,4 +92,7 @@
     <string name="round_logs">Round Logs</string>
     <string name="truck_driver_name">Truck Driver Name</string>
     <string name="farm_updated">Data has been updated</string>
+    <string name="girth_check">Girth should not be equal or lesser than zero</string>
+    <string name="length_check">Length should not be equal or lesser than zero</string>
+    <string name="pieces_check">Pieces should not be equal or lesser than zero</string>
 </resources>

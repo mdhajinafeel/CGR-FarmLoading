@@ -144,13 +144,13 @@ public class FarmDataActivity extends BaseActivity {
 
                             if(Double.parseDouble(Objects.requireNonNull(etCircumference.getText()).toString()) <= 0) {
                                 isValid = false;
-                                Toast.makeText(getApplicationContext(), "Girth should not be equal or lesser than zero", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(getApplicationContext(), getString(R.string.girth_check), Toast.LENGTH_SHORT).show();
                             } else if(Double.parseDouble(Objects.requireNonNull(etLength.getText()).toString()) <= 0) {
                                 isValid = false;
-                                Toast.makeText(getApplicationContext(), "Length should not be equal or lesser than zero", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(getApplicationContext(), getString(R.string.length_check), Toast.LENGTH_SHORT).show();
                             } else if(Integer.parseInt(Objects.requireNonNull(etPieces.getText()).toString()) <= 0) {
                                 isValid = false;
-                                Toast.makeText(getApplicationContext(), "Pieces should not be equal or lesser than zero", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(getApplicationContext(), getString(R.string.pieces_check), Toast.LENGTH_SHORT).show();
                             }
 
                             if(isValid) {
